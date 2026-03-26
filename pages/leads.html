@@ -1,0 +1,126 @@
+<div class="content-area page active" id="page-leads">
+  <div class="list-header">
+    <div class="list-title">
+      All Leads
+      <span class="list-count">34</span>
+    </div>
+    <div class="list-actions">
+      <button class="btn btn-neutral btn-sm">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v9M4 8l4 4 4-4M2 13h12"/></svg>
+        Import
+      </button>
+      <button class="btn btn-neutral btn-sm">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M5 8h6M5 5h6M5 11h4"/></svg>
+        Columns
+      </button>
+    </div>
+  </div>
+
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+      <input type="text" placeholder="Search leads…"/>
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h10M5 8h6M7 11h2"/></svg>
+        All Statuses
+      </button>
+      <button class="filter-btn">All Sources</button>
+      <button class="filter-btn">All Owners</button>
+    </div>
+  </div>
+
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:36px"><input type="checkbox" class="table-checkbox"/></th>
+          <th style="width:18%">Name <span class="sort-icon">↑</span></th>
+          <th style="width:16%">Company</th>
+          <th style="width:13%">Status</th>
+          <th style="width:10%">Score</th>
+          <th style="width:13%">Email</th>
+          <th style="width:10%">Source</th>
+          <th style="width:9%">Owner</th>
+          <th style="width:9%">Created</th>
+          <th style="width:60px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr onclick="showLeadDetail()">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">James Chen</td>
+          <td>Acme Corp</td>
+          <td><span class="badge badge-qualified"><span class="badge-dot" style="background:#5867E8"></span>Qualified</span></td>
+          <td><div class="score-wrap"><div class="score-bar"><div class="score-fill" style="width:82%;background:#5867E8"></div></div><span class="score-n">82</span></div></td>
+          <td style="color:var(--text-3)">j.chen@acme.com</td>
+          <td>Web form</td>
+          <td>Mike R.</td>
+          <td style="color:var(--text-3)">3 days ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" title="Edit" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" title="More" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">Sophia Patel</td>
+          <td>TechFlow Inc</td>
+          <td><span class="badge badge-working"><span class="badge-dot" style="background:#0176D3"></span>Working</span></td>
+          <td><div class="score-wrap"><div class="score-bar"><div class="score-fill" style="width:61%;background:#0176D3"></div></div><span class="score-n">61</span></div></td>
+          <td style="color:var(--text-3)">s.patel@techflow.io</td>
+          <td>Referral</td>
+          <td>Me</td>
+          <td style="color:var(--text-3)">5 days ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">David Wilson</td>
+          <td>BuildRight Ltd</td>
+          <td><span class="badge badge-working"><span class="badge-dot" style="background:#0176D3"></span>Working</span></td>
+          <td><div class="score-wrap"><div class="score-bar"><div class="score-fill" style="width:45%;background:#0176D3"></div></div><span class="score-n">45</span></div></td>
+          <td style="color:var(--text-3)">d.wilson@buildright.co</td>
+          <td>Phone</td>
+          <td>Mike R.</td>
+          <td style="color:var(--text-3)">1 week ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">Alice Lam</td>
+          <td>NovaSystems</td>
+          <td><span class="badge badge-new"><span class="badge-dot" style="background:#9E9B97"></span>New</span></td>
+          <td><div class="score-wrap"><div class="score-bar"><div class="score-fill" style="width:22%;background:#9E9B97"></div></div><span class="score-n">22</span></div></td>
+          <td style="color:var(--text-3)">a.lam@novasys.com</td>
+          <td>Event</td>
+          <td>Sarah S.</td>
+          <td style="color:var(--text-3)">2 weeks ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">Raj Kumar</td>
+          <td>FieldPro Services</td>
+          <td><span class="badge badge-converted"><span class="badge-dot" style="background:#2E844A"></span>Converted</span></td>
+          <td><div class="score-wrap"><div class="score-bar"><div class="score-fill" style="width:95%;background:#2E844A"></div></div><span class="score-n">95</span></div></td>
+          <td style="color:var(--text-3)">r.kumar@fieldpro.in</td>
+          <td>Web form</td>
+          <td>Me</td>
+          <td style="color:var(--text-3)">3 weeks ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.5v.01"/></svg></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">Nina Okafor</td>
+          <td>SafeGuard FM</td>
+          <td><span class="badge badge-qualified"><span class="badge-dot" style="background:#5867E8"></span>Qualified</span></td>
+          <td><div class="score-wrap"><div class="score-bar"><div class="score-fill" style="width:74%;background:#5867E8"></div></div><span class="score-n">74</span></div></td>
+          <td style="color:var(--text-3)">n.okafor@safeguard.ng</td>
+          <td>LinkedIn</td>
+          <td>Me</td>
+          <td style="color:var(--text-3)">4 days ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

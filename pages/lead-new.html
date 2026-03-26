@@ -1,0 +1,176 @@
+<div class="content-area page" id="page-lead-new">
+  <div style="margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <button class="btn btn-neutral btn-sm" type="button" onclick="openWorkspaceList('leads')">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 4L6 8l4 4"/></svg>
+      Leads
+    </button>
+    <div style="display:flex;gap:6px;align-items:center">
+      <button class="btn btn-neutral btn-sm" type="button" onclick="cancelNewLead()">Cancel</button>
+      <button class="btn btn-neutral btn-sm" type="button" onclick="saveNewLead({andNew:true})">Save &amp; New</button>
+      <button class="btn btn-brand btn-sm" type="button" onclick="saveNewLead({andNew:false})">Save</button>
+    </div>
+  </div>
+
+  <div class="form-shell" role="region" aria-label="New Lead">
+    <div class="form-shell-header">
+      <div class="form-shell-title">
+        <div class="form-shell-kicker">Lead</div>
+        <div class="form-shell-h1">New Lead</div>
+      </div>
+      <div class="form-actions">
+        <div style="font-size:11px;color:var(--text-4)">Fields marked <span style="color:var(--sf-red);font-weight:900">*</span> are required</div>
+      </div>
+    </div>
+
+    <form class="sf-form" id="new-lead-form" onsubmit="event.preventDefault(); saveNewLead({andNew:false});">
+      <div class="section-card" style="margin-bottom:1rem">
+        <div class="section-card-header">
+          <div class="section-card-title">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+            Lead information
+          </div>
+        </div>
+        <div class="section-card-body">
+          <div class="form-grid">
+            <div class="form-field">
+              <div class="ff-label">Salutation</div>
+              <div class="ff-control">
+                <select id="nl-salutation">
+                  <option value=""></option>
+                  <option>Mr.</option>
+                  <option>Ms.</option>
+                  <option>Mrs.</option>
+                  <option>Dr.</option>
+                  <option>Prof.</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field" id="ff-lastname">
+              <div class="ff-label">Last Name <span class="req">*</span></div>
+              <div class="ff-control"><input id="nl-last-name" autocomplete="family-name" /></div>
+              <div class="ff-error">Complete this field.</div>
+            </div>
+
+            <div class="form-field">
+              <div class="ff-label">First Name</div>
+              <div class="ff-control"><input id="nl-first-name" autocomplete="given-name" /></div>
+            </div>
+            <div class="form-field" id="ff-company">
+              <div class="ff-label">Company <span class="req">*</span></div>
+              <div class="ff-control"><input id="nl-company" autocomplete="organization" /></div>
+              <div class="ff-error">Complete this field.</div>
+            </div>
+
+            <div class="form-field">
+              <div class="ff-label">Title</div>
+              <div class="ff-control"><input id="nl-title" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Lead Status</div>
+              <div class="ff-control">
+                <select id="nl-status">
+                  <option>New</option>
+                  <option>Working</option>
+                  <option>Qualified</option>
+                  <option>Disqualified</option>
+                </select>
+              </div>
+              <div class="ff-help">Defaulted like Salesforce (can be changed).</div>
+            </div>
+
+            <div class="form-field">
+              <div class="ff-label">Lead Source</div>
+              <div class="ff-control">
+                <select id="nl-source">
+                  <option value=""></option>
+                  <option>Web</option>
+                  <option>Phone Inquiry</option>
+                  <option>Partner Referral</option>
+                  <option>Purchased List</option>
+                  <option>Trade Show</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Industry</div>
+              <div class="ff-control">
+                <select id="nl-industry">
+                  <option value=""></option>
+                  <option>Construction</option>
+                  <option>Facilities Management</option>
+                  <option>Field Services</option>
+                  <option>Technology</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="ff-label">Phone</div>
+              <div class="ff-control"><input id="nl-phone" inputmode="tel" autocomplete="tel" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Email</div>
+              <div class="ff-control"><input id="nl-email" inputmode="email" autocomplete="email" /></div>
+            </div>
+
+            <div class="form-field">
+              <div class="ff-label">Website</div>
+              <div class="ff-control"><input id="nl-website" inputmode="url" autocomplete="url" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Rating</div>
+              <div class="ff-control">
+                <select id="nl-rating">
+                  <option value=""></option>
+                  <option>Hot</option>
+                  <option>Warm</option>
+                  <option>Cold</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field" style="grid-column:1 / -1">
+              <div class="ff-label">Description</div>
+              <div class="ff-control"><textarea id="nl-description" placeholder="Add context, needs, next steps…"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-card-title">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12V6l6-4 6 4v6l-6 4-6-4z"/></svg>
+            Address information
+          </div>
+        </div>
+        <div class="section-card-body">
+          <div class="form-grid">
+            <div class="form-field" style="grid-column:1 / -1">
+              <div class="ff-label">Street</div>
+              <div class="ff-control"><textarea id="nl-street" placeholder=""></textarea></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">City</div>
+              <div class="ff-control"><input id="nl-city" autocomplete="address-level2" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">State/Province</div>
+              <div class="ff-control"><input id="nl-state" autocomplete="address-level1" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Zip/Postal Code</div>
+              <div class="ff-control"><input id="nl-postal" autocomplete="postal-code" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Country</div>
+              <div class="ff-control"><input id="nl-country" autocomplete="country-name" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

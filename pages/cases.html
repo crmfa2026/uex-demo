@@ -1,0 +1,114 @@
+<div class="content-area page" id="page-cases">
+  <div class="list-header">
+    <div class="list-title">All Cases <span class="list-count">23</span></div>
+    <div class="list-actions">
+      <button class="btn btn-neutral btn-sm">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h10M5 8h6M7 11h2"/></svg>
+        My Open Cases
+      </button>
+    </div>
+  </div>
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+      <input type="text" placeholder="Search by case #, subject or account…"/>
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn">All Statuses</button>
+      <button class="filter-btn">All Priorities</button>
+      <button class="filter-btn">All Types</button>
+    </div>
+  </div>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:36px"><input type="checkbox" class="table-checkbox"/></th>
+          <th style="width:9%">Case # <span class="sort-icon">↑</span></th>
+          <th style="width:22%">Subject</th>
+          <th style="width:14%">Account</th>
+          <th style="width:10%">Status</th>
+          <th style="width:9%">Priority</th>
+          <th style="width:9%">Type</th>
+          <th style="width:9%">Open WOs</th>
+          <th style="width:9%">Owner</th>
+          <th style="width:60px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr onclick="openCaseInTab('CASE-00041')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">CASE-00041</td>
+          <td class="link-cell">HVAC unit fault — Building B</td>
+          <td class="link-cell">Acme Corp</td>
+          <td><span class="badge badge-case-open">Open</span></td>
+          <td><span class="badge badge-critical">Critical</span></td>
+          <td style="color:var(--text-3)">Technical</td>
+          <td style="text-align:center;color:var(--sf-orange);font-weight:600">2</td>
+          <td>Mike R.</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr onclick="openCaseInTab('CASE-00039')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">CASE-00039</td>
+          <td class="link-cell">Routine inspection overdue Q1</td>
+          <td class="link-cell">SafeGuard FM</td>
+          <td><span class="badge badge-case-pend">Pending</span></td>
+          <td><span class="badge badge-high">High</span></td>
+          <td style="color:var(--text-3)">Compliance</td>
+          <td style="text-align:center;color:var(--sf-orange);font-weight:600">1</td>
+          <td>Me</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr onclick="openCaseInTab('CASE-00037')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">CASE-00037</td>
+          <td class="link-cell">Billing query — invoice #4422</td>
+          <td class="link-cell">FieldPro Services</td>
+          <td><span class="badge badge-case-open">Open</span></td>
+          <td><span class="badge badge-medium">Medium</span></td>
+          <td style="color:var(--text-3)">Billing</td>
+          <td style="text-align:center;color:var(--text-4)">—</td>
+          <td>Sarah S.</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr onclick="openCaseInTab('CASE-00034')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">CASE-00034</td>
+          <td class="link-cell">Agent no-show — WO-2026-00188</td>
+          <td class="link-cell">BuildRight Ltd</td>
+          <td><span class="badge badge-case-pend">Pending</span></td>
+          <td><span class="badge badge-high">High</span></td>
+          <td style="color:var(--text-3)">Complaint</td>
+          <td style="text-align:center;color:var(--sf-orange);font-weight:600">1</td>
+          <td>Mike R.</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr onclick="openCaseInTab('CASE-00031')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">CASE-00031</td>
+          <td class="link-cell">Annual equipment audit request</td>
+          <td class="link-cell">Acme Corp</td>
+          <td><span class="badge badge-case-res">Resolved</span></td>
+          <td><span class="badge badge-low">Low</span></td>
+          <td style="color:var(--text-3)">General</td>
+          <td style="text-align:center;color:var(--sf-green);font-weight:600">0</td>
+          <td>Me</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.5v.01"/></svg></button></div></td>
+        </tr>
+        <tr onclick="openCaseInTab('CASE-00028')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">CASE-00028</td>
+          <td class="link-cell">Access control system offline</td>
+          <td class="link-cell">SafeGuard FM</td>
+          <td><span class="badge badge-case-open">Open</span></td>
+          <td><span class="badge badge-critical">Critical</span></td>
+          <td style="color:var(--text-3)">Technical</td>
+          <td style="text-align:center;color:var(--sf-orange);font-weight:600">3</td>
+          <td>Me</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

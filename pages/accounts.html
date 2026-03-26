@@ -1,0 +1,99 @@
+<div class="content-area page" id="page-accounts">
+  <div class="list-header">
+    <div class="list-title">All Accounts <span class="list-count">18</span></div>
+    <div class="list-actions">
+      <button class="btn btn-neutral btn-sm">Import</button>
+    </div>
+  </div>
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+      <input type="text" placeholder="Search accounts…"/>
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn">All Types</button>
+      <button class="filter-btn">All Industries</button>
+      <button class="filter-btn">All Owners</button>
+    </div>
+  </div>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:36px"><input type="checkbox" class="table-checkbox"/></th>
+          <th style="width:20%">Account name <span class="sort-icon">↑</span></th>
+          <th style="width:11%">Type</th>
+          <th style="width:15%">Industry</th>
+          <th style="width:12%">Phone</th>
+          <th style="width:8%">Contacts</th>
+          <th style="width:8%">Open WOs</th>
+          <th style="width:10%">Owner</th>
+          <th style="width:10%">Last activity</th>
+          <th style="width:60px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr onclick="openAccountInTab('acme')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">Acme Corp</td>
+          <td><span class="badge badge-customer">Customer</span></td>
+          <td>Field Services</td>
+          <td style="color:var(--text-3)">+44 20 7946 0800</td>
+          <td style="text-align:center">4</td>
+          <td style="text-align:center;color:var(--sf-orange);font-weight:600">3</td>
+          <td>Mike R.</td>
+          <td style="color:var(--text-3)">2 hrs ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr onclick="openAccountInTab('fieldpro')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">FieldPro Services</td>
+          <td><span class="badge badge-customer">Customer</span></td>
+          <td>Facilities Mgmt</td>
+          <td style="color:var(--text-3)">+91 22 6600 1200</td>
+          <td style="text-align:center">2</td>
+          <td style="text-align:center;color:var(--sf-green);font-weight:600">0</td>
+          <td>Me</td>
+          <td style="color:var(--text-3)">1 day ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr onclick="openAccountInTab('techflow')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">TechFlow Inc</td>
+          <td><span class="badge badge-prospect">Prospect</span></td>
+          <td>Technology</td>
+          <td style="color:var(--text-3)">+1 415 900 2200</td>
+          <td style="text-align:center">1</td>
+          <td style="text-align:center;color:var(--text-4)">—</td>
+          <td>Me</td>
+          <td style="color:var(--text-3)">5 days ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr onclick="openAccountInTab('buildright')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">BuildRight Ltd</td>
+          <td><span class="badge badge-prospect">Prospect</span></td>
+          <td>Construction</td>
+          <td style="color:var(--text-3)">+44 121 600 4400</td>
+          <td style="text-align:center">3</td>
+          <td style="text-align:center;color:var(--text-4)">—</td>
+          <td>Mike R.</td>
+          <td style="color:var(--text-3)">1 week ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+        <tr onclick="openAccountInTab('safeguard')">
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">SafeGuard FM</td>
+          <td><span class="badge badge-partner">Partner</span></td>
+          <td>Facilities Mgmt</td>
+          <td style="color:var(--text-3)">+234 1 460 3000</td>
+          <td style="text-align:center">5</td>
+          <td style="text-align:center;color:var(--sf-orange);font-weight:600">1</td>
+          <td>Me</td>
+          <td style="color:var(--text-3)">3 days ago</td>
+          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

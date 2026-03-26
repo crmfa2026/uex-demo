@@ -1,0 +1,280 @@
+<div class="content-area page" id="page-account-new">
+  <div style="margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <button class="btn btn-neutral btn-sm" type="button" onclick="openWorkspaceList('accounts')">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 4L6 8l4 4"/></svg>
+      Accounts
+    </button>
+    <div style="display:flex;gap:6px;align-items:center">
+      <button class="btn btn-neutral btn-sm" type="button" onclick="cancelNewAccount()">Cancel</button>
+      <button class="btn btn-neutral btn-sm" type="button" onclick="saveNewAccount({andNew:true})">Save &amp; New</button>
+      <button class="btn btn-brand btn-sm" type="button" onclick="saveNewAccount({andNew:false})">Save</button>
+    </div>
+  </div>
+
+  <div class="form-shell" role="region" aria-label="New Account">
+    <div class="form-shell-header">
+      <div class="form-shell-title">
+        <div class="form-shell-kicker">Account</div>
+        <div class="form-shell-h1" id="na-title">New Account: Person Account</div>
+      </div>
+      <div class="form-actions">
+        <div style="font-size:11px;color:var(--text-4)"><span style="color:var(--sf-red);font-weight:900">*</span> = Required Information</div>
+      </div>
+    </div>
+
+    <form class="sf-form" id="new-account-form" onsubmit="event.preventDefault(); saveNewAccount({andNew:false});">
+      <div class="section-card" style="margin-bottom:1rem">
+        <div class="section-card-header">
+          <div class="section-card-title">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/></svg>
+            Account Information
+          </div>
+        </div>
+        <div class="section-card-body">
+          <div class="form-grid">
+            <div class="form-field">
+              <div class="ff-label">Account Record Type</div>
+              <div class="ff-control">
+                <select id="na-record-type" onchange="onAccountRecordTypeChange()">
+                  <option value="person" selected>Person Account</option>
+                  <option value="business">Business Account</option>
+                </select>
+              </div>
+              <div class="ff-help">In Salesforce this is often fixed by record type; here it’s a prototype toggle.</div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Account Owner</div>
+              <div class="ff-control"><input id="na-owner" value="Me" readonly /></div>
+            </div>
+
+            <!-- Person Account name compound -->
+            <div class="form-field" id="ff-na-salutation">
+              <div class="ff-label">Salutation</div>
+              <div class="ff-control">
+                <select id="na-salutation">
+                  <option value=""></option>
+                  <option>Mr.</option>
+                  <option>Ms.</option>
+                  <option>Mrs.</option>
+                  <option>Dr.</option>
+                  <option>Prof.</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field" id="ff-na-first">
+              <div class="ff-label">First Name</div>
+              <div class="ff-control"><input id="na-first-name" autocomplete="given-name" /></div>
+            </div>
+
+            <div class="form-field" id="ff-na-middle">
+              <div class="ff-label">Middle Name</div>
+              <div class="ff-control"><input id="na-middle-name" /></div>
+            </div>
+            <div class="form-field" id="ff-na-last">
+              <div class="ff-label">Last Name <span class="req">*</span></div>
+              <div class="ff-control"><input id="na-last-name" autocomplete="family-name" /></div>
+              <div class="ff-error">Complete this field.</div>
+            </div>
+
+            <div class="form-field" id="ff-na-suffix">
+              <div class="ff-label">Suffix</div>
+              <div class="ff-control"><input id="na-suffix" /></div>
+            </div>
+            <div class="form-field" id="ff-na-service-territory">
+              <div class="ff-label">Service Territory</div>
+              <div class="ff-control"><input id="na-service-territory" placeholder="Search Service Territories…" /></div>
+              <div class="ff-help">Lookup-style in Salesforce; text for prototype.</div>
+            </div>
+
+            <!-- Business Account name -->
+            <div class="form-field" id="ff-na-account-name" style="display:none">
+              <div class="ff-label">Account Name <span class="req">*</span></div>
+              <div class="ff-control"><input id="na-account-name" autocomplete="organization" /></div>
+              <div class="ff-error">Complete this field.</div>
+            </div>
+            <div class="form-field" id="ff-na-type" style="display:none">
+              <div class="ff-label">Type</div>
+              <div class="ff-control">
+                <select id="na-type">
+                  <option value=""></option>
+                  <option>Customer</option>
+                  <option>Prospect</option>
+                  <option>Partner</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="ff-label">Phone</div>
+              <div class="ff-control"><input id="na-phone" inputmode="tel" autocomplete="tel" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Email</div>
+              <div class="ff-control"><input id="na-email" inputmode="email" autocomplete="email" /></div>
+            </div>
+
+            <div class="form-field">
+              <div class="ff-label">Mobile</div>
+              <div class="ff-control"><input id="na-mobile" inputmode="tel" /></div>
+            </div>
+            <div class="form-field"></div>
+
+            <div class="form-field" style="grid-column:1 / -1">
+              <div class="ff-label">Description</div>
+              <div class="ff-control"><textarea id="na-description"></textarea></div>
+            </div>
+
+            <!-- Extra contact fields from your snippet (kept light) -->
+            <div class="form-field">
+              <div class="ff-label">Mobile phone 2</div>
+              <div class="ff-control"><input id="na-mobile-2" inputmode="tel" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Home Phone 2</div>
+              <div class="ff-control"><input id="na-home-2" inputmode="tel" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Other phone 2</div>
+              <div class="ff-control"><input id="na-other-2" inputmode="tel" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Mobile phone 3</div>
+              <div class="ff-control"><input id="na-mobile-3" inputmode="tel" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Work Phone</div>
+              <div class="ff-control"><input id="na-work-phone" inputmode="tel" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Override Contact Details</div>
+              <div class="ff-control">
+                <select id="na-override-contact">
+                  <option value=""></option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Is Primary</div>
+              <div class="ff-control">
+                <select id="na-is-primary">
+                  <option value=""></option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Key Code</div>
+              <div class="ff-control"><input id="na-key-code" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Primary Contact Email</div>
+              <div class="ff-control"><input id="na-primary-contact-email" inputmode="email" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card" style="margin-bottom:1rem">
+        <div class="section-card-header">
+          <div class="section-card-title">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v12M2 8h12"/></svg>
+            Marketing Information
+          </div>
+        </div>
+        <div class="section-card-body">
+          <div class="form-grid">
+            <div class="form-field">
+              <div class="ff-label">How Did You Hear About Us? - Other</div>
+              <div class="ff-control"><input id="na-hear-other" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Do Not Call</div>
+              <div class="ff-control">
+                <select id="na-dnc">
+                  <option value=""></option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="ff-label">How Did You Hear About Us?</div>
+              <div class="ff-control">
+                <select id="na-account-source">
+                  <option value=""></option>
+                  <option>Web</option>
+                  <option>Phone Inquiry</option>
+                  <option>Partner Referral</option>
+                  <option>Trade Show</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Email Opt Out</div>
+              <div class="ff-control">
+                <select id="na-email-opt-out">
+                  <option value=""></option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <div class="ff-label">Preferred Day for Regular Cleaning</div>
+              <div class="ff-control"><input id="na-preferred-day" placeholder="e.g., Monday" /></div>
+            </div>
+            <div class="form-field"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-card-title">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6l5-4 5 4v7H3V6z"/><path d="M6 13V8h4v5"/></svg>
+            Address Information
+          </div>
+        </div>
+        <div class="section-card-body">
+          <div class="form-grid">
+            <div class="form-field">
+              <div class="ff-label">Street Name</div>
+              <div class="ff-control"><input id="na-street-name" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Street Number</div>
+              <div class="ff-control"><input id="na-street-number" /></div>
+            </div>
+
+            <div class="form-field" style="grid-column:1 / -1">
+              <div class="ff-label">Billing Street</div>
+              <div class="ff-control"><textarea id="na-billing-street" autocomplete="street-address"></textarea></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Billing City</div>
+              <div class="ff-control"><input id="na-billing-city" autocomplete="address-level2" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Billing State/Province</div>
+              <div class="ff-control"><input id="na-billing-state" autocomplete="address-level1" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Billing Zip/Postal Code</div>
+              <div class="ff-control"><input id="na-billing-postal" autocomplete="postal-code" /></div>
+            </div>
+            <div class="form-field">
+              <div class="ff-label">Billing Country</div>
+              <div class="ff-control"><input id="na-billing-country" autocomplete="country-name" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

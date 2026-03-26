@@ -1,0 +1,228 @@
+<div class="content-area page" id="page-workorder-detail">
+  <div style="margin-bottom:.5rem">
+    <button class="btn btn-neutral btn-sm" onclick="openWorkspaceList('workorders')">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 4L6 8l4 4"/></svg>
+      Work Orders
+    </button>
+  </div>
+
+  <div class="record-header">
+    <div class="record-header-top">
+      <div class="record-avatar" style="background:#E8F8F7;color:#044F4C;font-size:12px;font-weight:900">WO</div>
+      <div style="flex:1">
+        <div style="font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px" id="wo-kicker">Work Order</div>
+        <div class="record-title" id="wo-title">test sfsdf</div>
+        <div class="record-sub" id="wo-sub">Work Order Number 00941877</div>
+      </div>
+      <div class="record-actions">
+        <button class="btn btn-neutral btn-sm">Follow</button>
+        <button class="btn btn-neutral btn-sm">Edit</button>
+        <button class="btn btn-brand btn-sm">Create Service Report</button>
+      </div>
+    </div>
+    <div class="key-fields">
+      <div class="key-field"><div class="key-field-label">Cleaning checklist</div><div class="key-field-value" id="wo-kf-checklist">Complete Home Cleaning</div></div>
+      <div class="key-field"><div class="key-field-label">Service description</div><div class="key-field-value" id="wo-kf-service">One-time</div></div>
+      <div class="key-field"><div class="key-field-label">Product</div><div class="key-field-value" id="wo-kf-product">—</div></div>
+      <div class="key-field"><div class="key-field-label">Work order number</div><div class="key-field-value" id="wo-kf-number">00941877</div></div>
+      <div class="key-field"><div class="key-field-label">Team</div><div class="key-field-value" id="wo-kf-team">—</div></div>
+    </div>
+  </div>
+
+  <div class="record-tabs" role="tablist" aria-label="Work Order tabs">
+    <div class="record-tab active" role="tab" aria-selected="true" id="wo-tab-btn-details" onclick="setWorkOrderTab('details')">Details</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="wo-tab-btn-sa" onclick="setWorkOrderTab('service-appointments')">Service Appointment</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="wo-tab-btn-products" onclick="setWorkOrderTab('products')">Products</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="wo-tab-btn-team" onclick="setWorkOrderTab('team')">Team Preference</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="wo-tab-btn-invoice" onclick="setWorkOrderTab('invoice')">Invoice</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="wo-tab-btn-notes" onclick="setWorkOrderTab('notes')">Notes, Files &amp; History</div>
+  </div>
+
+  <!-- DETAILS tab -->
+  <div id="wo-tab-details">
+    <div class="detail-body">
+      <div class="detail-main">
+        <div class="section-card js-collapsible">
+          <div class="section-card-header">
+            <div class="section-card-title">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h10M3 10h6"/></svg>
+              Cost (Rate, Discount), Date, Frequency
+            </div>
+          </div>
+          <div class="section-card-body">
+            <div class="fields-grid">
+              <div class="detail-field"><div class="df-label">Service description</div><div class="df-value" id="wo-d-service">One-time</div></div>
+              <div class="detail-field"><div class="df-label">Suggested maintenance date</div><div class="df-value" id="wo-d-date">31/12/2024</div></div>
+              <div class="detail-field"><div class="df-label">Frequency</div><div class="df-value" id="wo-d-frequency">One-time</div></div>
+              <div class="detail-field"><div class="df-label">Maintenance plan</div><div class="df-value link">MP-6284</div></div>
+              <div class="detail-field"><div class="df-label">Status</div><div class="df-value" id="wo-d-status">Canceled</div></div>
+              <div class="detail-field"><div class="df-label">Estimated person-hours</div><div class="df-value" id="wo-d-hours">5.00</div></div>
+              <div class="detail-field"><div class="df-label">Rate</div><div class="df-value" id="wo-d-rate">79.00</div></div>
+              <div class="detail-field"><div class="df-label">Estimated regular cost</div><div class="df-value" id="wo-d-cost">$395.00</div></div>
+              <div class="detail-field"><div class="df-label">Discount description</div><div class="df-value muted">—</div></div>
+              <div class="detail-field"><div class="df-label">Discounted amount</div><div class="df-value" id="wo-d-discount-amt">—</div></div>
+              <div class="detail-field"><div class="df-label">Discount percentage</div><div class="df-value" id="wo-d-discount-pct">0.00%</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card js-collapsible">
+          <div class="section-card-header">
+            <div class="section-card-title">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2h8a1 1 0 011 1v9l-3 3H4a1 1 0 01-1-1V3a1 1 0 011-1z"/></svg>
+              Cancellation
+            </div>
+          </div>
+          <div class="section-card-body">
+            <div class="fields-grid">
+              <div class="detail-field"><div class="df-label">Cancelled date</div><div class="df-value">18/08/2025</div></div>
+              <div class="detail-field"><div class="df-label">Cancelled by</div><div class="df-value">OnlineBooking Engine</div></div>
+              <div class="detail-field"><div class="df-label">Cancellation reason</div><div class="df-value muted">—</div></div>
+              <div class="detail-field"><div class="df-label">Cancellation note</div><div class="df-value muted">—</div></div>
+              <div class="detail-field"><div class="df-label">Cancellation charge</div><div class="df-value muted">—</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card js-collapsible">
+          <div class="section-card-header">
+            <div class="section-card-title">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12V6l6-4 6 4v6l-6 4-6-4z"/></svg>
+              Property
+            </div>
+          </div>
+          <div class="section-card-body">
+            <div class="fields-grid">
+              <div class="detail-field"><div class="df-label">Size (sq.ft.)</div><div class="df-value">901–1200</div></div>
+              <div class="detail-field"><div class="df-label">Levels</div><div class="df-value">3</div></div>
+              <div class="detail-field"><div class="df-label">Bedrooms</div><div class="df-value">2</div></div>
+              <div class="detail-field"><div class="df-label">Bathrooms</div><div class="df-value">1.5</div></div>
+              <div class="detail-field"><div class="df-label">Kitchens</div><div class="df-value">1</div></div>
+              <div class="detail-field"><div class="df-label">Pets</div><div class="df-value">No</div></div>
+              <div class="detail-field"><div class="df-label">Property notes</div><div class="df-value muted">—</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card js-collapsible">
+          <div class="section-card-header">
+            <div class="section-card-title">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h10M2 9h12M3 12h10"/></svg>
+              Access, Parking, Garbage
+            </div>
+          </div>
+          <div class="section-card-body">
+            <div class="fields-grid">
+              <div class="detail-field"><div class="df-label">Regular cleaning access</div><div class="df-value">will be at home</div></div>
+              <div class="detail-field"><div class="df-label">Access details</div><div class="df-value muted">—</div></div>
+              <div class="detail-field"><div class="df-label">Parking</div><div class="df-value">Free street parking</div></div>
+              <div class="detail-field"><div class="df-label">Garbage disposal</div><div class="df-value">Bin in the Garage</div></div>
+              <div class="detail-field"><div class="df-label">Regular alarm code</div><div class="df-value muted">—</div></div>
+              <div class="detail-field"><div class="df-label">Regular garage code</div><div class="df-value muted">—</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card js-collapsible">
+          <div class="section-card-header">
+            <div class="section-card-title">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2h8a1 1 0 011 1v9l-3 3H4a1 1 0 01-1-1V3a1 1 0 011-1z"/></svg>
+              Notes to Cleaning Team
+            </div>
+          </div>
+          <div class="section-card-body">
+            <div class="fields-grid">
+              <div class="detail-field" style="grid-column:1 / -1">
+                <div class="df-label">Notes to cleaning team</div>
+                <div class="df-value" style="white-space:pre-wrap;line-height:1.6">
+Do not lock the oven door.
+Don’t use lavender.
+Vacuum correctly and wash floors; move chairs to clean around them.
+                </div>
+              </div>
+              <div class="detail-field" style="grid-column:1 / -1">
+                <div class="df-label">Internal notes to team</div>
+                <div class="df-value muted">—</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card js-collapsible">
+          <div class="section-card-header">
+            <div class="section-card-title">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12v10H2z"/><path d="M4 6h8M4 9h6"/></svg>
+              Checklist &amp; Add-ons
+            </div>
+          </div>
+          <div class="section-card-body">
+            <div class="fields-grid">
+              <div class="detail-field"><div class="df-label">Cleaning checklist</div><div class="df-value" id="wo-d-checklist">Complete Home Cleaning</div></div>
+              <div class="detail-field"><div class="df-label">Checklist link</div><div class="df-value link">drive.google.com/…</div></div>
+              <div class="detail-field"><div class="df-label">Regular add-ons</div><div class="df-value muted">—</div></div>
+              <div class="detail-field"><div class="df-label">Product</div><div class="df-value" id="wo-d-product">—</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-aside">
+        <div class="section-card js-collapsible">
+          <div class="section-card-header"><div class="section-card-title">Feed</div></div>
+          <div class="section-card-body" style="padding:.75rem">
+            <div class="ff-control" style="margin-bottom:8px">
+              <textarea placeholder="Office Time In/Out" style="min-height:54px"></textarea>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center">
+              <div class="ff-control" style="flex:1"><input placeholder="Create new..." /></div>
+              <button class="btn btn-brand btn-sm" type="button">Add</button>
+            </div>
+            <div style="margin-top:10px;color:var(--text-4);font-size:12px">Feed items (prototype)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE APPOINTMENTS tab -->
+  <div id="wo-tab-service-appointments" style="display:none">
+    <div class="section-card">
+      <div class="related-list-header" style="padding:10px 12px">
+        <div class="related-list-title">
+          <span class="worktab-icon" style="background:#EEF4FF;border-color:#DCE6F7;color:#014486">SA</span>
+          Service Appointments (1)
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <button class="btn btn-icon" title="Settings" type="button">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.22 3.22l1.42 1.42M11.36 11.36l1.42 1.42M3.22 12.78l1.42-1.42M11.36 4.64l1.42-1.42"/></svg>
+          </button>
+          <button class="btn btn-icon" title="Refresh" type="button">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 6a5 5 0 10.7 3H12"/><path d="M13 2v4h-4"/></svg>
+          </button>
+          <button class="btn btn-neutral btn-sm" type="button">New</button>
+        </div>
+      </div>
+      <div class="section-card-body" style="padding:0">
+        <table class="related-table">
+          <thead><tr><th style="width:36px"></th><th>Appointment</th><th>Arrival Window Start</th><th>Arrival Window End</th><th>Estimated Person-Hours</th><th>Duration</th></tr></thead>
+          <tbody>
+            <tr onclick="openServiceAppointmentInTab('SA-943473')">
+              <td style="text-align:center"><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+              <td class="link">SA-943473</td>
+              <td style="color:var(--text-3)">—</td>
+              <td style="color:var(--text-3)">—</td>
+              <td>5.00</td>
+              <td>1hr 40min</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="padding:10px 12px;text-align:center;color:var(--sf-blue);font-weight:600;cursor:pointer">View All</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="wo-tab-products" style="display:none"><div class="df-value" style="color:var(--text-3)">Products (prototype)</div></div>
+  <div id="wo-tab-team" style="display:none"><div class="df-value" style="color:var(--text-3)">Team Preference (prototype)</div></div>
+  <div id="wo-tab-invoice" style="display:none"><div class="df-value" style="color:var(--text-3)">Invoice (prototype)</div></div>
+  <div id="wo-tab-notes" style="display:none"><div class="df-value" style="color:var(--text-3)">Notes, Files &amp; History (prototype)</div></div>
+</div>

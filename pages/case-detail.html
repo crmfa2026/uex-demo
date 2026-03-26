@@ -1,0 +1,104 @@
+<div class="content-area page" id="page-case-detail">
+  <div style="margin-bottom:.5rem">
+    <button class="btn btn-neutral btn-sm" onclick="openWorkspaceList('cases')">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 4L6 8l4 4"/></svg>
+      Cases
+    </button>
+  </div>
+  <div class="record-header">
+    <div class="record-header-top">
+      <div class="record-avatar" id="case-avatar" style="background:#EEF4FF;color:#014486;font-size:12px;font-weight:800">CS</div>
+      <div style="flex:1">
+        <div id="case-kicker" style="font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px">Case</div>
+        <div class="record-title" id="case-title">RE: Service Reminder February 24, 2026</div>
+        <div class="record-sub" id="case-sub">Priority Medium · Status Closed · Case Number 00074374</div>
+      </div>
+      <div class="record-actions">
+        <button class="btn btn-neutral btn-sm">Edit</button>
+        <button class="btn btn-neutral btn-sm">Change Status</button>
+        <button class="btn btn-neutral btn-sm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-banner" id="case-owner-banner">
+    <div class="sf-banner-text">
+      You need to be owner of the case to make any edits. Please click on “Assign to me” to become the case owner.
+    </div>
+    <button class="btn btn-brand btn-sm" type="button" onclick="assignCaseToMe()">Assign to Me</button>
+  </div>
+
+  <div class="sf-panel-grid">
+    <!-- Left side -->
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="sf-side-card">
+        <div class="sf-side-card-header">
+          <div class="sf-side-card-title">
+            <span class="worktab-icon" style="background:#F0F1FE;border-color:#E0E3FF;color:#3C3A96">CD</span>
+            Contact Details
+          </div>
+        </div>
+        <div class="sf-side-card-body">
+          <div class="sf-side-fields">
+            <div class="detail-field"><div class="df-label">Name</div><div class="df-value link" id="case-contact-name">Jean &amp; Mike Kovich</div></div>
+            <div class="detail-field"><div class="df-label">Account Name</div><div class="df-value link" id="case-account-name">Jean &amp; Mike Kovich</div></div>
+            <div class="detail-field"><div class="df-label">Email</div><div class="df-value link" id="case-contact-email">mjk...@shaw.ca</div></div>
+            <div class="detail-field"><div class="df-label">Phone</div><div class="df-value" id="case-contact-phone">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sf-side-card">
+        <div class="sf-side-card-header">
+          <div class="sf-side-card-title">
+            <span class="worktab-icon" style="background:#FFF3E9;border-color:#FBD9C1;color:#8A3E00">RL</span>
+            Cases for Parent Contact (10+)
+          </div>
+        </div>
+        <div class="sf-side-card-body" style="padding:0">
+          <table class="sf-mini-related">
+            <thead><tr><th>Case</th><th>Subject</th></tr></thead>
+            <tbody id="case-parent-related">
+              <tr><td class="link">00074374</td><td style="color:var(--text-3)">RE: Service Reminder February 24, 2026</td></tr>
+              <tr><td class="link">00071137</td><td style="color:var(--text-3)">RE: Service Reminder January 20, 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right main panel -->
+    <div class="sf-right-panel">
+      <div class="sf-right-tabs" role="tablist" aria-label="Case tabs">
+        <div class="sf-right-tab active" id="case-tab-btn-details" role="tab" aria-selected="true" onclick="setCaseRightTab('details')">Details</div>
+        <div class="sf-right-tab" id="case-tab-btn-email" role="tab" aria-selected="false" onclick="setCaseRightTab('email')">Email &amp; Feed</div>
+        <div class="sf-right-tab" id="case-tab-btn-jobs" role="tab" aria-selected="false" onclick="setCaseRightTab('jobs')">Jobs</div>
+      </div>
+
+      <div class="sf-right-content" id="case-tab-details">
+        <div class="fields-grid">
+          <div class="detail-field"><div class="df-label">Subject</div><div class="df-value" id="case-detail-subject">RE: Service Reminder February 24, 2026</div></div>
+          <div class="detail-field"><div class="df-label">Status</div><div class="df-value" id="case-detail-status">Closed</div></div>
+          <div class="detail-field" style="grid-column:1 / -1">
+            <div class="df-label" style="margin-bottom:6px">Description</div>
+            <div class="df-value" id="case-detail-description" style="line-height:1.6;color:var(--text-2)">
+              I will be out in the morning of February 24, so I want you to come in the afternoon.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sf-right-content" id="case-tab-email" style="display:none">
+        <div class="df-value" style="color:var(--text-3);line-height:1.7">
+          Email &amp; feed timeline goes here (prototype).
+        </div>
+      </div>
+
+      <div class="sf-right-content" id="case-tab-jobs" style="display:none">
+        <div class="df-value" style="color:var(--text-3);line-height:1.7">
+          Jobs/Work Orders related to this case go here (prototype).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

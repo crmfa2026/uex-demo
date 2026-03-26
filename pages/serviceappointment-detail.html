@@ -1,0 +1,268 @@
+<div class="content-area page" id="page-serviceappointment-detail">
+  <div style="margin-bottom:.5rem">
+    <button class="btn btn-neutral btn-sm" onclick="openWorkspaceList('workorders')">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 4L6 8l4 4"/></svg>
+      Work Orders
+    </button>
+  </div>
+
+  <div class="record-header">
+    <div class="record-header-top">
+      <div class="record-avatar" style="background:#EEF4FF;color:#014486;font-size:12px;font-weight:900">SA</div>
+      <div style="flex:1">
+        <div style="font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px">Service Appointment</div>
+        <div class="record-title" id="sa-title">Sandra Laronde</div>
+        <div class="record-sub" id="sa-sub">Appointment Number SA-973672</div>
+      </div>
+      <div class="record-actions">
+        <button class="btn btn-neutral btn-sm">Follow</button>
+        <button class="btn btn-neutral btn-sm">Change Status</button>
+        <button class="btn btn-neutral btn-sm">Edit</button>
+        <button class="btn btn-neutral btn-sm">Add Additional Time</button>
+      </div>
+    </div>
+    <div class="key-fields">
+      <div class="key-field"><div class="key-field-label">Arrival Window for Email</div><div class="key-field-value" id="sa-kf-arrival">: PM - : PM</div></div>
+      <div class="key-field"><div class="key-field-label">Scheduled Duration</div><div class="key-field-value" id="sa-kf-sched-duration">0hr 0min</div></div>
+      <div class="key-field"><div class="key-field-label">Expected Checkout</div><div class="key-field-value" id="sa-kf-checkout">: PM</div></div>
+      <div class="key-field"><div class="key-field-label">Parent Record</div><div class="key-field-value link" id="sa-kf-parent">00972073</div></div>
+      <div class="key-field"><div class="key-field-label">Appointment Number</div><div class="key-field-value" id="sa-kf-number">SA-973672</div></div>
+    </div>
+  </div>
+
+  <div class="record-tabs" role="tablist" aria-label="Service Appointment tabs">
+    <div class="record-tab active" role="tab" aria-selected="true">Details</div>
+    <div class="record-tab" role="tab" aria-selected="false">Team Members</div>
+    <div class="record-tab" role="tab" aria-selected="false">Notes, Files &amp; History</div>
+    <div class="record-tab" role="tab" aria-selected="false">Legacy</div>
+  </div>
+
+  <div class="detail-body">
+    <div class="detail-main">
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Time (Duration, Additional), Status</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Status</div><div class="df-value" id="sa-d-status">Canceled</div></div>
+            <div class="detail-field"><div class="df-label">Frequency</div><div class="df-value" id="sa-d-frequency">Bi-weekly</div></div>
+            <div class="detail-field"><div class="df-label">Estimated Person-Hours</div><div class="df-value" id="sa-d-hours">4.50</div></div>
+            <div class="detail-field"><div class="df-label">Duration(Tof3)</div><div class="df-value" id="sa-d-dur-tof3">1hr 30min</div></div>
+            <div class="detail-field"><div class="df-label">Additional Time in minutes</div><div class="df-value muted" id="sa-d-add-mins">—</div></div>
+            <div class="detail-field"><div class="df-label">Duration</div><div class="df-value" id="sa-d-duration">90.00</div></div>
+            <div class="detail-field"><div class="df-label">Additional Time Reason</div><div class="df-value muted" id="sa-d-add-reason">—</div></div>
+            <div class="detail-field"><div class="df-label">Record Type</div><div class="df-value muted" id="sa-d-recordtype">—</div></div>
+            <div class="detail-field"><div class="df-label">Trigger Service Reminder</div><div class="df-value muted" id="sa-d-trigger-reminder">—</div></div>
+            <div class="detail-field"><div class="df-label">Backend 9AM Service Reminder</div><div class="df-value" id="sa-d-backend-reminder">9:00:00 a.m.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Cancellation by Staff</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Waive Cancellation Charge</div><div class="df-value" id="sa-c-waive">False</div></div>
+            <div class="detail-field"><div class="df-label">Cancellation Date</div><div class="df-value" id="sa-c-date">18/08/2025</div></div>
+            <div class="detail-field"><div class="df-label">Apply Team Travel Charge</div><div class="df-value" id="sa-c-travel">False</div></div>
+            <div class="detail-field"><div class="df-label">Cancelled By</div><div class="df-value" id="sa-c-by">OnlineBooking Engine</div></div>
+            <div class="detail-field"><div class="df-label">Cancellation Note</div><div class="df-value muted" id="sa-c-note">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Date &amp; Time Preference</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Arrival Window Start</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Arrival Window End</div><div class="df-value muted">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Scheduled Times</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Scheduled Start</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Scheduled End</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Team</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Scheduled Duration</div><div class="df-value" id="sa-s-sched-duration">0hr 0min</div></div>
+            <div class="detail-field"><div class="df-label">Arrival Window for Email-Van</div><div class="df-value" id="sa-s-arrival-van">: PM - : PM</div></div>
+            <div class="detail-field"><div class="df-label">Arrival Window for Email-Cal</div><div class="df-value" id="sa-s-arrival-cal">: PM - : PM</div></div>
+            <div class="detail-field"><div class="df-label">Arrival Window for Email-Tor</div><div class="df-value" id="sa-s-arrival-tor">: PM - : PM</div></div>
+            <div class="detail-field"><div class="df-label">Arrival Window for Email</div><div class="df-value" id="sa-s-arrival-general">: PM - : PM</div></div>
+            <div class="detail-field"><div class="df-label">9AM 3 Business Day Before Service</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">9AM 3 Business Day Before ServiceCalgary</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">9AM 3 Business Day Before ServiceToronto</div><div class="df-value muted">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Time Leaving Office - 1st SA of the Day</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">GPS-Time Arrive in Office</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">GPS-Time Leaving Office</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Expected-Time Leaving Office</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Actual-Time Leaving Office</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Diff: GPS vs Actual Time Leaving Office</div><div class="df-value muted">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Actual Times</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Actual Start</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Actual End</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">GPS Arrive</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">GPS Depart</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Arrive Lag</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Depart Lag</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Total Lag</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Actual Duration</div><div class="df-value">0hr 0min</div></div>
+            <div class="detail-field"><div class="df-label">Time Over/Under</div><div class="df-value">0</div></div>
+            <div class="detail-field"><div class="df-label">Approved By</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Notes from the Appointment</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Hazard Identification Notes</div><div class="df-value muted">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Breaks</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Lunch Break Start (30min)</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Lunch Break End (30min)</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Lunch Break Start (15min)</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Lunch Break End (15min)</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Second Lunch Break Start (15min)</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Second Lunch Break End (15min)</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Break Start 1</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Break End 1</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Break Start 2</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Break End 2</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Car Stop Start &gt;= 10 min</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Car Stop End &gt;= 10 min</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Reason For Car Stop &gt;=10min</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Other Reason For Car Stop &gt;=10min</div><div class="df-value muted">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Mileage</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Office Depart Mileage</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Last Job Mileage</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">1st Pick Up</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">1st Pick Up Mileage</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Last Drop Off</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Last Drop Off Mileage</div><div class="df-value muted">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Cleaned By</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Vacuum</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Dusting</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Kitchen</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Bathroom</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Mopping</div><div class="df-value muted">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Misc Expenses</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Misc Expenses</div><div class="df-value muted">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Service Address</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Address</div><div class="df-value" id="sa-addr">96 Borden Street, Toronto ON M5S2N1, Canada</div></div>
+            <div class="detail-field"><div class="df-label">Contact</div><div class="df-value link" id="sa-contact">Sandra Laronde</div></div>
+            <div class="detail-field"><div class="df-label">Apartment #</div><div class="df-value" id="sa-apt">Apt#</div></div>
+            <div class="detail-field"><div class="df-label">Zone</div><div class="df-value link" id="sa-zone">DownT-S</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Customer Satisfaction</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Customer Satisfaction Rating</div><div class="df-value">5</div></div>
+            <div class="detail-field"><div class="df-label">Customer Satisfaction Comment</div><div class="df-value">Job With No Feedback = 5</div></div>
+            <div class="detail-field"><div class="df-label">Feedback Received</div><div class="df-value">False</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">General Information</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Parent Record</div><div class="df-value link" id="sa-parent">00972073</div></div>
+            <div class="detail-field"><div class="df-label">Service Territory</div><div class="df-value link" id="sa-territory">Toronto</div></div>
+            <div class="detail-field"><div class="df-label">Earliest Start Permitted</div><div class="df-value" id="sa-earliest">29/09/2025 12:00 AM</div></div>
+            <div class="detail-field"><div class="df-label">Due Date</div><div class="df-value" id="sa-due">29/10/2025 5:40 PM</div></div>
+            <div class="detail-field"><div class="df-label">Schedule Mode</div><div class="df-value">None</div></div>
+            <div class="detail-field"><div class="df-label">Gantt Icon</div><div class="df-value link">https://cdn2.iconfinder.com/data/icons/alert-message/64/siren-light-exclamation-icon-64.png</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Legacy</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Job ID</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Job sub status</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Manhours</div><div class="df-value muted">—</div></div>
+            <div class="detail-field"><div class="df-label">Note ID</div><div class="df-value muted">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">System Information</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Owner</div><div class="df-value">OnlineBooking Engine</div></div>
+            <div class="detail-field"><div class="df-label">Last Modified By</div><div class="df-value">Toronto (Gary) CustomerCare, 21/10/2025 12:14 PM</div></div>
+            <div class="detail-field"><div class="df-label">Created By</div><div class="df-value">Automated Process, 17/08/2025 6:30 PM</div></div>
+            <div class="detail-field"><div class="df-label">Scheduled Text Message</div><div class="df-value muted">—</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-aside">
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Activity</div></div>
+        <div class="section-card-body" style="padding:.75rem">
+          <div class="df-value" style="color:var(--text-4);line-height:1.7">
+            Activity feed (prototype). No past activity. Past meetings and tasks marked as done show up here.
+          </div>
+          <div style="margin-top:10px" class="ff-control"><input placeholder="Post an update..." /></div>
+          <div style="margin-top:8px;text-align:right"><button class="btn btn-brand btn-sm" type="button">Share</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
