@@ -40,6 +40,7 @@
   /* Dimensions */
   --topbar-h:    52px;
   --worktabs-h:  38px;
+  --worktabs-sub-h: 34px;
   --subnav-h:    36px;
   --sidebar-w:   220px;
   --radius-sm:   4px;
@@ -281,6 +282,13 @@ a:hover { text-decoration: underline; }
   padding: 1rem;
   min-height: calc(100vh - var(--topbar-h) - var(--worktabs-h) - var(--subnav-h));
 }
+.has-child-worktabs .object-header {
+  top: calc(var(--topbar-h) + var(--worktabs-h) + var(--worktabs-sub-h));
+}
+.has-child-worktabs .content-area {
+  margin-top: calc(var(--topbar-h) + var(--worktabs-h) + var(--worktabs-sub-h) + var(--subnav-h));
+  min-height: calc(100vh - var(--topbar-h) - var(--worktabs-h) - var(--worktabs-sub-h) - var(--subnav-h));
+}
 
 /* Workspace tabs (Console-style) */
 .worktabs {
@@ -297,6 +305,25 @@ a:hover { text-decoration: underline; }
   padding: 0 10px;
   gap: 6px;
   overflow: hidden;
+}
+.worktabs-sub {
+  position: fixed;
+  top: calc(var(--topbar-h) + var(--worktabs-h));
+  left: 0;
+  right: 0;
+  height: var(--worktabs-sub-h);
+  z-index: 949;
+  background: #F8FAFD;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 6px;
+  overflow: hidden;
+}
+.worktabs-sub .worktab {
+  height: 26px;
+  font-size: 12px;
 }
 .worktabs-scroll {
   display: flex;
@@ -796,6 +823,12 @@ a:hover { text-decoration: underline; }
 .detail-body { display: flex; gap: 1rem; }
 .detail-main { flex: 1; min-width: 0; }
 .detail-aside { width: 280px; flex-shrink: 0; }
+.section-bulk-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-bottom: .5rem;
+}
 
 /* Record sub-tabs (Details / Work Orders / ...) */
 .record-tabs {

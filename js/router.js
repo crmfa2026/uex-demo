@@ -26,7 +26,13 @@ export function showPage(name) {
   next.classList.add('active');
 
   document.querySelectorAll('.nav-tab').forEach((t) => t.classList.remove('active'));
-  const base = name.replace('-detail', '').replace('lead', 'leads').replace('account', 'accounts').replace('case', 'cases');
+  const base = name
+    .replace('-detail', '')
+    .replace('lead', 'leads')
+    .replace('account', 'accounts')
+    .replace('case', 'cases')
+    .replace('contact', 'contacts')
+    .replace('workorder', 'workorders');
   document.querySelectorAll('.nav-tab').forEach((t) => {
     if (t.textContent.trim().toLowerCase().startsWith(base.replace('ies', 'y'))) t.classList.add('active');
   });
@@ -44,48 +50,99 @@ export function showPage(name) {
   window.scrollTo(0, 0);
 }
 
-export function showLeadDetail() { showPage('lead-detail'); }
+export const leadRecords = {
+  'lead-james-chen': { name: 'Milo Arden', roleCompany: 'Service Coordinator · Northline Utilities' },
+  'lead-sophia-patel': { name: 'Rhea Quill', roleCompany: 'Ops Director · Bluegrain Labs' },
+  'lead-david-wilson': { name: 'Dax Mercer', roleCompany: 'Procurement Lead · HarborGrid Works' },
+  'lead-alice-lam': { name: 'Ivy Soren', roleCompany: 'Systems Manager · NovaField Systems' },
+  'lead-raj-kumar': { name: 'Noel Hart', roleCompany: 'Regional Director · Orbit Facility Group' },
+  'lead-nina-okafor': { name: 'Kara Voss', roleCompany: 'Facilities Lead · Sentinel Ops Group' },
+};
+
+export function showLeadDetail(leadId = 'lead-james-chen') {
+  const lead = leadRecords[leadId] || leadRecords['lead-james-chen'];
+  const titleEl = document.getElementById('lead-record-title');
+  if (titleEl) titleEl.textContent = lead.name;
+  const subEl = document.getElementById('lead-record-sub');
+  if (subEl) subEl.textContent = lead.roleCompany;
+  showPage('lead-detail');
+}
+
+export const contactRecords = {
+  'contact-albi-paul': { name: 'Kara Voss', account: 'Northline Utilities', title: 'Primary Contact', email: 'kara.voss+mx17@mockmail.test', phone: '+1 555 013 8427', location: 'Vancouver, CA', owner: 'Casey Moore', primary: true },
+  'contact-james-chen': { name: 'Milo Arden', account: 'Northline Utilities', title: 'Service Coordinator', email: 'milo.arden+cx91@mockmail.test', phone: '+1 555 042 1193', location: 'London, UK', owner: 'Casey Moore', primary: true },
+  'contact-priya-sharma': { name: 'Rhea Quill', account: 'Northline Utilities', title: 'Operations Manager', email: 'rhea.quill+qp28@mockmail.test', phone: '+1 555 078 3321', location: 'London, UK', owner: 'Casey Moore', primary: false },
+  'contact-raj-kumar': { name: 'Dax Mercer', account: 'Orbit Facility Group', title: 'Director', email: 'dax.mercer+rv73@mockmail.test', phone: '+1 555 066 9054', location: 'Mumbai, IN', owner: 'Team Queue', primary: true },
+  'contact-nina-okafor': { name: 'Ivy Soren', account: 'Sentinel Ops Group', title: 'Head of Procurement', email: 'ivy.soren+kt54@mockmail.test', phone: '+1 555 021 4478', location: 'Lagos, NG', owner: 'Team Queue', primary: true },
+  'contact-tom-brennan': { name: 'Noel Hart', account: 'HarborGrid Works', title: 'Facilities Manager', email: 'noel.hart+jm66@mockmail.test', phone: '+1 555 054 2206', location: 'Birmingham, UK', owner: 'Casey Moore', primary: true },
+};
+
+export function showContactDetail(contactId = 'contact-james-chen') {
+  const c = contactRecords[contactId] || contactRecords['contact-james-chen'];
+  const initials = (c.name || 'CT')
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() || '')
+    .join('');
+  const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  setText('contact-avatar-initials', initials || 'CT');
+  setText('contact-record-title', c.name);
+  setText('contact-record-sub', `${c.title} · ${c.account}`);
+  setText('contact-kf-account', c.account);
+  setText('contact-kf-email', c.email);
+  setText('contact-kf-phone', c.phone);
+  setText('contact-kf-owner', c.owner);
+  setText('contact-d-name', c.name);
+  setText('contact-d-account', c.account);
+  setText('contact-d-title', c.title);
+  setText('contact-d-email', c.email);
+  setText('contact-d-phone', c.phone);
+  setText('contact-d-location', c.location);
+  setText('contact-d-primary', c.primary ? 'Yes' : 'No');
+  showPage('contact-detail');
+}
 
 export const accountRecords = {
   acme: {
-    name: 'Acme Corp',
+    name: 'Northline Utilities',
     typeBadgeHtml: '<span class="badge badge-customer">Customer</span>',
     typeText: 'Customer',
     industry: 'Field Services',
     location: 'London, UK',
-    phone: '+44 20 7946 0800',
-    website: 'acmecorp.com',
+    phone: '+1 555 110 2846',
+    website: 'northline-utilities.test',
     revenueShort: '£2.4M',
     revenueLong: '£2,400,000',
-    owner: 'Mike Rodriguez',
+    owner: 'Casey Moore',
     openWos: 3,
     woSummary: { total: 3, open: 2, next: 'Today 15:30' },
   },
   fieldpro: {
-    name: 'FieldPro Services',
+    name: 'Orbit Facility Group',
     typeBadgeHtml: '<span class="badge badge-customer">Customer</span>',
     typeText: 'Customer',
     industry: 'Facilities Mgmt',
     location: 'Mumbai, IN',
-    phone: '+91 22 6600 1200',
-    website: 'fieldproservices.in',
+    phone: '+1 555 220 6671',
+    website: 'orbit-facility.test',
     revenueShort: '₹7.8Cr',
     revenueLong: '₹78,000,000',
-    owner: 'Me',
+    owner: 'Team Queue',
     openWos: 0,
     woSummary: { total: 1, open: 0, next: '—' },
   },
   techflow: {
-    name: 'TechFlow Inc',
+    name: 'Bluegrain Labs',
     typeBadgeHtml: '<span class="badge badge-prospect">Prospect</span>',
     typeText: 'Prospect',
     industry: 'Technology',
     location: 'San Francisco, US',
-    phone: '+1 415 900 2200',
-    website: 'techflow.io',
+    phone: '+1 555 310 9022',
+    website: 'bluegrain-labs.test',
     revenueShort: '$12.9M',
     revenueLong: '$12,900,000',
-    owner: 'Ravi Singh',
+    owner: 'Ari Stone',
     openWos: 1,
     woSummary: { total: 1, open: 1, next: 'Tomorrow 09:00' },
   },
@@ -97,21 +154,21 @@ export const caseRecords = {
     subject: 'RE: Service Reminder February 24, 2026',
     status: 'Closed',
     priority: 'Medium',
-    accountName: 'Jean & Mike Kovich',
-    contactName: 'Jean & Mike Kovich',
-    contactEmail: 'mjk...@shaw.ca',
+    accountName: 'Northline Utilities',
+    contactName: 'Milo Arden',
+    contactEmail: 'nova.case+hz12@mockmail.test',
     contactPhone: '—',
-    description: 'I will be out in the morning of February 24, so I want you to come in the afternoon.',
+    description: 'Mock request: please schedule this visit in the afternoon window only.',
   },
   'CASE-00039': {
     caseNumber: '00016321',
     subject: 'Home Cleaning Booking - Vancouver - 2024-01-29',
     status: 'Closed',
     priority: 'Medium',
-    accountName: 'SafeGuard FM',
-    contactName: 'Nina Okafor',
-    contactEmail: 'n.okafor@safeguard.ng',
-    contactPhone: '+234 803 000 1234',
+    accountName: 'Sentinel Ops Group',
+    contactName: 'Ivy Soren',
+    contactEmail: 'ivy.soren+kt54@mockmail.test',
+    contactPhone: '+1 555 021 4478',
     description: 'Customer asked to reschedule cleaning. Please confirm available slots.',
   },
 };
@@ -119,7 +176,7 @@ export const caseRecords = {
 export const workOrderRecords = {
   'WO-00941877': {
     number: '00941877',
-    subject: 'test sfsdf',
+    subject: 'Recurring Maintenance Visit',
     checklist: 'Complete Home Cleaning',
     serviceDescription: 'One-time',
     product: '—',
@@ -130,7 +187,7 @@ export const workOrderRecords = {
     hours: '5.00',
     rate: '79.00',
     cost: '$395.00',
-    account: 'test sfsdf',
+    account: 'Northline Utilities',
   },
   'WO-00965084': {
     number: '00965084',
@@ -145,11 +202,11 @@ export const workOrderRecords = {
     hours: '3.00',
     rate: '79.00',
     cost: '$237.00',
-    account: 'Darren Wong',
+    account: 'Orbit Facility Group',
   },
   'WO-00980528': {
     number: '00980528',
-    subject: 'Maintenance Paul Albi: February 12, 2026',
+    subject: 'Maintenance Window: February 12, 2026',
     checklist: 'Maintenance',
     serviceDescription: 'One-time',
     product: '—',
@@ -160,14 +217,14 @@ export const workOrderRecords = {
     hours: '5.00',
     rate: '79.00',
     cost: '$395.00',
-    account: 'Paul Albi',
+    account: 'Sentinel Ops Group',
   },
 };
 
 export const serviceAppointmentRecords = {
   'SA-943473': {
     number: 'SA-973672',
-    title: 'Sandra Laronde',
+    title: 'Jules Marin',
     parentRecord: '00972073',
     status: 'Canceled',
     frequency: 'Bi-weekly',
@@ -177,7 +234,7 @@ export const serviceAppointmentRecords = {
     backendReminder: '9:00:00 a.m.',
     cancellationDate: '18/08/2025',
     cancelledBy: 'OnlineBooking Engine',
-    address: '96 Borden Street, Toronto ON M5S2N1, Canada',
+    address: '241 Meridian Avenue, Metro City MC1 4PX, Fictionland',
     territory: 'Toronto',
   },
 };
@@ -192,6 +249,12 @@ let _tabSeq = 1;
 function getWorkspaceTabEl() {
   return document.getElementById('worktabs-scroll');
 }
+function getWorkspaceChildTabEl() {
+  return document.getElementById('worktabs-children');
+}
+function getWorkspaceChildRowEl() {
+  return document.getElementById('worktabs-sub');
+}
 
 function routeKey(route = {}) {
   return `${route?.page || ''}:${route?.id || ''}`;
@@ -199,6 +262,8 @@ function routeKey(route = {}) {
 
 function defaultTitleForRoute(route = {}) {
   const p = route?.page || 'leads';
+  if (p === 'lead-detail') return 'Lead';
+  if (p === 'contact-detail') return 'Contact';
   if (p === 'account-detail') return 'Account';
   if (p === 'case-detail') return 'Case';
   if (p === 'workorder-detail') return 'Work Order';
@@ -209,19 +274,26 @@ function defaultTitleForRoute(route = {}) {
 function createWorkspaceTab(route, { title } = {}) {
   const id = `tab-${_tabSeq++}`;
   const key = routeKey(route);
-  const t = { id, key, route, title: title || defaultTitleForRoute(route) };
+  const t = { id, key, route, title: title || defaultTitleForRoute(route), parentTabId: null };
   workspaceTabs.push(t);
   return t;
 }
 
 function renderWorkspaceTabs() {
   const host = getWorkspaceTabEl();
+  const childHost = getWorkspaceChildTabEl();
+  const childRow = getWorkspaceChildRowEl();
   if (!host) return;
 
-  host.innerHTML = workspaceTabs.map((t) => {
-    const isActive = t.id === activeWorkspaceTabId;
+  const parentTabs = workspaceTabs.filter((t) => !t.parentTabId);
+  const activeTab = workspaceTabs.find((t) => t.id === activeWorkspaceTabId);
+  const activeParentTabId = activeTab?.parentTabId || activeTab?.id || null;
+  const childTabs = activeParentTabId ? workspaceTabs.filter((t) => t.parentTabId === activeParentTabId) : [];
+
+  host.innerHTML = parentTabs.map((t) => {
+    const isActive = t.id === activeParentTabId;
     return `
-      <div class="worktab${isActive ? ' active' : ''}" data-tab-id="${t.id}">
+      <div class="worktab${isActive ? ' active' : ''}" data-tab-id="${t.id}" data-tab-row="parent">
         <div class="worktab-title">${t.title}</div>
         <button class="worktab-close" type="button" aria-label="Close" data-tab-close="${t.id}">
           <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.7 3.7a1 1 0 011.4 0L8 6.6l2.9-2.9a1 1 0 111.4 1.4L9.4 8l2.9 2.9a1 1 0 11-1.4 1.4L8 9.4l-2.9 2.9a1 1 0 11-1.4-1.4L6.6 8 3.7 5.1a1 1 0 010-1.4z"/></svg>
@@ -229,10 +301,29 @@ function renderWorkspaceTabs() {
       </div>
     `;
   }).join('');
+
+  if (childHost && childRow) {
+    childHost.innerHTML = childTabs.map((t) => {
+      const isActive = t.id === activeWorkspaceTabId;
+      return `
+      <div class="worktab${isActive ? ' active' : ''}" data-tab-id="${t.id}" data-tab-row="child">
+        <div class="worktab-title">${t.title}</div>
+        <button class="worktab-close" type="button" aria-label="Close" data-tab-close="${t.id}">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.7 3.7a1 1 0 011.4 0L8 6.6l2.9-2.9a1 1 0 111.4 1.4L9.4 8l2.9 2.9a1 1 0 11-1.4 1.4L8 9.4l-2.9 2.9a1 1 0 11-1.4-1.4L6.6 8 3.7 5.1a1 1 0 010-1.4z"/></svg>
+        </button>
+      </div>
+    `;
+    }).join('');
+    const hasChildren = childTabs.length > 0;
+    childRow.style.display = hasChildren ? '' : 'none';
+    document.body.classList.toggle('has-child-worktabs', hasChildren);
+  }
 }
 
 function navigateRoute(route) {
   const p = route?.page || 'leads';
+  if (p === 'lead-detail') { showLeadDetail(route?.id || 'lead-james-chen'); return; }
+  if (p === 'contact-detail') { showContactDetail(route?.id || 'contact-james-chen'); return; }
   if (p === 'account-detail') { showAccountDetail(route?.id || 'acme'); return; }
   if (p === 'case-detail') { showCaseDetail(route?.id || 'CASE-00041'); return; }
   if (p === 'workorder-detail') { showWorkOrderDetail(route?.id || 'WO-00941877'); return; }
@@ -251,8 +342,15 @@ export function activateWorkspaceTab(tabId) {
 export function closeWorkspaceTab(tabId) {
   const idx = workspaceTabs.findIndex((x) => x.id === tabId);
   if (idx < 0) return;
-  const wasActive = workspaceTabs[idx].id === activeWorkspaceTabId;
-  workspaceTabs.splice(idx, 1);
+  const target = workspaceTabs[idx];
+  const removeIds = new Set([target.id]);
+  if (!target.parentTabId) {
+    workspaceTabs.forEach((t) => { if (t.parentTabId === target.id) removeIds.add(t.id); });
+  }
+  const wasActive = removeIds.has(activeWorkspaceTabId);
+  const activeChildOfRemovedParent = !target.parentTabId && workspaceTabs.some((t) => t.parentTabId === target.id && t.id === activeWorkspaceTabId);
+  const nextActiveParentId = target.parentTabId || target.id;
+  workspaceTabs = workspaceTabs.filter((t) => !removeIds.has(t.id));
 
   if (!workspaceTabs.length) {
     const fallback = createWorkspaceTab({ page: 'leads' }, { title: 'Leads' });
@@ -263,7 +361,11 @@ export function closeWorkspaceTab(tabId) {
   }
 
   if (wasActive) {
-    const next = workspaceTabs[Math.min(idx, workspaceTabs.length - 1)];
+    const sameParentChildren = workspaceTabs.filter((t) => t.parentTabId === nextActiveParentId);
+    const sameParent = workspaceTabs.find((t) => t.id === nextActiveParentId);
+    const next = activeChildOfRemovedParent
+      ? (sameParentChildren[0] || sameParent || workspaceTabs[Math.min(idx, workspaceTabs.length - 1)])
+      : (workspaceTabs[Math.min(idx, workspaceTabs.length - 1)]);
     activeWorkspaceTabId = next.id;
     renderWorkspaceTabs();
     navigateRoute(next.route);
@@ -292,7 +394,65 @@ export function openWorkspaceList(page) {
 
 export function openAccountInTab(accountId) {
   const a = accountRecords[accountId] || accountRecords.acme;
-  openWorkspace({ page: 'account-detail', id: accountId }, { title: a?.name || 'Account', reuseIfExists: true });
+  const parentPage = 'accounts';
+  const parentTitle = objMeta[parentPage]?.label || 'Accounts';
+  const parentKey = routeKey({ page: parentPage });
+  let parentTab = workspaceTabs.find((t) => t.key === parentKey && !t.parentTabId);
+  if (!parentTab) parentTab = createWorkspaceTab({ page: parentPage }, { title: parentTitle });
+
+  const key = routeKey({ page: 'account-detail', id: accountId });
+  const existing = workspaceTabs.find((t) => t.key === key && t.parentTabId === parentTab.id);
+  if (existing) {
+    existing.title = a?.name || 'Account';
+    activateWorkspaceTab(existing.id);
+    return;
+  }
+
+  const child = createWorkspaceTab({ page: 'account-detail', id: accountId }, { title: a?.name || 'Account' });
+  child.parentTabId = parentTab.id;
+  activateWorkspaceTab(child.id);
+}
+
+export function openLeadInTab(leadId) {
+  const lead = leadRecords[leadId] || leadRecords['lead-james-chen'];
+  const parentPage = 'leads';
+  const parentTitle = objMeta[parentPage]?.label || 'Leads';
+  const parentKey = routeKey({ page: parentPage });
+  let parentTab = workspaceTabs.find((t) => t.key === parentKey && !t.parentTabId);
+  if (!parentTab) parentTab = createWorkspaceTab({ page: parentPage }, { title: parentTitle });
+
+  const key = routeKey({ page: 'lead-detail', id: leadId });
+  const existing = workspaceTabs.find((t) => t.key === key && t.parentTabId === parentTab.id);
+  if (existing) {
+    existing.title = lead?.name || 'Lead';
+    activateWorkspaceTab(existing.id);
+    return;
+  }
+
+  const child = createWorkspaceTab({ page: 'lead-detail', id: leadId }, { title: lead?.name || 'Lead' });
+  child.parentTabId = parentTab.id;
+  activateWorkspaceTab(child.id);
+}
+
+export function openContactInTab(contactId) {
+  const contact = contactRecords[contactId] || contactRecords['contact-james-chen'];
+  const parentPage = 'contacts';
+  const parentTitle = objMeta[parentPage]?.label || 'Contacts';
+  const parentKey = routeKey({ page: parentPage });
+  let parentTab = workspaceTabs.find((t) => t.key === parentKey && !t.parentTabId);
+  if (!parentTab) parentTab = createWorkspaceTab({ page: parentPage }, { title: parentTitle });
+
+  const key = routeKey({ page: 'contact-detail', id: contactId });
+  const existing = workspaceTabs.find((t) => t.key === key && t.parentTabId === parentTab.id);
+  if (existing) {
+    existing.title = contact?.name || 'Contact';
+    activateWorkspaceTab(existing.id);
+    return;
+  }
+
+  const child = createWorkspaceTab({ page: 'contact-detail', id: contactId }, { title: contact?.name || 'Contact' });
+  child.parentTabId = parentTab.id;
+  activateWorkspaceTab(child.id);
 }
 
 export function openCaseInTab(caseId) {
@@ -302,7 +462,23 @@ export function openCaseInTab(caseId) {
 export function openWorkOrderInTab(workOrderId) {
   const wo = workOrderRecords[workOrderId] || workOrderRecords['WO-00941877'];
   const title = wo?.subject && wo.subject !== '—' ? wo.subject : `Work Order ${wo?.number || ''}`.trim();
-  openWorkspace({ page: 'workorder-detail', id: workOrderId }, { title, reuseIfExists: true });
+  const parentPage = 'workorders';
+  const parentTitle = objMeta[parentPage]?.label || 'Work Orders';
+  const parentKey = routeKey({ page: parentPage });
+  let parentTab = workspaceTabs.find((t) => t.key === parentKey && !t.parentTabId);
+  if (!parentTab) parentTab = createWorkspaceTab({ page: parentPage }, { title: parentTitle });
+
+  const key = routeKey({ page: 'workorder-detail', id: workOrderId });
+  const existing = workspaceTabs.find((t) => t.key === key && t.parentTabId === parentTab.id);
+  if (existing) {
+    existing.title = title;
+    activateWorkspaceTab(existing.id);
+    return;
+  }
+
+  const child = createWorkspaceTab({ page: 'workorder-detail', id: workOrderId }, { title });
+  child.parentTabId = parentTab.id;
+  activateWorkspaceTab(child.id);
 }
 
 export function openServiceAppointmentInTab(serviceAppointmentId) {
@@ -313,9 +489,20 @@ export function openServiceAppointmentInTab(serviceAppointmentId) {
 
 export function initWorkspaceTabs() {
   const host = getWorkspaceTabEl();
+  const childHost = getWorkspaceChildTabEl();
   if (!host) return;
 
   host.addEventListener('click', (e) => {
+    const closeBtn = e.target.closest?.('[data-tab-close]');
+    if (closeBtn) {
+      e.stopPropagation();
+      closeWorkspaceTab(closeBtn.getAttribute('data-tab-close'));
+      return;
+    }
+    const tabEl = e.target.closest?.('.worktab[data-tab-id]');
+    if (tabEl) activateWorkspaceTab(tabEl.getAttribute('data-tab-id'));
+  });
+  childHost?.addEventListener('click', (e) => {
     const closeBtn = e.target.closest?.('[data-tab-close]');
     if (closeBtn) {
       e.stopPropagation();
@@ -337,7 +524,7 @@ export function initWorkspaceTabs() {
 // Detail renderers
 // ─────────────────────────────────────────────
 export function setAccountDetailTab(tab) {
-  const tabs = ['details', 'contracts', 'cases', 'opportunities', 'workorders'];
+  const tabs = ['details', 'contacts', 'cases', 'workorders', 'cancelled-jobs', 'customer-satisfaction', 'invoices', 'payment-methods'];
   const safeTab = tabs.includes(tab) ? tab : 'details';
 
   tabs.forEach((t) => {
@@ -389,18 +576,14 @@ export function showAccountDetail(accountId = 'acme') {
 
   const mirrorText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
   const mirrorHtml = (id, v) => { const el = document.getElementById(id); if (el) el.innerHTML = v; };
-  mirrorText('acc-side-name-ct', a.name);
-  mirrorHtml('acc-side-type-ct', a.typeBadgeHtml);
-  mirrorText('acc-side-industry-ct', a.industry);
-  mirrorText('acc-side-owner-ct', a.owner);
+  mirrorText('acc-side-name-contacts', a.name);
+  mirrorHtml('acc-side-type-contacts', a.typeBadgeHtml);
+  mirrorText('acc-side-industry-contacts', a.industry);
+  mirrorText('acc-side-owner-contacts', a.owner);
   mirrorText('acc-side-name-cases', a.name);
   mirrorHtml('acc-side-type-cases', a.typeBadgeHtml);
   mirrorText('acc-side-industry-cases', a.industry);
   mirrorText('acc-side-owner-cases', a.owner);
-  mirrorText('acc-side-name-opps', a.name);
-  mirrorHtml('acc-side-type-opps', a.typeBadgeHtml);
-  mirrorText('acc-side-industry-opps', a.industry);
-  mirrorText('acc-side-owner-opps', a.owner);
 
   const woSideAccount = document.getElementById('acc-wo-side-account');
   if (woSideAccount) woSideAccount.textContent = a.name;

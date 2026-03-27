@@ -1,16 +1,10 @@
 <div class="content-area page" id="page-account-detail">
-  <div style="margin-bottom:.5rem">
-    <button class="btn btn-neutral btn-sm" onclick="openWorkspaceList('accounts')">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 4L6 8l4 4"/></svg>
-      Accounts
-    </button>
-  </div>
   <div class="record-header">
     <div class="record-header-top">
       <div class="record-avatar" style="background:#E8F8F7;color:#044F4C;font-size:14px">AC</div>
       <div style="flex:1">
         <div style="font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px">Account</div>
-        <div class="record-title" id="acc-record-title">Acme Corp</div>
+        <div class="record-title" id="acc-record-title">Northline Utilities</div>
         <div class="record-sub" id="acc-record-sub">Customer · Field Services · London, UK</div>
       </div>
       <div class="record-actions">
@@ -25,103 +19,126 @@
       <div class="key-field"><div class="key-field-label">Industry</div><div class="key-field-value" id="acc-kf-industry">Field Services</div></div>
       <div class="key-field"><div class="key-field-label">Annual revenue</div><div class="key-field-value" id="acc-kf-revenue">£2.4M</div></div>
       <div class="key-field"><div class="key-field-label">Open work orders</div><div class="key-field-value" id="acc-kf-open-wos" style="color:var(--sf-orange)">3</div></div>
-      <div class="key-field"><div class="key-field-label">Owner</div><div class="key-field-value link" id="acc-kf-owner">Mike Rodriguez</div></div>
+      <div class="key-field"><div class="key-field-label">Owner</div><div class="key-field-value link" id="acc-kf-owner">Casey Moore</div></div>
     </div>
   </div>
 
   <div class="record-tabs" role="tablist" aria-label="Account tabs">
     <div class="record-tab active" role="tab" aria-selected="true" id="acc-tab-btn-details" onclick="setAccountDetailTab('details')">Details</div>
-    <div class="record-tab" role="tab" aria-selected="false" id="acc-tab-btn-contracts" onclick="setAccountDetailTab('contracts')">Contracts</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="acc-tab-btn-contacts" onclick="setAccountDetailTab('contacts')">Contacts</div>
     <div class="record-tab" role="tab" aria-selected="false" id="acc-tab-btn-cases" onclick="setAccountDetailTab('cases')">Cases</div>
-    <div class="record-tab" role="tab" aria-selected="false" id="acc-tab-btn-opportunities" onclick="setAccountDetailTab('opportunities')">Opportunities</div>
     <div class="record-tab" role="tab" aria-selected="false" id="acc-tab-btn-workorders" onclick="setAccountDetailTab('workorders')">Work Orders</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="acc-tab-btn-cancelled-jobs" onclick="setAccountDetailTab('cancelled-jobs')">Cancelled Jobs</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="acc-tab-btn-customer-satisfaction" onclick="setAccountDetailTab('customer-satisfaction')">Customer Satisfaction</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="acc-tab-btn-invoices" onclick="setAccountDetailTab('invoices')">Invoices</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="acc-tab-btn-payment-methods" onclick="setAccountDetailTab('payment-methods')">Payment Methods</div>
   </div>
 
-  <div id="acc-tab-details">
-    <div class="detail-body">
-      <div class="detail-main">
-        <!-- Contacts related list -->
-        <div class="section-card">
-          <div class="related-list-header">
-            <div class="related-list-title">
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
-              Contacts <span class="related-list-count">4</span>
-            </div>
-            <button class="btn btn-neutral btn-sm">New contact</button>
-          </div>
-          <table class="related-table">
-            <thead><tr><th>Name</th><th>Title</th><th>Email</th><th>Phone</th><th>Primary</th></tr></thead>
-            <tbody>
-              <tr><td class="link">James Chen</td><td>VP Engineering</td><td style="color:var(--text-3)">j.chen@acme.com</td><td style="color:var(--text-3)">+44 7911 123456</td><td><svg viewBox="0 0 16 16" fill="none" stroke="#2E844A" stroke-width="2" style="width:13px;height:13px"><polyline points="3 8 7 12 13 4"/></svg></td></tr>
-              <tr><td class="link">Priya Sharma</td><td>Operations Manager</td><td style="color:var(--text-3)">p.sharma@acme.com</td><td style="color:var(--text-3)">+44 7700 900123</td><td style="color:var(--text-4)">—</td></tr>
-            </tbody>
-          </table>
-        </div>
+  <div id="acc-tab-details" data-collapsible-scope>
+    <div class="section-bulk-actions">
+      <button class="btn btn-neutral btn-sm js-expand-all-sections" type="button">Expand all</button>
+      <button class="btn btn-neutral btn-sm js-collapse-all-sections" type="button">Collapse all</button>
+    </div>
 
-        <!-- Related shortcuts -->
-        <div class="section-card">
-          <div class="section-card-header"><div class="section-card-title">Related</div></div>
-          <div class="section-card-body" style="padding:.75rem">
-            <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-              <button class="btn btn-neutral btn-sm" onclick="setAccountDetailTab('contracts')">Contracts</button>
-              <button class="btn btn-neutral btn-sm" onclick="setAccountDetailTab('cases')">Cases</button>
-              <button class="btn btn-neutral btn-sm" onclick="setAccountDetailTab('opportunities')">Opportunities</button>
-            </div>
-          </div>
+    <div class="section-card js-collapsible">
+      <div class="section-card-header">
+        <div class="section-card-title">Account Information</div>
+      </div>
+      <div class="section-card-body">
+        <div class="fields-grid">
+          <div class="detail-field"><div class="df-label">Account Name</div><div class="df-value" id="acc-side-name">Northline Utilities</div></div>
+          <div class="detail-field"><div class="df-label">Account Record Type</div><div class="df-value">Consumer Account</div></div>
+          <div class="detail-field"><div class="df-label">Alert Manual Enabled</div><div class="df-value">[ ]</div></div>
+          <div class="detail-field"><div class="df-label">Parent Account</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Alert Manual Text</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Service Territory 1</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Halt Job Creation</div><div class="df-value">[ ]</div></div>
+          <div class="detail-field"><div class="df-label">Service Territory 2</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Refuse Service</div><div class="df-value">[ ]</div></div>
+          <div class="detail-field"><div class="df-label">Service Territory 3</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Refuse Service Reason</div><div class="df-value muted"> </div></div>
         </div>
       </div>
+    </div>
 
-      <div class="detail-aside">
-        <div class="section-card">
-          <div class="section-card-header"><div class="section-card-title">Account details</div></div>
-          <div class="section-card-body">
-            <div style="display:flex;flex-direction:column;gap:.5rem">
-              <div class="detail-field"><div class="df-label">Account name</div><div class="df-value" id="acc-side-name">Acme Corp</div></div>
-              <div class="detail-field"><div class="df-label">Type</div><div class="df-value" id="acc-side-type"><span class="badge badge-customer">Customer</span></div></div>
-              <div class="detail-field"><div class="df-label">Industry</div><div class="df-value" id="acc-side-industry">Field Services</div></div>
-              <div class="detail-field"><div class="df-label">Phone</div><div class="df-value" id="acc-side-phone">+44 20 7946 0800</div></div>
-              <div class="detail-field"><div class="df-label">Website</div><div class="df-value link" id="acc-side-website">acmecorp.com</div></div>
-              <div class="detail-field"><div class="df-label">Annual revenue</div><div class="df-value" id="acc-side-revenue">£2,400,000</div></div>
-              <div class="detail-field"><div class="df-label">Address</div><div class="df-value" id="acc-side-address">123 Business Park, London EC1A 1BB</div></div>
-              <div class="detail-field"><div class="df-label">Owner</div><div class="df-value link" id="acc-side-owner">Mike Rodriguez</div></div>
-            </div>
-          </div>
+    <div class="section-card js-collapsible">
+      <div class="section-card-header">
+        <div class="section-card-title">Account Frequency Type</div>
+      </div>
+      <div class="section-card-body">
+        <div class="fields-grid">
+          <div class="detail-field"><div class="df-label">One Time Account</div><div class="df-value">[ ]</div></div>
+          <div class="detail-field"><div class="df-label">Recurring Account</div><div class="df-value">[ ]</div></div>
+          <div class="detail-field"><div class="df-label">Active One Time Account</div><div class="df-value">[ ]</div></div>
+          <div class="detail-field"><div class="df-label">Active Recurring Account</div><div class="df-value">[ ]</div></div>
+          <div class="detail-field"><div class="df-label">Inactive Onetime Account</div><div class="df-value">[ ]</div></div>
+          <div class="detail-field"><div class="df-label">Inactive Recurring Account</div><div class="df-value">[ ]</div></div>
+          <div class="detail-field"><div class="df-label">Active Both OneTime and Recurring</div><div class="df-value">[ ]</div></div>
+          <div class="detail-field"><div class="df-label">Prospective Account</div><div class="df-value">[x]</div></div>
         </div>
+      </div>
+    </div>
 
-        <div class="section-card">
-          <div class="section-card-header"><div class="section-card-title">Activity</div><button class="btn btn-neutral btn-sm">Log</button></div>
-          <div class="section-card-body" style="padding:.75rem">
-            <div class="activity-list">
-              <div class="activity-item">
-                <div class="act-icon-wrap ai-call"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3l2.5 1L6.5 6 5 7.5s1 2 3.5 3.5L10 9.5l2 .5 1 2.5-2.5 1.5C6 14 2 10 2 5.5L3 3z"/></svg></div>
-                <div class="act-body"><div class="act-title">Quarterly review call</div><div class="act-sub">SLA performance discussed.</div></div>
-                <div class="act-time">2h ago</div>
-              </div>
-              <div class="activity-item">
-                <div class="act-icon-wrap ai-task"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M5 3V1M11 3V1M2 7h12"/><path d="M5 10l2 2 4-3"/></svg></div>
-                <div class="act-body"><div class="act-title">WO-00188 completed</div><div class="act-sub">Auto-resolved CASE-00031.</div></div>
-                <div class="act-time">1 day ago</div>
-              </div>
-            </div>
-          </div>
+    <div class="section-card js-collapsible">
+      <div class="section-card-header">
+        <div class="section-card-title">Primary Contact Information</div>
+      </div>
+      <div class="section-card-body">
+        <div class="fields-grid">
+          <div class="detail-field"><div class="df-label">Primary Contact Name</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Primary Contact Address</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Primary Contact Mobile</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Primary Contact City</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Primary Contact Email</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Primary Contact Province</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Primary Contact Postal Code</div><div class="df-value muted"> </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card js-collapsible">
+      <div class="section-card-header">
+        <div class="section-card-title">Legacy Contact Info</div>
+      </div>
+      <div class="section-card-body">
+        <div class="fields-grid">
+          <div class="detail-field"><div class="df-label">Customer ID</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Note ID</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Barter Description</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Customer Status</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Mobile Phone 2</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Home Phone 2</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Other Phone 2</div><div class="df-value muted"> </div></div>
+          <div class="detail-field"><div class="df-label">Other Phone 3</div><div class="df-value muted"> </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card js-collapsible">
+      <div class="section-card-header">
+        <div class="section-card-title">System Information</div>
+      </div>
+      <div class="section-card-body">
+        <div class="fields-grid">
+          <div class="detail-field"><div class="df-label">Created By</div><div class="df-value link">Vinod Gandla, 16/04/2025 3:00 PM</div></div>
+          <div class="detail-field"><div class="df-label">Last Modified By</div><div class="df-value link">Vinod Gandla, 16/04/2025 3:00 PM</div></div>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="acc-tab-contracts" style="display:none">
+  <div id="acc-tab-contacts" style="display:none">
     <div class="detail-body">
       <div class="detail-main">
         <div class="section-card">
           <div class="related-list-header">
-            <div class="related-list-title">Contracts <span class="related-list-count">2</span></div>
-            <button class="btn btn-neutral btn-sm">New contract</button>
+            <div class="related-list-title">Contacts <span class="related-list-count">1</span></div>
+            <button class="btn btn-neutral btn-sm">New contact</button>
           </div>
           <table class="related-table">
-            <thead><tr><th>Contract #</th><th>Status</th><th>Start</th><th>End</th><th>Value</th></tr></thead>
+            <thead><tr><th>Contact Name</th><th>IsPrimary</th><th>Email</th><th>Mobile</th><th>Other Phone</th></tr></thead>
             <tbody>
-              <tr><td class="link">CT-2026-00112</td><td><span class="badge badge-case-open" style="background:#EEF4FF;color:#014486">Active</span></td><td style="color:var(--text-3)">01 Jan 2026</td><td style="color:var(--text-3)">31 Dec 2026</td><td style="font-weight:600">£120,000</td></tr>
-              <tr><td class="link">CT-2025-00074</td><td><span class="badge badge-case-res">Expired</span></td><td style="color:var(--text-3)">01 Jan 2025</td><td style="color:var(--text-3)">31 Dec 2025</td><td style="color:var(--text-3)">£98,000</td></tr>
+              <tr onclick="openContactInTab('contact-albi-paul')"><td class="link">Kara Voss</td><td>Yes</td><td>kara.voss+mx17@mockmail.test</td><td>+1 555 013 8427</td><td>+1 555 013 8461</td></tr>
             </tbody>
           </table>
         </div>
@@ -132,10 +149,10 @@
           <div class="section-card-header"><div class="section-card-title">Account details</div></div>
           <div class="section-card-body">
             <div style="display:flex;flex-direction:column;gap:.5rem">
-              <div class="detail-field"><div class="df-label">Account name</div><div class="df-value" id="acc-side-name-ct">Acme Corp</div></div>
-              <div class="detail-field"><div class="df-label">Type</div><div class="df-value" id="acc-side-type-ct"><span class="badge badge-customer">Customer</span></div></div>
-              <div class="detail-field"><div class="df-label">Industry</div><div class="df-value" id="acc-side-industry-ct">Field Services</div></div>
-              <div class="detail-field"><div class="df-label">Owner</div><div class="df-value link" id="acc-side-owner-ct">Mike Rodriguez</div></div>
+              <div class="detail-field"><div class="df-label">Account name</div><div class="df-value" id="acc-side-name-contacts">Northline Utilities</div></div>
+              <div class="detail-field"><div class="df-label">Type</div><div class="df-value" id="acc-side-type-contacts"><span class="badge badge-customer">Customer</span></div></div>
+              <div class="detail-field"><div class="df-label">Industry</div><div class="df-value" id="acc-side-industry-contacts">Field Services</div></div>
+              <div class="detail-field"><div class="df-label">Owner</div><div class="df-value link" id="acc-side-owner-contacts">Casey Moore</div></div>
             </div>
           </div>
         </div>
@@ -166,43 +183,10 @@
           <div class="section-card-header"><div class="section-card-title">Account details</div></div>
           <div class="section-card-body">
             <div style="display:flex;flex-direction:column;gap:.5rem">
-              <div class="detail-field"><div class="df-label">Account name</div><div class="df-value" id="acc-side-name-cases">Acme Corp</div></div>
+              <div class="detail-field"><div class="df-label">Account name</div><div class="df-value" id="acc-side-name-cases">Northline Utilities</div></div>
               <div class="detail-field"><div class="df-label">Type</div><div class="df-value" id="acc-side-type-cases"><span class="badge badge-customer">Customer</span></div></div>
               <div class="detail-field"><div class="df-label">Industry</div><div class="df-value" id="acc-side-industry-cases">Field Services</div></div>
-              <div class="detail-field"><div class="df-label">Owner</div><div class="df-value link" id="acc-side-owner-cases">Mike Rodriguez</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="acc-tab-opportunities" style="display:none">
-    <div class="detail-body">
-      <div class="detail-main">
-        <div class="section-card">
-          <div class="related-list-header">
-            <div class="related-list-title">Opportunities <span class="related-list-count">2</span></div>
-            <button class="btn btn-neutral btn-sm">New opportunity</button>
-          </div>
-          <table class="related-table">
-            <thead><tr><th>Name</th><th>Stage</th><th>Amount</th><th>Close date</th><th>Prob%</th></tr></thead>
-            <tbody>
-              <tr><td class="link">Acme Corp — Platform Rollout</td><td><span class="badge badge-nego">Negotiation</span></td><td style="font-weight:600">£85,000</td><td style="color:var(--text-3)">30 Apr 2026</td><td style="color:var(--sf-orange);font-weight:600">80%</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="detail-aside">
-        <div class="section-card">
-          <div class="section-card-header"><div class="section-card-title">Account details</div></div>
-          <div class="section-card-body">
-            <div style="display:flex;flex-direction:column;gap:.5rem">
-              <div class="detail-field"><div class="df-label">Account name</div><div class="df-value" id="acc-side-name-opps">Acme Corp</div></div>
-              <div class="detail-field"><div class="df-label">Type</div><div class="df-value" id="acc-side-type-opps"><span class="badge badge-customer">Customer</span></div></div>
-              <div class="detail-field"><div class="df-label">Industry</div><div class="df-value" id="acc-side-industry-opps">Field Services</div></div>
-              <div class="detail-field"><div class="df-label">Owner</div><div class="df-value link" id="acc-side-owner-opps">Mike Rodriguez</div></div>
+              <div class="detail-field"><div class="df-label">Owner</div><div class="df-value link" id="acc-side-owner-cases">Casey Moore</div></div>
             </div>
           </div>
         </div>
@@ -225,7 +209,7 @@
                 <td class="link">WO-2026-00188</td>
                 <td><span class="badge badge-case-res">Completed</span></td>
                 <td>Preventive</td>
-                <td>Tom Wilson</td>
+                <td>Jules Marin</td>
                 <td style="color:var(--text-3)">Yesterday 10:00</td>
                 <td style="color:var(--text-3)">—</td>
               </tr>
@@ -233,7 +217,7 @@
                 <td class="link">WO-2026-00201</td>
                 <td><span class="badge badge-working" style="background:#EEF4FF;color:#014486">Dispatched</span></td>
                 <td>Repair</td>
-                <td>Kelly Nguyen</td>
+                <td>Parker Reed</td>
                 <td style="color:var(--text-3)">Today 15:30</td>
                 <td style="color:var(--sf-red);font-weight:600">Today 18:00</td>
               </tr>
@@ -255,12 +239,56 @@
           <div class="section-card-header"><div class="section-card-title">Work order summary</div></div>
           <div class="section-card-body">
             <div style="display:flex;flex-direction:column;gap:.5rem">
-              <div class="detail-field"><div class="df-label">Account</div><div class="df-value" id="acc-wo-side-account">Acme Corp</div></div>
+              <div class="detail-field"><div class="df-label">Account</div><div class="df-value" id="acc-wo-side-account">Northline Utilities</div></div>
               <div class="detail-field"><div class="df-label">Open work orders</div><div class="df-value" id="acc-wo-side-open" style="color:var(--sf-orange);font-weight:700">2</div></div>
               <div class="detail-field"><div class="df-label">Next scheduled</div><div class="df-value" id="acc-wo-side-next">Today 15:30</div></div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="acc-tab-cancelled-jobs" style="display:none">
+    <div class="section-card">
+      <div class="related-list-header">
+        <div class="related-list-title">Cancelled Jobs <span class="related-list-count">0</span></div>
+      </div>
+      <div class="section-card-body">
+        <div class="muted">No cancelled jobs for this account.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="acc-tab-customer-satisfaction" style="display:none">
+    <div class="section-card">
+      <div class="related-list-header">
+        <div class="related-list-title">Customer Satisfaction</div>
+      </div>
+      <div class="section-card-body">
+        <div class="muted">No customer satisfaction records available.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="acc-tab-invoices" style="display:none">
+    <div class="section-card">
+      <div class="related-list-header">
+        <div class="related-list-title">Invoices <span class="related-list-count">0</span></div>
+      </div>
+      <div class="section-card-body">
+        <div class="muted">No invoices found for this account.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="acc-tab-payment-methods" style="display:none">
+    <div class="section-card">
+      <div class="related-list-header">
+        <div class="related-list-title">Payment Methods <span class="related-list-count">0</span></div>
+      </div>
+      <div class="section-card-body">
+        <div class="muted">No payment methods configured.</div>
       </div>
     </div>
   </div>

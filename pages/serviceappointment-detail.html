@@ -1,17 +1,10 @@
 <div class="content-area page" id="page-serviceappointment-detail">
-  <div style="margin-bottom:.5rem">
-    <button class="btn btn-neutral btn-sm" onclick="openWorkspaceList('workorders')">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 4L6 8l4 4"/></svg>
-      Work Orders
-    </button>
-  </div>
-
   <div class="record-header">
     <div class="record-header-top">
       <div class="record-avatar" style="background:#EEF4FF;color:#014486;font-size:12px;font-weight:900">SA</div>
       <div style="flex:1">
         <div style="font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px">Service Appointment</div>
-        <div class="record-title" id="sa-title">Sandra Laronde</div>
+        <div class="record-title" id="sa-title">Jules Marin</div>
         <div class="record-sub" id="sa-sub">Appointment Number SA-973672</div>
       </div>
       <div class="record-actions">
@@ -38,7 +31,12 @@
   </div>
 
   <div class="detail-body">
-    <div class="detail-main">
+    <div class="detail-main" data-collapsible-scope>
+      <div class="section-bulk-actions">
+        <button class="btn btn-neutral btn-sm js-expand-all-sections" type="button">Expand all</button>
+        <button class="btn btn-neutral btn-sm js-collapse-all-sections" type="button">Collapse all</button>
+      </div>
+
       <div class="section-card js-collapsible">
         <div class="section-card-header"><div class="section-card-title">Time (Duration, Additional), Status</div></div>
         <div class="section-card-body">
@@ -194,8 +192,8 @@
         <div class="section-card-header"><div class="section-card-title">Service Address</div></div>
         <div class="section-card-body">
           <div class="fields-grid">
-            <div class="detail-field"><div class="df-label">Address</div><div class="df-value" id="sa-addr">96 Borden Street, Toronto ON M5S2N1, Canada</div></div>
-            <div class="detail-field"><div class="df-label">Contact</div><div class="df-value link" id="sa-contact">Sandra Laronde</div></div>
+            <div class="detail-field"><div class="df-label">Address</div><div class="df-value" id="sa-addr">241 Meridian Avenue, Metro City MC1 4PX, Fictionland</div></div>
+            <div class="detail-field"><div class="df-label">Contact</div><div class="df-value link" id="sa-contact">Jules Marin</div></div>
             <div class="detail-field"><div class="df-label">Apartment #</div><div class="df-value" id="sa-apt">Apt#</div></div>
             <div class="detail-field"><div class="df-label">Zone</div><div class="df-value link" id="sa-zone">DownT-S</div></div>
           </div>
@@ -244,7 +242,7 @@
         <div class="section-card-body">
           <div class="fields-grid">
             <div class="detail-field"><div class="df-label">Owner</div><div class="df-value">OnlineBooking Engine</div></div>
-            <div class="detail-field"><div class="df-label">Last Modified By</div><div class="df-value">Toronto (Gary) CustomerCare, 21/10/2025 12:14 PM</div></div>
+            <div class="detail-field"><div class="df-label">Last Modified By</div><div class="df-value">Metro City (Ops Queue) CustomerCare, 21/10/2025 12:14 PM</div></div>
             <div class="detail-field"><div class="df-label">Created By</div><div class="df-value">Automated Process, 17/08/2025 6:30 PM</div></div>
             <div class="detail-field"><div class="df-label">Scheduled Text Message</div><div class="df-value muted">—</div></div>
           </div>
