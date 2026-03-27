@@ -21,22 +21,104 @@
     </div>
   </div>
 
-  <div class="detail-body">
-    <div class="detail-main">
-      <div class="section-card">
-        <div class="section-card-header"><div class="section-card-title">Contact Information</div></div>
-        <div class="section-card-body">
-          <div class="fields-grid">
-            <div class="detail-field"><div class="df-label">Full name</div><div class="df-value" id="contact-d-name">Milo Arden</div></div>
-            <div class="detail-field"><div class="df-label">Account</div><div class="df-value" id="contact-d-account">Northline Utilities</div></div>
-            <div class="detail-field"><div class="df-label">Title</div><div class="df-value" id="contact-d-title">Service Coordinator</div></div>
-            <div class="detail-field"><div class="df-label">Email</div><div class="df-value link" id="contact-d-email">milo.arden+cx91@mockmail.test</div></div>
-            <div class="detail-field"><div class="df-label">Phone</div><div class="df-value" id="contact-d-phone">+1 555 042 1193</div></div>
-            <div class="detail-field"><div class="df-label">Location</div><div class="df-value" id="contact-d-location">London, UK</div></div>
-            <div class="detail-field"><div class="df-label">Primary Contact</div><div class="df-value" id="contact-d-primary">Yes</div></div>
+  <div class="record-tabs" role="tablist" aria-label="Contact tabs">
+    <div class="record-tab active" role="tab" aria-selected="true" id="contact-tab-btn-details" onclick="setContactDetailTab('details')">Details</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="contact-tab-btn-workorders" onclick="setContactDetailTab('workorders')">Work Orders</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="contact-tab-btn-cases" onclick="setContactDetailTab('cases')">Cases</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="contact-tab-btn-addresses" onclick="setContactDetailTab('addresses')">Addresses</div>
+    <div class="record-tab" role="tab" aria-selected="false" id="contact-tab-btn-notes-files-history" onclick="setContactDetailTab('notes-files-history')">Notes, Files &amp; History</div>
+  </div>
+
+  <div id="contact-tab-details">
+    <div class="detail-body">
+      <div class="detail-main">
+        <div data-collapsible-scope>
+          <div class="section-bulk-actions">
+            <button class="btn btn-neutral btn-sm js-expand-all-sections" type="button">Expand all</button>
+            <button class="btn btn-neutral btn-sm js-collapse-all-sections" type="button">Collapse all</button>
+          </div>
+
+          <div class="section-card js-collapsible">
+            <div class="section-card-header"><div class="section-card-title">Contact Information</div></div>
+            <div class="section-card-body">
+              <div class="fields-grid">
+                <div class="detail-field"><div class="df-label">Account Name</div><div class="df-value link" id="contact-d-account">Northline Utilities</div></div>
+                <div class="detail-field"><div class="df-label">Email</div><div class="df-value link" id="contact-d-email">milo.arden+cx91@mockmail.test</div></div>
+                <div class="detail-field"><div class="df-label">Name</div><div class="df-value" id="contact-d-name">Milo Arden</div></div>
+                <div class="detail-field"><div class="df-label">Mobile</div><div class="df-value" id="contact-d-phone">+1 555 042 1193</div></div>
+                <div class="detail-field"><div class="df-label">IsPrimary</div><div class="df-value" id="contact-d-primary">Yes</div></div>
+                <div class="detail-field"><div class="df-label">Other Phone</div><div class="df-value muted"> </div></div>
+                <div class="detail-field"><div class="df-label">OverrideContactDetails</div><div class="df-value muted">[ ]</div></div>
+                <div class="detail-field"><div class="df-label">Home Phone</div><div class="df-value muted"> </div></div>
+                <div class="detail-field"><div class="df-label">Last Visit Date</div><div class="df-value muted"> </div></div>
+                <div class="detail-field"><div class="df-label">Work Phone</div><div class="df-value muted"> </div></div>
+                <div class="detail-field"><div class="df-label">Title</div><div class="df-value" id="contact-d-title">Service Coordinator</div></div>
+                <div class="detail-field"><div class="df-label">Location</div><div class="df-value" id="contact-d-location">London, UK</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card js-collapsible">
+            <div class="section-card-header"><div class="section-card-title">Service Territory Information</div></div>
+            <div class="section-card-body">
+              <div class="fields-grid">
+                <div class="detail-field"><div class="df-label">Service Territory</div><div class="df-value muted"> </div></div>
+                <div class="detail-field"><div class="df-label">Service Territory CustomerCarePerson</div><div class="df-value muted"> </div></div>
+                <div class="detail-field"><div class="df-label">Service Territory Email</div><div class="df-value muted"> </div></div>
+                <div class="detail-field"><div class="df-label">Service Territory Phone Number</div><div class="df-value muted"> </div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card js-collapsible">
+            <div class="section-card-header"><div class="section-card-title">Legal Information</div></div>
+            <div class="section-card-body">
+              <div class="fields-grid">
+                <div class="detail-field"><div class="df-label">Contact ID</div><div class="df-value muted"> </div></div>
+                <div class="detail-field"><div class="df-label">Location ID</div><div class="df-value muted"> </div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card js-collapsible">
+            <div class="section-card-header"><div class="section-card-title">System Information</div></div>
+            <div class="section-card-body">
+              <div class="fields-grid">
+                <div class="detail-field"><div class="df-label">Created By</div><div class="df-value link">Vinod Gandla, 16/04/2025 3:00 PM</div></div>
+                <div class="detail-field"><div class="df-label">Last Modified By</div><div class="df-value link">Vinod Gandla, 16/04/2025 3:00 PM</div></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div id="contact-tab-workorders" style="display:none">
+    <div class="section-card">
+      <div class="section-card-header"><div class="section-card-title">Work Orders</div></div>
+      <div class="section-card-body"><div class="muted">No work orders linked to this contact.</div></div>
+    </div>
+  </div>
+
+  <div id="contact-tab-cases" style="display:none">
+    <div class="section-card">
+      <div class="section-card-header"><div class="section-card-title">Cases</div></div>
+      <div class="section-card-body"><div class="muted">No cases linked to this contact.</div></div>
+    </div>
+  </div>
+
+  <div id="contact-tab-addresses" style="display:none">
+    <div class="section-card">
+      <div class="section-card-header"><div class="section-card-title">Addresses</div></div>
+      <div class="section-card-body"><div class="muted">No additional addresses available.</div></div>
+    </div>
+  </div>
+
+  <div id="contact-tab-notes-files-history" style="display:none">
+    <div class="section-card">
+      <div class="section-card-header"><div class="section-card-title">Notes, Files &amp; History</div></div>
+      <div class="section-card-body"><div class="muted">No notes, files, or activity history available.</div></div>
     </div>
   </div>
 </div>

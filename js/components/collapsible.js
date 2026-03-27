@@ -3,11 +3,15 @@ export function initCollapsibles() {
   const saCards = saPage?.querySelectorAll('.js-collapsible');
   const accountDetailScope = document.querySelector('#acc-tab-details[data-collapsible-scope]');
   const accountCards = accountDetailScope?.querySelectorAll('.js-collapsible');
+  const contactDetailScope = document.querySelector('#page-contact-detail [data-collapsible-scope]');
+  const contactCards = contactDetailScope?.querySelectorAll('.js-collapsible');
 
   // Keep service appointment detail sections collapsed on first render.
   saCards?.forEach((card) => card.classList.add('is-collapsed'));
   // Keep account detail sections collapsed on first render.
   accountCards?.forEach((card) => card.classList.add('is-collapsed'));
+  // Keep contact detail sections collapsed on first render.
+  contactCards?.forEach((card) => card.classList.add('is-collapsed'));
 
   document.addEventListener('click', (e) => {
     const expandAllBtn = e.target.closest?.('.js-expand-all-sections');

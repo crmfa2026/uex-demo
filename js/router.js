@@ -47,6 +47,7 @@ export function showPage(name) {
     if (newBtnLabel) newBtnLabel.textContent = meta.newLabel;
   }
 
+  document.body.classList.toggle('contact-detail-context', name === 'contact-detail');
   window.scrollTo(0, 0);
 }
 
@@ -101,6 +102,25 @@ export function showContactDetail(contactId = 'contact-james-chen') {
   setText('contact-d-location', c.location);
   setText('contact-d-primary', c.primary ? 'Yes' : 'No');
   showPage('contact-detail');
+  setContactDetailTab('details');
+}
+
+export function setContactDetailTab(tab) {
+  const tabs = ['details', 'workorders', 'cases', 'addresses', 'notes-files-history'];
+  const safeTab = tabs.includes(tab) ? tab : 'details';
+
+  tabs.forEach((t) => {
+    const btn = document.getElementById(`contact-tab-btn-${t}`);
+    const panel = document.getElementById(`contact-tab-${t}`);
+    const isActive = t === safeTab;
+    if (btn) {
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', String(isActive));
+    }
+    if (panel) panel.style.display = isActive ? '' : 'none';
+  });
+
+  window.scrollTo(0, 0);
 }
 
 export const accountRecords = {
@@ -436,23 +456,37 @@ export function openLeadInTab(leadId) {
 
 export function openContactInTab(contactId) {
   const contact = contactRecords[contactId] || contactRecords['contact-james-chen'];
-  const parentPage = 'contacts';
-  const parentTitle = objMeta[parentPage]?.label || 'Contacts';
-  const parentKey = routeKey({ page: parentPage });
-  let parentTab = workspaceTabs.find((t) => t.key === parentKey && !t.parentTabId);
-  if (!parentTab) parentTab = createWorkspaceTab({ page: parentPage }, { title: parentTitle });
+  const title = contact?.name || 'Contact';
+  const activeTab = workspaceTabs.find((t) => t.id === activeWorkspaceTabId) || null;
+  const activeParentTab = activeTab?.parentTabId
+    ? workspaceTabs.find((t) => t.id === activeTab.parentTabId) || null
+    : null;
 
-  const key = routeKey({ page: 'contact-detail', id: contactId });
-  const existing = workspaceTabs.find((t) => t.key === key && t.parentTabId === parentTab.id);
-  if (existing) {
-    existing.title = contact?.name || 'Contact';
-    activateWorkspaceTab(existing.id);
+  // Keep contacts inside the current Account tab group when user is in account context.
+  const inAccountContext = activeTab && (
+    activeTab.route?.page === 'account-detail'
+    || activeTab.route?.page === 'accounts'
+    || activeParentTab?.route?.page === 'accounts'
+  );
+
+  if (inAccountContext) {
+    const parentTabId = activeTab.parentTabId || activeTab.id;
+    const key = routeKey({ page: 'contact-detail', id: contactId });
+    const existing = workspaceTabs.find((t) => t.key === key && t.parentTabId === parentTabId);
+    if (existing) {
+      existing.title = title;
+      activateWorkspaceTab(existing.id);
+      return;
+    }
+
+    const child = createWorkspaceTab({ page: 'contact-detail', id: contactId }, { title });
+    child.parentTabId = parentTabId;
+    activateWorkspaceTab(child.id);
     return;
   }
 
-  const child = createWorkspaceTab({ page: 'contact-detail', id: contactId }, { title: contact?.name || 'Contact' });
-  child.parentTabId = parentTab.id;
-  activateWorkspaceTab(child.id);
+  // Fallback for non-account flows.
+  openWorkspace({ page: 'contact-detail', id: contactId }, { title, reuseIfExists: true });
 }
 
 export function openCaseInTab(caseId) {

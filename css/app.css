@@ -290,6 +290,20 @@ a:hover { text-decoration: underline; }
   min-height: calc(100vh - var(--topbar-h) - var(--worktabs-h) - var(--worktabs-sub-h) - var(--subnav-h));
 }
 
+/* Contact detail context: hide list-level headers/nav tabs. */
+body.contact-detail-context .nav-tabs,
+body.contact-detail-context .object-header {
+  display: none;
+}
+body.contact-detail-context .content-area {
+  margin-top: calc(var(--topbar-h) + var(--worktabs-h));
+  min-height: calc(100vh - var(--topbar-h) - var(--worktabs-h));
+}
+body.contact-detail-context.has-child-worktabs .content-area {
+  margin-top: calc(var(--topbar-h) + var(--worktabs-h) + var(--worktabs-sub-h));
+  min-height: calc(100vh - var(--topbar-h) - var(--worktabs-h) - var(--worktabs-sub-h));
+}
+
 /* Workspace tabs (Console-style) */
 .worktabs {
   position: fixed;
