@@ -8,25 +8,113 @@
 </head>
 <body>
 
-<!-- ═══════════════════ GLOBAL NAV ═══════════════════ -->
-<nav class="global-nav">
-  <div class="nav-logo">
-    <svg class="nav-logo-cloud" viewBox="0 0 32 32" fill="none">
-      <path d="M22 10.5a7.5 7.5 0 00-14.4 2.1A6 6 0 008 24h14a6 6 0 000-12c-.34 0-.67.03-1 .08" fill="#1B96FF"/>
-      <path d="M22 10.5a7.5 7.5 0 00-14.4 2.1A6 6 0 008 24h14a6 6 0 000-12c-.34 0-.67.03-1 .08" fill="url(#cg)"/>
-      <defs><linearGradient id="cg" x1="8" y1="6" x2="26" y2="26" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1B96FF"/><stop offset="100%" stop-color="#032D60"/></linearGradient></defs>
-    </svg>
-    <div>
-      <div class="nav-logo-name">Field Agent</div>
-      <div class="nav-logo-sub">CRM Platform</div>
+<!-- ═══════════════════ GLOBAL SEARCH (above main nav) ═══════════════════ -->
+<header class="global-search-bar" id="global-search-bar">
+  <div class="global-search-strip">
+    <div class="global-search-inner">
+      <button type="button" class="nav-apps-btn nav-apps-btn--icon-only" aria-label="App Launcher" title="App Launcher">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="10" y="1" width="5" height="5" rx="1"/><rect x="1" y="10" width="5" height="5" rx="1"/><rect x="10" y="10" width="5" height="5" rx="1"/></svg>
+      </button>
+      <div class="nav-logo nav-logo--in-search">
+        <div class="slds-global-header__logo nav-logo-mark">
+          <span class="slds-assistive-text">Field Agent CRM</span>
+        </div>
+      </div>
+      <div class="global-search-scope-wrap">
+        <button type="button" class="global-search-scope" id="global-search-scope" aria-haspopup="listbox" aria-expanded="false" aria-controls="global-search-scope-list">
+          <span class="global-search-scope-text">Search: <strong>All</strong></span>
+          <svg class="global-search-scope-chevron" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+        </button>
+        <ul class="global-search-scope-menu" id="global-search-scope-list" role="listbox" hidden>
+          <li role="option" data-label="All">All</li>
+          <li role="option" data-label="Accounts">Accounts</li>
+          <li role="option" data-label="Cases">Cases</li>
+          <li role="option" data-label="Leads">Leads</li>
+          <li role="option" data-label="Work Orders">Work Orders</li>
+        </ul>
+      </div>
+      <div class="global-search-field-outer">
+        <label class="global-search-field">
+          <svg class="global-search-field-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+          <input type="search" id="global-search-input" placeholder="Search..." autocomplete="off" enterkeyhint="search" aria-label="Global search" aria-controls="global-search-panel" aria-expanded="false" />
+        </label>
+      </div>
     </div>
   </div>
+  <div class="global-search-panel" id="global-search-panel" hidden>
+    <div class="global-search-panel-card">
+      <div class="global-search-panel-main">
+        <div class="global-search-section">
+          <div class="global-search-row global-search-row-suggest">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+            <div><div class="global-search-row-title">Albi, Paul cases</div></div>
+          </div>
+          <div class="global-search-row global-search-row-suggest">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+            <div><div class="global-search-row-title">Albi, Paul accounts</div></div>
+          </div>
+          <div class="global-search-row global-search-row-suggest">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+            <div><div class="global-search-row-title">accounts with industry agriculture</div></div>
+          </div>
+        </div>
+        <div class="global-search-section">
+          <div class="global-search-row">
+            <span class="global-search-ico global-search-ico-account" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/></svg></span>
+            <div><div class="global-search-row-title">Paul Albi</div><div class="global-search-row-meta">Account</div></div>
+          </div>
+          <div class="global-search-row">
+            <span class="global-search-ico global-search-ico-appointment" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M5 1v3M11 1v3M2 6h12"/></svg></span>
+            <div><div class="global-search-row-title">SA-937412</div><div class="global-search-row-meta">Service Appointment</div></div>
+          </div>
+          <div class="global-search-row">
+            <span class="global-search-ico global-search-ico-wo" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 11.5V6.5l3-1.7 3 1.7v5l-3 1.7-3-1.7z"/><path d="M8.5 6.8l3-1.7 2.5 1.4v4.9l-2.5 1.4-3-1.7"/></svg></span>
+            <div><div class="global-search-row-title">00935814</div><div class="global-search-row-meta">Work Order · Maintenance Aaron Corbin: December 24, 2024</div></div>
+          </div>
+          <div class="global-search-row">
+            <span class="global-search-ico global-search-ico-account" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="1"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/></svg></span>
+            <div><div class="global-search-row-title">Aaron Corbin</div><div class="global-search-row-meta">Account</div></div>
+          </div>
+        </div>
+        <div class="global-search-section">
+          <div class="global-search-row">
+            <span class="global-search-ico global-search-ico-list" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M3 8h10M3 12h7"/><circle cx="2" cy="4" r="1" fill="currentColor"/><circle cx="2" cy="8" r="1" fill="currentColor"/><circle cx="2" cy="12" r="1" fill="currentColor"/></svg></span>
+            <div><div class="global-search-row-title">All Users</div><div class="global-search-row-meta">People List</div></div>
+          </div>
+          <div class="global-search-row">
+            <span class="global-search-ico global-search-ico-list" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M3 8h10M3 12h7"/><circle cx="2" cy="4" r="1" fill="currentColor"/><circle cx="2" cy="8" r="1" fill="currentColor"/><circle cx="2" cy="12" r="1" fill="currentColor"/></svg></span>
+            <div><div class="global-search-row-title">View_005JB000000lulVYAS</div><div class="global-search-row-meta">Reports List</div></div>
+          </div>
+          <div class="global-search-row">
+            <span class="global-search-ico global-search-ico-list" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M3 8h10M3 12h7"/><circle cx="2" cy="4" r="1" fill="currentColor"/><circle cx="2" cy="8" r="1" fill="currentColor"/><circle cx="2" cy="12" r="1" fill="currentColor"/></svg></span>
+            <div><div class="global-search-row-title">Calgary</div><div class="global-search-row-meta">Accounts List</div></div>
+          </div>
+        </div>
+      </div>
+      <aside class="global-search-panel-aside" aria-label="Search tips">
+        <div class="global-search-aside-title">Do more with Search!</div>
+        <div class="global-search-tip">
+          <span class="global-search-tip-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#C9C7C5" stroke-width="1.5"/><path d="M8 10h8M8 14h5" stroke="#706E6B" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <div>
+            <div class="global-search-tip-head">Get the right answers by searching…</div>
+            <p class="global-search-tip-body">Try <q>[user name] cases</q> or <q>[user name] leads</q>.</p>
+          </div>
+        </div>
+        <div class="global-search-tip">
+          <span class="global-search-tip-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#C9C7C5" stroke-width="1.5"/><path d="M12 7l1.5 3 3.2.5-2.3 2.2.5 3.3L12 14.5 9.1 16.5l.5-3.3L7.3 10.5l3.2-.5L12 7z" stroke="#706E6B" stroke-width="1.2"/></svg></span>
+          <div>
+            <div class="global-search-tip-head">Get insights</div>
+            <p class="global-search-tip-body">Try <q>accounts last quarter</q> or <q>contacts in California</q>.</p>
+          </div>
+        </div>
+        <a class="global-search-learn" href="#">Learn More</a>
+      </aside>
+    </div>
+  </div>
+</header>
 
-  <button class="nav-apps-btn">
-    <svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="10" y="1" width="5" height="5" rx="1"/><rect x="1" y="10" width="5" height="5" rx="1"/><rect x="10" y="10" width="5" height="5" rx="1"/></svg>
-    App Launcher
-  </button>
-
+<!-- ═══════════════════ GLOBAL NAV ═══════════════════ -->
+<nav class="global-nav">
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="openWorkspaceList('leads')">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
@@ -55,9 +143,6 @@
   </div>
 
   <div class="nav-right">
-    <button class="nav-icon-btn" title="Search">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
-    </button>
     <button class="nav-icon-btn" title="Notifications">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1a5 5 0 015 5v3l1.5 2H1.5L3 9V6a5 5 0 015-5zM6.5 13a1.5 1.5 0 003 0"/></svg>
     </button>

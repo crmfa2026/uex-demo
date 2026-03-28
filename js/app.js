@@ -1,4 +1,5 @@
 import { initAppLauncher } from './components/appLauncher.js';
+import { initGlobalSearch } from './components/globalSearch.js';
 import { initCollapsibles } from './components/collapsible.js';
 import { showToast } from './components/toast.js';
 import { loadAllPages } from './pageLoader.js';
@@ -110,6 +111,7 @@ async function bootstrap() {
   initWorkspaceTabs();
   initCollapsibles();
   initAppLauncher();
+  initGlobalSearch();
   wireStaticHandlers();
 }
 
