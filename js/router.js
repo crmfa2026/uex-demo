@@ -102,24 +102,6 @@ export function showContactDetail(contactId = 'contact-james-chen') {
   setText('contact-d-location', c.location);
   setText('contact-d-primary', c.primary ? 'Yes' : 'No');
   showPage('contact-detail');
-  setContactDetailTab('details');
-}
-
-export function setContactDetailTab(tab) {
-  const tabs = ['details', 'workorders', 'cases', 'addresses', 'notes-files-history'];
-  const safeTab = tabs.includes(tab) ? tab : 'details';
-
-  tabs.forEach((t) => {
-    const btn = document.getElementById(`contact-tab-btn-${t}`);
-    const panel = document.getElementById(`contact-tab-${t}`);
-    const isActive = t === safeTab;
-    if (btn) {
-      btn.classList.toggle('active', isActive);
-      btn.setAttribute('aria-selected', String(isActive));
-    }
-    if (panel) panel.style.display = isActive ? '' : 'none';
-  });
-
   window.scrollTo(0, 0);
 }
 
@@ -777,6 +759,37 @@ export function showWorkOrderDetail(workOrderId = 'WO-00941877') {
   const wo = workOrderRecords[workOrderId] || workOrderRecords['WO-00941877'];
   if (!wo) return;
 
+  const pageEl = document.getElementById('page-workorder-detail');
+  if (pageEl) pageEl.dataset.workOrderId = workOrderId;
+
+  // Always return to read-only when rendering detail.
+  const editWrap = document.getElementById('wo-details-edit');
+  const readonlyWrap = document.getElementById('wo-details-readonly');
+  if (editWrap) editWrap.style.display = 'none';
+  if (readonlyWrap) readonlyWrap.style.display = '';
+
+  // If the New Work Order modal was moved into inline edit, put it back.
+  const overlay = document.getElementById('new-work-order-overlay');
+  const host = document.getElementById('wo-edit-form-host');
+  const modal = host?.querySelector('.modal--nwo') || overlay?.querySelector('.modal--nwo');
+  if (modal && overlay && modal.parentElement !== overlay) overlay.appendChild(modal);
+  const closeBtn = modal?.querySelector('.modal-header .al-close');
+  const modalFooter = modal?.querySelector('.modal-footer');
+  if (closeBtn) closeBtn.style.display = '';
+  if (modalFooter) modalFooter.style.display = '';
+  if (modalFooter) {
+    const buttons = Array.from(modalFooter.querySelectorAll('button[type="button"]'));
+    const cancelBtn = buttons.find((b) => b.textContent.trim() === 'Cancel');
+    const saveNewBtn = buttons.find((b) => b.textContent.trim() === 'Save & New');
+    const saveBtn = buttons.find((b) => b.textContent.trim() === 'Save');
+    if (cancelBtn) cancelBtn.setAttribute('onclick', 'closeNewWorkOrderModal()');
+    if (saveNewBtn) {
+      saveNewBtn.style.display = '';
+      saveNewBtn.setAttribute('onclick', 'saveNewWorkOrder({ andNew: true })');
+    }
+    if (saveBtn) saveBtn.setAttribute('onclick', 'saveNewWorkOrder({ andNew: false })');
+  }
+
   const title = document.getElementById('wo-title');
   if (title) title.textContent = wo.subject && wo.subject !== '—' ? wo.subject : wo.account;
   const sub = document.getElementById('wo-sub');
@@ -790,6 +803,9 @@ export function showWorkOrderDetail(workOrderId = 'WO-00941877') {
   setText('wo-kf-team', wo.team);
 
   setText('wo-d-service', wo.serviceDescription);
+  setText('wo-d-checklist', wo.checklist);
+  setText('wo-d-checklist-link', wo.checklist);
+  setText('wo-d-product', wo.product);
   setText('wo-d-date', wo.date);
   setText('wo-d-frequency', wo.frequency);
   setText('wo-d-status', wo.status);

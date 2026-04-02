@@ -17,7 +17,6 @@ import {
   openWorkspace,
   openWorkspaceList,
   setAccountDetailTab,
-  setContactDetailTab,
   setCaseRightTab,
   setWorkOrderTab,
   showLeadDetail,
@@ -38,6 +37,15 @@ import {
   saveNewAccount,
   saveNewCase,
   saveNewLead,
+  closeNewWorkOrderModal,
+  saveNewWorkOrder,
+  openWorkOrderEditMode,
+  cancelWorkOrderEditMode,
+  saveWorkOrderEdits,
+  nwoContinueFromType,
+  nwoBackToType,
+  nwoApptMoveRight,
+  nwoApptMoveLeft,
 } from './pages/forms.js';
 
 function wireStaticHandlers() {
@@ -58,13 +66,101 @@ function wireStaticHandlers() {
     }
   });
 
-  document.getElementById('new-btn')?.addEventListener('click', function () {
+  document.getElementById('new-btn')?.addEventListener('click', async function () {
     const active = document.querySelector('.page.active')?.id || '';
     if (active === 'page-leads' || active === 'page-lead-detail' || active === 'page-lead-new') { openNewLead(); return; }
     if (active === 'page-accounts' || active === 'page-account-detail' || active === 'page-account-new') { openNewAccount(); return; }
     if (active === 'page-cases' || active === 'page-case-detail') { openNewCase(); return; }
-    if (active === 'page-workorders' || active === 'page-workorder-detail') { openNewWorkOrder(); return; }
+    if (active === 'page-workorders' || active === 'page-workorder-detail') { await openNewWorkOrder(); return; }
     showToast({ type: 'error', title: 'Not implemented', body: 'Only “New Lead” is wired in this prototype.' });
+  });
+
+  setupWorkOrdersListViewFilter();
+}
+
+function setupWorkOrdersListViewFilter() {
+  const page = document.getElementById('page-workorders');
+  const btn = document.getElementById('workorders-listview-btn');
+  const menu = document.getElementById('workorders-listview-menu');
+  const searchInput = document.getElementById('workorders-listview-search-input');
+  const labelEl = document.getElementById('workorders-listview-label');
+  const countEl = document.getElementById('workorders-listview-count');
+  if (!page || !btn || !menu || !labelEl || !countEl) return;
+
+  const tableRows = Array.from(page.querySelectorAll('table.data-table tbody tr'));
+  const items = Array.from(menu.querySelectorAll('.workorders-listview-item'));
+  if (!tableRows.length || !items.length) return;
+
+  const getDef = (id) => {
+    if (id === 'recent') return { header: 'Recently Viewed', match: (tr) => tr.dataset.isRecentlyViewed === '1' };
+    if (id === 'all') return { header: 'All Work Orders', match: () => true };
+    // Cities: Calgary/Toronto/Vancouver
+    return { header: id, match: (tr) => tr.dataset.city === id };
+  };
+
+  const setMenuOpen = (open) => {
+    btn.setAttribute('aria-expanded', String(open));
+    menu.setAttribute('aria-hidden', String(!open));
+    if (open) menu.hidden = false;
+    else menu.hidden = true;
+  };
+
+  const applyFilter = (filterId) => {
+    const def = getDef(filterId);
+    let visibleCount = 0;
+
+    tableRows.forEach((tr) => {
+      const keep = def.match(tr);
+      tr.style.display = keep ? '' : 'none';
+      if (keep) visibleCount += 1;
+    });
+
+    labelEl.textContent = def.header;
+    countEl.textContent = String(visibleCount);
+
+    items.forEach((it) => {
+      const isActive = it.getAttribute('data-filter') === filterId;
+      it.style.fontWeight = isActive ? '900' : '400';
+    });
+  };
+
+  let selectedFilter = 'recent';
+  applyFilter(selectedFilter);
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = btn.getAttribute('aria-expanded') !== 'true';
+    setMenuOpen(open);
+    if (open) searchInput?.focus();
+  });
+
+  menu.addEventListener('click', (e) => {
+    const item = e.target.closest?.('.workorders-listview-item');
+    if (!item) return;
+    e.stopPropagation();
+    const filterId = item.getAttribute('data-filter') || 'recent';
+    selectedFilter = filterId;
+    applyFilter(filterId);
+    setMenuOpen(false);
+  });
+
+  document.addEventListener('click', (e) => {
+    // Only close when clicking outside the header/menu.
+    const within = menu.contains(e.target) || btn.contains(e.target);
+    if (!within) setMenuOpen(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    setMenuOpen(false);
+  });
+
+  searchInput?.addEventListener('input', () => {
+    const q = (searchInput.value || '').trim().toLowerCase();
+    items.forEach((it) => {
+      const text = it.textContent.trim().toLowerCase();
+      it.style.display = text.includes(q) ? '' : 'none';
+    });
   });
 }
 
@@ -84,7 +180,6 @@ function exposeGlobalsForOnclick() {
     showContactDetail,
     objMeta,
     setAccountDetailTab,
-    setContactDetailTab,
     setCaseRightTab,
     setWorkOrderTab,
     assignCaseToMe,
@@ -101,6 +196,15 @@ function exposeGlobalsForOnclick() {
     cancelNewAccount,
     onAccountRecordTypeChange,
     saveNewAccount,
+    closeNewWorkOrderModal,
+    saveNewWorkOrder,
+    openWorkOrderEditMode,
+    cancelWorkOrderEditMode,
+    saveWorkOrderEdits,
+    nwoContinueFromType,
+    nwoBackToType,
+    nwoApptMoveRight,
+    nwoApptMoveLeft,
   });
 }
 

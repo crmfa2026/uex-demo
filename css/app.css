@@ -829,6 +829,119 @@ body.contact-detail-context.has-child-worktabs .content-area {
   position: sticky;
   bottom: 0;
 }
+.modal.modal--nwo {
+  width: min(1100px, calc(100vw - 24px));
+  max-height: calc(100vh - 48px);
+}
+.nwo-type-panel {
+  padding: 8px 0 4px;
+}
+.nwo-type-hint {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: var(--text-3);
+}
+.nwo-radio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-1);
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+.nwo-radio-row input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--sf-blue);
+}
+.nwo-type-actions {
+  margin-top: 20px;
+}
+.nwo-form-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.btn-linkish {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sf-blue);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.btn-linkish:hover {
+  color: var(--text-1);
+}
+.ff-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--text-4);
+  font-size: 9px;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--text-4);
+  line-height: 1;
+}
+.nwo-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text-2);
+  cursor: pointer;
+}
+.nwo-check input {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--sf-blue);
+}
+.nwo-check-spacer {
+  min-height: 32px;
+  border: none;
+  background: transparent;
+}
+.nwo-dual-list {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+}
+.nwo-dual-list select {
+  flex: 1;
+  min-height: 120px;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  padding: 6px;
+  background: var(--surface);
+}
+.nwo-dual-list-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+.nwo-subsec-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-2);
+  margin: 10px 0 6px;
+}
+.nwo-datetime-row {
+  grid-template-columns: 1fr 1fr;
+}
 .form-legend { font-size: 11px; color: var(--text-4); margin-bottom: 10px; }
 .section-shade {
   padding: 10px 12px;
@@ -866,6 +979,75 @@ body.contact-detail-context.has-child-worktabs .content-area {
   padding: 1px 8px;
 }
 .list-actions { display: flex; gap: 6px; align-items: center; }
+
+.workorders-listview-wrap { position: relative; display: inline-flex; }
+.workorders-listview-btn {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  font-size: 12px;
+  color: var(--text-2);
+  font-weight: 700;
+  font-family: var(--font);
+}
+.workorders-listview-btn:hover { border-color: var(--text-4); }
+.workorders-listview-chevron { width: 12px; height: 12px; color: var(--text-3); flex-shrink: 0; }
+
+.workorders-listview-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 240px;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  z-index: 1200;
+  padding: 6px 0;
+}
+.workorders-listview-search {
+  margin: 0 12px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.workorders-listview-search svg { width: 14px; height: 14px; color: var(--text-4); flex-shrink: 0; }
+.workorders-listview-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 12px;
+  color: var(--text-1);
+}
+.workorders-listview-search input::placeholder { color: var(--text-4); }
+
+.workorders-listview-group-title {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--text-3);
+}
+.workorders-listview-item {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text-2);
+  cursor: pointer;
+  user-select: none;
+}
+.workorders-listview-item:hover { background: var(--bg); }
 
 .search-bar {
   display: flex;
@@ -1211,6 +1393,23 @@ body.contact-detail-context.has-child-worktabs .content-area {
 .section-card-title { font-size: 13px; font-weight: 700; color: var(--text-2); display: flex; align-items: center; gap: 6px; }
 .section-card-title svg { width: 14px; height: 14px; }
 .section-card-body { padding: 1rem; }
+
+/* Work Order inline edit helpers */
+.wo-edit-sticky-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.wo-row-edit-btn {
+  flex: 0 0 auto;
+}
 
 /* Detail fields grid */
 .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .625rem 1.25rem; }

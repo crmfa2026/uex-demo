@@ -9,7 +9,7 @@
       </div>
       <div class="record-actions">
         <button class="btn btn-neutral btn-sm">Follow</button>
-        <button class="btn btn-neutral btn-sm">Edit</button>
+        <button class="btn btn-neutral btn-sm" type="button" onclick="openWorkOrderEditMode()">Edit</button>
         <button class="btn btn-brand btn-sm">Create Service Report</button>
       </div>
     </div>
@@ -33,7 +33,7 @@
 
   <!-- DETAILS tab -->
   <div id="wo-tab-details">
-    <div class="detail-body">
+    <div id="wo-details-readonly" class="detail-body">
       <div class="detail-main">
         <div class="section-card js-collapsible">
           <div class="section-card-header">
@@ -41,6 +41,7 @@
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h10M3 10h6"/></svg>
               Cost (Rate, Discount), Date, Frequency
             </div>
+            <button class="btn btn-neutral btn-sm wo-row-edit-btn" type="button" onclick="event.stopPropagation(); openWorkOrderEditMode()">Edit</button>
           </div>
           <div class="section-card-body">
             <div class="fields-grid">
@@ -65,6 +66,7 @@
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2h8a1 1 0 011 1v9l-3 3H4a1 1 0 01-1-1V3a1 1 0 011-1z"/></svg>
               Cancellation
             </div>
+            <button class="btn btn-neutral btn-sm wo-row-edit-btn" type="button" onclick="event.stopPropagation(); openWorkOrderEditMode()">Edit</button>
           </div>
           <div class="section-card-body">
             <div class="fields-grid">
@@ -83,6 +85,7 @@
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12V6l6-4 6 4v6l-6 4-6-4z"/></svg>
               Property
             </div>
+            <button class="btn btn-neutral btn-sm wo-row-edit-btn" type="button" onclick="event.stopPropagation(); openWorkOrderEditMode()">Edit</button>
           </div>
           <div class="section-card-body">
             <div class="fields-grid">
@@ -103,6 +106,7 @@
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h10M2 9h12M3 12h10"/></svg>
               Access, Parking, Garbage
             </div>
+            <button class="btn btn-neutral btn-sm wo-row-edit-btn" type="button" onclick="event.stopPropagation(); openWorkOrderEditMode()">Edit</button>
           </div>
           <div class="section-card-body">
             <div class="fields-grid">
@@ -122,6 +126,7 @@
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2h8a1 1 0 011 1v9l-3 3H4a1 1 0 01-1-1V3a1 1 0 011-1z"/></svg>
               Notes to Cleaning Team
             </div>
+            <button class="btn btn-neutral btn-sm wo-row-edit-btn" type="button" onclick="event.stopPropagation(); openWorkOrderEditMode()">Edit</button>
           </div>
           <div class="section-card-body">
             <div class="fields-grid">
@@ -147,11 +152,12 @@ Vacuum correctly and wash floors; move chairs to clean around them.
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12v10H2z"/><path d="M4 6h8M4 9h6"/></svg>
               Checklist &amp; Add-ons
             </div>
+            <button class="btn btn-neutral btn-sm wo-row-edit-btn" type="button" onclick="event.stopPropagation(); openWorkOrderEditMode()">Edit</button>
           </div>
           <div class="section-card-body">
             <div class="fields-grid">
               <div class="detail-field"><div class="df-label">Cleaning checklist</div><div class="df-value" id="wo-d-checklist">Complete Home Cleaning</div></div>
-              <div class="detail-field"><div class="df-label">Checklist link</div><div class="df-value link">drive.google.com/…</div></div>
+              <div class="detail-field"><div class="df-label">Checklist link</div><div class="df-value link" id="wo-d-checklist-link">drive.google.com/…</div></div>
               <div class="detail-field"><div class="df-label">Regular add-ons</div><div class="df-value muted">—</div></div>
               <div class="detail-field"><div class="df-label">Product</div><div class="df-value" id="wo-d-product">—</div></div>
             </div>
@@ -173,6 +179,13 @@ Vacuum correctly and wash floors; move chairs to clean around them.
             <div style="margin-top:10px;color:var(--text-4);font-size:12px">Feed items (prototype)</div>
           </div>
         </div>
+      </div>
+    </div>
+    <div id="wo-details-edit" style="display:none">
+      <div id="wo-edit-form-host"></div>
+      <div class="wo-edit-sticky-footer">
+        <button class="btn btn-neutral" type="button" onclick="cancelWorkOrderEditMode()">Cancel</button>
+        <button class="btn btn-brand" type="button" onclick="saveWorkOrderEdits()">Save</button>
       </div>
     </div>
   </div>

@@ -1,6 +1,48 @@
 <div class="content-area page" id="page-workorders">
-  <div class="list-header">
-    <div class="list-title">Recently Viewed <span class="list-count">8</span></div>
+  <div class="list-header li t-header">
+    <div class="list-title li t-title">
+      <div class="workorders-listview-wrap">
+        <button
+          type="button"
+          class="workorders-listview-btn"
+          id="workorders-listview-btn"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-controls="workorders-listview-menu"
+        >
+          <span class="workorders-listview-label" id="workorders-listview-label">Recently Viewed</span>
+          <span class="list-count" id="workorders-listview-count">8</span>
+          <svg class="workorders-listview-chevron" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+            <path d="M2.5 4.5L6 8l3.5-3.5" />
+          </svg>
+        </button>
+
+        <div
+          class="workorders-listview-menu"
+          id="workorders-listview-menu"
+          role="listbox"
+          aria-hidden="true"
+          hidden
+        >
+          <div class="workorders-listview-search">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="7" cy="7" r="4" />
+              <path d="M10.5 10.5l3 3" />
+            </svg>
+            <input type="search" id="workorders-listview-search-input" placeholder="Search lists..." />
+          </div>
+
+          <div class="workorders-listview-group-title">Recently Viewed (Pinned list)</div>
+          <div class="workorders-listview-item" role="option" data-filter="recent">Recently Viewed Work Orders</div>
+
+          <div class="workorders-listview-group-title">All Other Lists</div>
+          <div class="workorders-listview-item" role="option" data-filter="all">All Work Orders</div>
+          <div class="workorders-listview-item" role="option" data-filter="Calgary">Calgary</div>
+          <div class="workorders-listview-item" role="option" data-filter="Toronto">Toronto</div>
+          <div class="workorders-listview-item" role="option" data-filter="Vancouver">Vancouver</div>
+        </div>
+      </div>
+    </div>
     <div class="list-actions">
       <button class="btn btn-brand btn-sm" type="button" onclick="openNewWorkOrder()">New</button>
     </div>
@@ -29,7 +71,51 @@
         </tr>
       </thead>
       <tbody>
-        <tr onclick="openWorkOrderInTab('WO-00965084')">
+        <tr
+          onclick="openWorkOrderInTab('WO-00941877')"
+          data-is-recently-viewed="1"
+          data-city="Calgary"
+        >
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">00941877</td>
+          <td class="link-cell" style="color:var(--text-3)">—</td>
+          <td class="link-cell">Northline Utilities</td>
+          <td>Low</td>
+          <td><span class="badge badge-case-pend">Canceled</span></td>
+          <td></td>
+        </tr>
+        <tr
+          onclick="openWorkOrderInTab('WO-00941877')"
+          data-is-recently-viewed="1"
+          data-city="Calgary"
+        >
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">00941877</td>
+          <td class="link-cell" style="color:var(--text-3)">—</td>
+          <td class="link-cell">Northline Utilities</td>
+          <td>Low</td>
+          <td><span class="badge badge-case-pend">Canceled</span></td>
+          <td></td>
+        </tr>
+        <tr
+          onclick="openWorkOrderInTab('WO-00941877')"
+          data-is-recently-viewed="1"
+          data-city="Calgary"
+        >
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">00941877</td>
+          <td class="link-cell" style="color:var(--text-3)">—</td>
+          <td class="link-cell">Northline Utilities</td>
+          <td>Low</td>
+          <td><span class="badge badge-case-pend">Canceled</span></td>
+          <td></td>
+        </tr>
+
+        <tr
+          onclick="openWorkOrderInTab('WO-00965084')"
+          data-is-recently-viewed="1"
+          data-city="Toronto"
+        >
           <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
           <td class="link-cell">00965084</td>
           <td style="color:var(--text-3)">—</td>
@@ -38,16 +124,51 @@
           <td><span class="badge badge-case-res">Completed</span></td>
           <td></td>
         </tr>
-        <tr onclick="openWorkOrderInTab('WO-00941877')">
+        <tr
+          onclick="openWorkOrderInTab('WO-00965084')"
+          data-is-recently-viewed="1"
+          data-city="Toronto"
+        >
           <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
-          <td class="link-cell">00941877</td>
-          <td class="link-cell">Recurring Maintenance Visit</td>
-          <td class="link-cell">Northline Utilities</td>
+          <td class="link-cell">00965084</td>
+          <td style="color:var(--text-3)">—</td>
+          <td class="link-cell">Orbit Facility Group</td>
           <td>Low</td>
-          <td><span class="badge badge-case-pend">Canceled</span></td>
+          <td><span class="badge badge-case-res">Completed</span></td>
           <td></td>
         </tr>
-        <tr onclick="openWorkOrderInTab('WO-00980528')">
+        <tr
+          onclick="openWorkOrderInTab('WO-00965084')"
+          data-is-recently-viewed="1"
+          data-city="Toronto"
+        >
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">00965084</td>
+          <td style="color:var(--text-3)">—</td>
+          <td class="link-cell">Orbit Facility Group</td>
+          <td>Low</td>
+          <td><span class="badge badge-case-res">Completed</span></td>
+          <td></td>
+        </tr>
+
+        <tr
+          onclick="openWorkOrderInTab('WO-00980528')"
+          data-is-recently-viewed="1"
+          data-city="Vancouver"
+        >
+          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
+          <td class="link-cell">00980528</td>
+          <td class="link-cell">Maintenance Window: February 12, 2026</td>
+          <td class="link-cell">Sentinel Ops Group</td>
+          <td>Low</td>
+          <td><span class="badge badge-case-res">Completed</span></td>
+          <td></td>
+        </tr>
+        <tr
+          onclick="openWorkOrderInTab('WO-00980528')"
+          data-is-recently-viewed="1"
+          data-city="Vancouver"
+        >
           <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
           <td class="link-cell">00980528</td>
           <td class="link-cell">Maintenance Window: February 12, 2026</td>
