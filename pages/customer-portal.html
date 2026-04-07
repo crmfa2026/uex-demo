@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Portal</title>
+  <link rel="stylesheet" href="../css/app.css" />
+  <link rel="stylesheet" href="../css/customer-portal.css" />
+</head>
+<body class="cp">
+  <div class="cp-topbar">
+    <div class="cp-topbar-inner">
+      <div class="cp-brand" aria-label="AspenClean">
+        <div class="cp-brand-name slds-global-header__logo nav-logo-mark">
+          <span class="slds-assistive-text">AspenClean</span>
+        </div>
+      </div>
+
+      <nav class="cp-nav" aria-label="Primary">
+        <a href="#" class="cp-nav-link">Shop by Type</a>
+        <a href="#" class="cp-nav-link">Shop by Need</a>
+        <a href="#" class="cp-nav-link">About us</a>
+        <a href="#" class="cp-nav-link">Cleaning Services</a>
+      </nav>
+
+      <div class="cp-topbar-actions" aria-label="Actions">
+        <button type="button" class="cp-icon-btn" aria-label="Search" title="Search">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+        </button>
+        <button type="button" class="cp-icon-btn" aria-label="Account" title="Account">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+        </button>
+        <button type="button" class="cp-icon-btn" aria-label="Cart" title="Cart">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 3h2l1.2 8h7.6l1.2-6H5"/><path d="M6 13a1 1 0 100 2 1 1 0 000-2zM12 13a1 1 0 100 2 1 1 0 000-2z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="cp-promo">
+      <div class="cp-promo-inner">
+        <div class="cp-promo-pill">Save up to 15% with Regular Schedule</div>
+        <div class="cp-promo-phone">+1-855-925-9900</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="cp-main">
+    <header class="cp-hero">
+      <h1 class="cp-title">Get a Quote &amp; Book</h1>
+
+      <div class="cp-steps" role="tablist" aria-label="Quote steps">
+        <button type="button" class="cp-step is-active" role="tab" aria-selected="true" aria-controls="cp-panel-cleaning" id="cp-tab-cleaning">
+          Cleaning details
+        </button>
+        <button type="button" class="cp-step" role="tab" aria-selected="false" aria-controls="cp-panel-booking" id="cp-tab-booking">
+          Booking details
+        </button>
+      </div>
+    </header>
+
+    <section class="cp-shell">
+      <div class="cp-grid">
+        <div class="cp-left">
+          <div class="cp-panel is-active" id="cp-panel-cleaning" role="tabpanel" aria-labelledby="cp-tab-cleaning">
+            <section class="cp-card">
+              <div class="cp-card-h"><div class="cp-card-title">Property</div></div>
+              <div class="cp-card-b">
+                <div class="cp-prop-grid">
+                  <div class="cp-prop-box">
+                    <div class="cp-prop-row">
+                      <div class="cp-prop-item"><div class="cp-prop-num">1</div><div class="cp-prop-lbl">Bedrooms</div></div>
+                      <div class="cp-prop-item"><div class="cp-prop-num">1</div><div class="cp-prop-lbl">Bathrooms</div></div>
+                    </div>
+                    <div class="cp-prop-row">
+                      <div class="cp-prop-item"><div class="cp-prop-num">1</div><div class="cp-prop-lbl">Kitchens</div></div>
+                      <div class="cp-prop-item"><div class="cp-prop-num">0</div><div class="cp-prop-lbl">Extra Rooms</div></div>
+                    </div>
+                  </div>
+
+                  <div class="cp-prop-sliders">
+                    <div class="cp-slider">
+                      <div class="cp-slider-top"><div class="cp-slider-val">801-1000</div></div>
+                      <input type="range" min="0" max="4" value="2" aria-label="Size (sq.ft.)" />
+                      <div class="cp-slider-lbl">Size (sq.ft.)</div>
+                    </div>
+                    <div class="cp-slider">
+                      <div class="cp-slider-top"><div class="cp-slider-val">2</div></div>
+                      <input type="range" min="0" max="4" value="2" aria-label="Levels" />
+                      <div class="cp-slider-lbl">Levels</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cp-form-row">
+                  <div class="cp-form-field">
+                    <div class="cp-form-label">Hard surface floors in bedrooms</div>
+                    <div class="cp-toggle" role="group" aria-label="Hard surface floors in bedrooms">
+                      <button type="button" class="cp-toggle-btn is-active">YES</button>
+                      <button type="button" class="cp-toggle-btn">NO</button>
+                    </div>
+                  </div>
+                  <div class="cp-form-field">
+                    <div class="cp-form-label">Pets</div>
+                    <div class="cp-toggle" role="group" aria-label="Pets">
+                      <button type="button" class="cp-toggle-btn is-active">YES</button>
+                      <button type="button" class="cp-toggle-btn">NO</button>
+                    </div>
+                    <input class="cp-input" value="Tiger" aria-label="Pet name" />
+                  </div>
+                </div>
+
+                <div class="cp-form-field">
+                  <div class="cp-form-label">Property Notes</div>
+                  <input class="cp-input" value="Don't come on weekends" aria-label="Property notes" />
+                  <div class="cp-help">Characters left: 300</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="cp-card">
+              <div class="cp-card-h"><div class="cp-card-title">Disinfection Service</div></div>
+              <div class="cp-card-b cp-inline">
+                <div class="cp-inline-ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3h6v2l2 2v3H7V7l2-2V3z"/><path d="M8 10h8v10a2 2 0 01-2 2h-4a2 2 0 01-2-2V10z"/><path d="M10 14h4"/></svg>
+                </div>
+                <div class="cp-inline-text">Add Disinfection Service to your cleaning appointment</div>
+                <label class="cp-check">
+                  <input type="checkbox" checked />
+                  <span>Added</span>
+                </label>
+              </div>
+            </section>
+
+            <section class="cp-card">
+              <div class="cp-card-h">
+                <div class="cp-card-title cp-card-title--with-help">
+                  Add-ons
+                  <button type="button" class="cp-help-dot" aria-label="About add-ons" title="About add-ons">?</button>
+                </div>
+              </div>
+              <div class="cp-card-b">
+                <div class="cp-addon-grid">
+                  <button class="cp-addon" type="button"><div class="cp-addon-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16v12H4z"/><path d="M7 8V4h10v4"/><path d="M8 14h8"/></svg></div><div class="cp-addon-name">Oven Inside</div></button>
+                  <button class="cp-addon is-selected" type="button"><div class="cp-addon-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 3h10v18H7z"/><path d="M9 6h6"/><path d="M9 9h6"/></svg></div><div class="cp-addon-name">Fridge Inside</div></button>
+                  <button class="cp-addon" type="button"><div class="cp-addon-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 5v14M16 5v14"/></svg></div><div class="cp-addon-name">Windows Inside</div></button>
+                  <button class="cp-addon" type="button"><div class="cp-addon-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h16"/><path d="M6 9V5h12v4"/><path d="M6 9v10h12V9"/></svg></div><div class="cp-addon-name">Cabinets &amp; Closets Inside</div></button>
+                  <button class="cp-addon" type="button"><div class="cp-addon-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v12"/><path d="M7 9h10"/><path d="M9 15l-2 6h10l-2-6"/></svg></div><div class="cp-addon-name">Walls Washed</div></button>
+                  <button class="cp-addon" type="button"><div class="cp-addon-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 20h12"/><path d="M7 20V8h10v12"/><path d="M9 8V5h6v3"/></svg></div><div class="cp-addon-name">Balconies Swept</div></button>
+                </div>
+              </div>
+            </section>
+
+            <section class="cp-card">
+              <div class="cp-card-h"><div class="cp-card-title">Cleaning notes</div></div>
+              <div class="cp-card-b">
+                <input class="cp-input" placeholder="Special notes for the cleaning team" aria-label="Cleaning notes" />
+                <div class="cp-help">Characters left: 1000</div>
+                <div class="cp-actions">
+                  <button type="button" class="cp-cta" id="cp-continue-booking">CONTINUE WITH BOOKING</button>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="cp-panel" id="cp-panel-booking" role="tabpanel" aria-labelledby="cp-tab-booking">
+            <section class="cp-card">
+              <div class="cp-card-h cp-card-h--section">
+                <div class="cp-card-title cp-card-title--with-help">
+                  <button type="button" class="cp-help-dot" aria-label="About arrival time" title="About arrival time">?</button>
+                  Arrival time
+                </div>
+                <button type="button" class="cp-card-chevron" aria-label="Collapse Arrival time" title="Collapse">
+                  <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+                </button>
+              </div>
+              <div class="cp-card-b">
+                <section class="cp-schedule">
+                  <div class="cp-schedule-head">
+                    <div class="cp-schedule-title">Schedule</div>
+                    <div class="cp-schedule-mid">
+                      <button class="cp-cal-nav" type="button" aria-label="Previous month">‹</button>
+                      <div class="cp-schedule-month">April 2026</div>
+                      <button class="cp-cal-nav" type="button" aria-label="Next month">›</button>
+                    </div>
+                    <div class="cp-schedule-note">Rates are lower Monday-Friday</div>
+                  </div>
+
+                  <div class="cp-schedule-body">
+                    <div class="cp-cal">
+                      <div class="cp-cal-subtitle">Initial appointment</div>
+                      <div class="cp-cal-grid" role="grid" aria-label="Calendar">
+                        <div class="cp-cal-dow">SUN</div><div class="cp-cal-dow">MON</div><div class="cp-cal-dow">TUE</div><div class="cp-cal-dow">WED</div><div class="cp-cal-dow">THU</div><div class="cp-cal-dow">FRI</div><div class="cp-cal-dow">SAT</div>
+
+                        <div class="cp-cal-spacer"></div><div class="cp-cal-spacer"></div><div class="cp-cal-spacer"></div>
+                        <div class="cp-cal-day">1</div><div class="cp-cal-day">2</div><div class="cp-cal-day is-muted">3</div><div class="cp-cal-day">4</div>
+
+                        <div class="cp-cal-day">5</div><div class="cp-cal-day">6</div><div class="cp-cal-day">7</div><button class="cp-cal-day is-ring" type="button">8</button><button class="cp-cal-day is-ring" type="button">9</button><button class="cp-cal-day is-ring" type="button">10</button><button class="cp-cal-day is-ring" type="button">11</button>
+                        <button class="cp-cal-day is-ring" type="button">12</button><button class="cp-cal-day is-ring" type="button">13</button><button class="cp-cal-day is-ring" type="button">14</button><button class="cp-cal-day is-ring" type="button">15</button><button class="cp-cal-day is-ring" type="button">16</button><button class="cp-cal-day is-ring" type="button">17</button><button class="cp-cal-day is-ring" type="button">18</button>
+                        <button class="cp-cal-day is-ring" type="button">19</button><button class="cp-cal-day is-ring" type="button">20</button><button class="cp-cal-day is-ring" type="button">21</button><button class="cp-cal-day is-ring" type="button">22</button><button class="cp-cal-day is-ring" type="button">23</button><button class="cp-cal-day is-ring" type="button">24</button><button class="cp-cal-day is-ring" type="button">25</button>
+                        <button class="cp-cal-day is-ring" type="button">26</button><button class="cp-cal-day is-ring" type="button">27</button><button class="cp-cal-day is-ring" type="button">28</button><button class="cp-cal-day is-ring" type="button">29</button><button class="cp-cal-day is-ring" type="button">30</button><button class="cp-cal-day is-ring" type="button">1</button><button class="cp-cal-day is-ring" type="button">2</button>
+                      </div>
+                    </div>
+
+                    <div class="cp-timepref">
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Select time preference</div>
+                        <select class="cp-select" aria-label="Select time preference">
+                          <option selected>Flexible: 8am-4pm</option>
+                          <option>Morning</option>
+                          <option>Afternoon</option>
+                        </select>
+                      </div>
+
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">&nbsp;</div>
+                        <label class="cp-radio"><input type="radio" name="cp-avail" checked /> Available</label>
+                        <label class="cp-radio"><input type="radio" name="cp-avail" /> Book Freely</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="cp-weekly">
+                    <div class="cp-weekly-title">Weekly appointments</div>
+                    <div class="cp-weekly-grid">
+                      <div class="cp-weekly-label">Select day and time preference</div>
+                      <select class="cp-select" aria-label="Weekly day">
+                        <option selected>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                      </select>
+                      <select class="cp-select" aria-label="Weekly time preference">
+                        <option selected>Flexible: 8am-4pm</option>
+                        <option>Morning</option>
+                        <option>Afternoon</option>
+                      </select>
+
+                      <div class="cp-weekly-label">Preferred start date</div>
+                      <div class="cp-date">
+                        <input class="cp-input" placeholder="" aria-label="Preferred start date" />
+                        <div class="cp-date-ico" aria-hidden="true">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M5 1v4M11 1v4M2 6h12"/></svg>
+                        </div>
+                      </div>
+                      <div></div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+            <section class="cp-card">
+              <div class="cp-card-b">
+                <div class="cp-form-section">
+                  <div class="cp-h2">Service Address</div>
+                  <div class="cp-grid-2">
+                    <div class="cp-form-field">
+                      <div class="cp-form-label">Street Address</div>
+                      <input class="cp-input" value="Random" aria-label="Street Address" />
+                    </div>
+                    <div class="cp-form-field">
+                      <div class="cp-form-label">Apartment</div>
+                      <input class="cp-input" value="123" aria-label="Apartment" />
+                    </div>
+                    <div class="cp-form-field">
+                      <div class="cp-form-label">City</div>
+                      <input class="cp-input" value="Van" aria-label="City" />
+                    </div>
+                    <div class="cp-form-field">
+                      <div class="cp-form-label">Province / State</div>
+                      <select class="cp-select" aria-label="Province / State">
+                        <option selected>British Columbia</option>
+                      </select>
+                    </div>
+                    <div class="cp-form-field">
+                      <div class="cp-form-label">Postal Code</div>
+                      <input class="cp-input cp-input--filled" value="V6B2Z3" aria-label="Postal Code" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cp-form-section">
+                  <div class="cp-h2">Contact</div>
+                  <div class="cp-grid-2">
+                    <div class="cp-form-field">
+                      <div class="cp-form-label">First Name</div>
+                      <input class="cp-input" value="Tom" aria-label="First Name" />
+                    </div>
+                    <div class="cp-form-field">
+                      <div class="cp-form-label">Last Name</div>
+                      <input class="cp-input" value="Hanks" aria-label="Last Name" />
+                    </div>
+                    <div class="cp-form-field">
+                      <div class="cp-form-label">Mobile Phone</div>
+                      <input class="cp-input" aria-label="Mobile Phone" />
+                    </div>
+                    <div class="cp-form-field">
+                      <div class="cp-form-label">Email Address</div>
+                      <input class="cp-input cp-input--filled" value="ashishgslseth@gmail.com" aria-label="Email Address" />
+                    </div>
+                  </div>
+                  <button type="button" class="cp-link">Add phone number</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="cp-card">
+              <div class="cp-card-b">
+                <div class="cp-h2">Access</div>
+
+                <div class="cp-access-cols">
+                  <div class="cp-access-col">
+                    <div class="cp-access-kicker">Initial cleaning</div>
+                    <div class="cp-grid-2 cp-grid-2--access">
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Home access</div>
+                        <select class="cp-select" aria-label="Initial cleaning home access">
+                          <option selected>I will be home</option>
+                        </select>
+                      </div>
+                      <div class="cp-form-field" style="grid-column: 1 / -1">
+                        <div class="cp-form-label">Access details</div>
+                        <input class="cp-input" placeholder="Code, buzzer #, key location, etc" aria-label="Initial cleaning access details" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Alarm code</div>
+                        <input class="cp-input" aria-label="Initial cleaning alarm code" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Garage code</div>
+                        <input class="cp-input" aria-label="Initial cleaning garage code" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Garbage disposal</div>
+                        <select class="cp-select" aria-label="Initial cleaning garbage disposal">
+                          <option selected>(select option)</option>
+                        </select>
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Parking</div>
+                        <select class="cp-select" aria-label="Initial cleaning parking">
+                          <option selected>(select option)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="cp-access-col">
+                    <div class="cp-access-row">
+                      <div class="cp-access-kicker">Weekly cleaning</div>
+                      <label class="cp-check cp-check--inline">
+                        <input type="checkbox" />
+                        <span>Use initial cleaning access details</span>
+                      </label>
+                    </div>
+
+                    <div class="cp-grid-2 cp-grid-2--access">
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Home access</div>
+                        <select class="cp-select" aria-label="Weekly cleaning home access">
+                          <option selected>Please select an option</option>
+                        </select>
+                      </div>
+                      <div class="cp-form-field" style="grid-column: 1 / -1">
+                        <div class="cp-form-label">Access details</div>
+                        <input class="cp-input" placeholder="Code, buzzer #, key location, etc" aria-label="Weekly cleaning access details" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Alarm code</div>
+                        <input class="cp-input" aria-label="Weekly cleaning alarm code" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Garage code</div>
+                        <input class="cp-input" aria-label="Weekly cleaning garage code" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="cp-card">
+              <div class="cp-card-b">
+                <div class="cp-h2">How did you hear about us?</div>
+                <select class="cp-select" aria-label="How did you hear about us">
+                  <option selected>(select option)</option>
+                  <option>Google</option>
+                  <option>Friend</option>
+                  <option>Instagram</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="cp-card">
+              <div class="cp-card-b cp-row-card">
+                <div class="cp-h2">Referral</div>
+                <button type="button" class="cp-row-chevron" aria-label="Expand Referral">
+                  <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+                </button>
+              </div>
+            </section>
+
+            <section class="cp-card">
+              <div class="cp-card-b cp-row-card">
+                <div class="cp-h2">Promo Code</div>
+                <button type="button" class="cp-row-chevron" aria-label="Expand Promo Code">
+                  <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+                </button>
+              </div>
+            </section>
+
+            <section class="cp-card">
+              <div class="cp-card-b">
+                <div class="cp-h2">New Account</div>
+                <div class="cp-grid-2">
+                  <div class="cp-form-field">
+                    <div class="cp-form-label">Please choose a password for your new account</div>
+                    <input class="cp-input" type="password" value="password" aria-label="Password" />
+                  </div>
+                  <div class="cp-form-field">
+                    <div class="cp-form-label">Confirm password</div>
+                    <input class="cp-input" type="password" value="password" aria-label="Confirm password" />
+                  </div>
+                </div>
+
+                <div class="cp-pass-req">
+                  <div class="cp-pass-ok">At least 8 characters long</div>
+                  <div class="cp-pass-ok">Includes at least 1 number</div>
+                  <div class="cp-pass-ok">Includes at least 1 uppercase letter</div>
+                  <div class="cp-pass-bad">Includes at least 1 special character (one of: !@#$%^&amp;*-=+)</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="cp-card">
+              <div class="cp-card-h cp-card-h--section">
+                <div class="cp-card-title cp-card-title--with-help">
+                  <button type="button" class="cp-help-dot" aria-label="About booking" title="About booking">?</button>
+                  Booking
+                </div>
+                <button type="button" class="cp-card-chevron" aria-label="Collapse Booking" title="Collapse">
+                  <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+                </button>
+              </div>
+              <div class="cp-card-b">
+                <div class="cp-pay-wrap">
+                  <div class="cp-pay-left">
+                    <div class="cp-h2" style="margin-top:0">Payment</div>
+                    <div class="cp-pay-help">
+                      Enter your credit card information below. You will be charged after the service has been completed.
+                      If you would like to pay with a check or cash please call our office at the time of your service.
+                    </div>
+
+                    <div class="cp-cardfield">
+                      <div class="cp-cardfield-ico" aria-hidden="true"></div>
+                      <input class="cp-cardfield-input" placeholder="Card number" aria-label="Card number" />
+                      <div class="cp-cardfield-chip" aria-hidden="true">
+                        <span class="cp-chip-pill">link</span>
+                        <span class="cp-chip-pill">VISA</span>
+                        <span class="cp-chip-pill cp-chip-last">5864</span>
+                      </div>
+                    </div>
+
+                    <div class="cp-h2 cp-h2--small">Billing Address</div>
+                    <div class="cp-bill-toggles">
+                      <label class="cp-check cp-check--inline"><input type="checkbox" /> <span>Business</span></label>
+                      <label class="cp-check cp-check--inline"><input type="checkbox" /> <span>Use service address</span></label>
+                    </div>
+
+                    <div class="cp-grid-2 cp-grid-2--billing">
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">First name</div>
+                        <input class="cp-input" aria-label="Billing first name" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Last name</div>
+                        <input class="cp-input" aria-label="Billing last name" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Street address</div>
+                        <input class="cp-input" aria-label="Billing street address" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Apt #</div>
+                        <input class="cp-input" aria-label="Billing apartment" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">City</div>
+                        <input class="cp-input" aria-label="Billing city" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Province / State</div>
+                        <select class="cp-select" aria-label="Billing province or state">
+                          <option selected>(select option)</option>
+                        </select>
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Postal code</div>
+                        <input class="cp-input" aria-label="Billing postal code" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Email</div>
+                        <input class="cp-input" aria-label="Billing email" />
+                      </div>
+                      <div class="cp-form-field">
+                        <div class="cp-form-label">Phone number</div>
+                        <input class="cp-input" aria-label="Billing phone number" />
+                      </div>
+                    </div>
+
+                    <label class="cp-terms">
+                      <input type="checkbox" />
+                      <span>I agree to AspenClean's <a href="#" class="cp-terms-link">Terms of Service</a></span>
+                    </label>
+
+                    <div class="cp-actions cp-actions--bottom">
+                      <button type="button" class="cp-cta">FINISH BOOKING</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <aside class="cp-right" aria-label="Estimate sidebar">
+          <div class="cp-estimate">
+            <div class="cp-est-h">Estimate</div>
+            <div class="cp-est-k">
+              <div>1 Bedroom, 1 Bathroom</div>
+              <div>1 Kitchen, 2 Levels</div>
+            </div>
+
+            <div class="cp-est-sec">
+              <div class="cp-est-sec-title">Complete home <span class="cp-pill">Weekly</span></div>
+              <div class="cp-est-sec-sub">Pets, Hard surface floors in bedrooms</div>
+            </div>
+
+            <div class="cp-est-sec">
+              <div class="cp-est-sec-title">ADD-ONS</div>
+              <div class="cp-est-addons">
+                <div>Disinfection service All visits</div>
+                <div>Inside Fridge All visits</div>
+                <div>Laundry (Gold) (1 bed) Regular visits</div>
+              </div>
+            </div>
+
+            <div class="cp-est-price">
+              <div class="cp-est-line">
+                <div>
+                  <div class="cp-est-line-title">Initial Cleaning</div>
+                  <div class="cp-est-line-sub">1h 45m · Team of 3</div>
+                </div>
+                <div class="cp-est-line-val">$414.75</div>
+              </div>
+              <div class="cp-est-line">
+                <div>
+                  <div class="cp-est-line-title">Regular Cleaning</div>
+                  <div class="cp-est-line-sub">1h 15m · Team of 3</div>
+                </div>
+                <div class="cp-est-line-val">$258.75</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cp-helpbox">
+            <button type="button" class="cp-help-item" aria-expanded="false">Having Issues?</button>
+            <button type="button" class="cp-help-item" aria-expanded="false">Cleaning Time</button>
+            <button type="button" class="cp-help-item" aria-expanded="false">Arrival Time</button>
+            <button type="button" class="cp-help-item" aria-expanded="false">Booking</button>
+            <button type="button" class="cp-help-item" aria-expanded="false">FAQ</button>
+            <button type="button" class="cp-help-item" aria-expanded="false">Disinfection Services</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="../js/pages/customerPortal.js"></script>
+</body>
+</html>

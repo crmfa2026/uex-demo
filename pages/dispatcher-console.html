@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dispatcher Console</title>
+  <link rel="stylesheet" href="../css/app.css" />
+  <link rel="stylesheet" href="../css/dispatcher-console.css" />
+</head>
+<body class="dc">
+  <header class="dc-topbar" role="banner">
+    <div class="dc-topbar-inner">
+      <div class="dc-brand" aria-label="AspenClean">
+        <div class="slds-global-header__logo nav-logo-mark dc-brand-mark">
+          <span class="slds-assistive-text">AspenClean</span>
+        </div>
+        <div class="dc-brand-title">
+          <div class="dc-brand-app">Dispatcher Console</div>
+          <div class="dc-brand-sub">Field Service</div>
+        </div>
+      </div>
+
+      <div class="dc-search">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+        <input id="dc-search" type="search" placeholder="Search resources, appointments..." aria-label="Search resources, appointments" />
+      </div>
+
+      <div class="dc-actions" aria-label="Console actions">
+        <button type="button" class="btn btn-neutral dc-action" id="dc-today-btn">Today</button>
+        <div class="dc-range">
+          <button type="button" class="dc-range-btn" id="dc-prev" aria-label="Previous day">‹</button>
+          <div class="dc-range-label" id="dc-range-label">Mon, April 6, 2026</div>
+          <button type="button" class="dc-range-btn" id="dc-next" aria-label="Next day">›</button>
+        </div>
+        <button type="button" class="btn btn-neutral dc-action" id="dc-view-btn" aria-haspopup="menu" aria-expanded="false">
+          Daily
+          <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+        </button>
+        <div class="dc-view-menu" id="dc-view-menu" role="menu" hidden>
+          <button type="button" class="dc-view-item" role="menuitemradio" aria-checked="true" data-view="daily">Daily</button>
+          <button type="button" class="dc-view-item" role="menuitemradio" aria-checked="false" data-view="weekly">Weekly</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="dc-shell" role="main">
+    <div class="dc-grid">
+      <aside class="dc-left" aria-label="All Service Appointments">
+        <div class="dc-left-head">
+          <div class="dc-left-title">All Service Appointments</div>
+          <div class="dc-left-meta">1–75 of 2493</div>
+        </div>
+
+        <div class="dc-left-toolbar">
+          <div class="dc-left-filter">
+            <button type="button" class="dc-pill is-active">Today</button>
+            <button type="button" class="dc-pill">Horizon</button>
+          </div>
+          <label class="dc-check">
+            <input type="checkbox" checked />
+            <span>Match Gantt Dates</span>
+          </label>
+        </div>
+
+        <div class="dc-left-search">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+          <input type="search" id="dc-appointments-search" placeholder="Search Service Appointments..." aria-label="Search Service Appointments" />
+        </div>
+
+        <div class="dc-table-wrap" role="region" aria-label="Appointments list">
+          <table class="dc-table" aria-label="Appointments">
+            <thead>
+              <tr>
+                <th style="width:34%">Account</th>
+                <th style="width:18%">Status</th>
+                <th style="width:22%">Frequency</th>
+                <th style="width:26%">Zone</th>
+              </tr>
+            </thead>
+            <tbody id="dc-appt-tbody">
+              <tr data-account="Anne Marie Ren..." data-zone="DownT-E"><td>Anne Marie Ren…</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 4 weeks</td><td>DownT-E</td></tr>
+              <tr data-account="Avatar Uppal" data-zone="East"><td>Avatar Uppal</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Bi-weekly</td><td>East</td></tr>
+              <tr data-account="Sharon Sabey" data-zone="Springbank"><td>Sharon Sabey</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 4 weeks</td><td>Springbank</td></tr>
+              <tr data-account="Anna Rattray" data-zone="West(Van-SW)"><td>Anna Rattray</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 3 weeks</td><td>West(Van-SW)</td></tr>
+              <tr data-account="Helen Goodland" data-zone="UpperY(Van)"><td>Helen Goodland</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Bi-weekly</td><td>UpperY(Van)</td></tr>
+              <tr data-account="GenTI Luca" data-zone="Downtown"><td>GenTI Luca</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 6 weeks</td><td>Downtown</td></tr>
+              <tr data-account="Jennifer Webb" data-zone="WestVan"><td>Jennifer Webb</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 3 weeks</td><td>WestVan</td></tr>
+              <tr data-account="Shelley Gerston" data-zone="North York"><td>Shelley Gerston</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 4 weeks</td><td>North York</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </aside>
+
+      <section class="dc-right" aria-label="Gantt">
+        <div class="dc-right-tabs" role="tablist" aria-label="Console tabs">
+          <button type="button" class="dc-tab is-active" role="tab" aria-selected="true">Gantt</button>
+          <button type="button" class="dc-tab" role="tab" aria-selected="false">Map</button>
+        </div>
+
+        <div class="dc-gantt">
+          <div class="dc-gantt-head">
+            <div class="dc-gantt-head-left">
+              <div class="dc-gantt-title">Search resources</div>
+              <div class="dc-gantt-search">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+                <input id="dc-resources-search" placeholder="Search resources..." aria-label="Search resources" />
+              </div>
+            </div>
+            <div class="dc-gantt-head-right">
+              <div class="dc-zoom" aria-label="Zoom">
+                <button type="button" class="dc-zoom-btn is-active" data-zoom="1h">1h</button>
+                <button type="button" class="dc-zoom-btn" data-zoom="30m">30m</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="dc-gantt-body">
+            <div class="dc-resources" id="dc-resources">
+              <div class="dc-res-group">
+                <div class="dc-res-group-name">Calgary <span class="dc-util">Utilization: 59%</span></div>
+                <div class="dc-res-row" data-res="Calgary">Calgary</div>
+              </div>
+              <div class="dc-res-group">
+                <div class="dc-res-group-name">Toronto <span class="dc-util">Utilization: 44%</span></div>
+                <div class="dc-res-row" data-res="TorT1">TorT1</div>
+                <div class="dc-res-row" data-res="TorT2">TorT2</div>
+                <div class="dc-res-row" data-res="TorT3">TorT3</div>
+                <div class="dc-res-row" data-res="TorT4">TorT4</div>
+                <div class="dc-res-row" data-res="TorT5">TorT5</div>
+              </div>
+              <div class="dc-res-group">
+                <div class="dc-res-group-name">Vancouver <span class="dc-util">Utilization: 60%</span></div>
+                <div class="dc-res-row" data-res="VanT1">VanT1</div>
+                <div class="dc-res-row" data-res="VanT2">VanT2</div>
+              </div>
+            </div>
+
+            <div class="dc-timeline" role="region" aria-label="Timeline">
+              <div class="dc-time-scale" id="dc-time-scale" aria-hidden="true"></div>
+              <div class="dc-time-rows" id="dc-time-rows">
+                <div class="dc-time-row">
+                  <div class="dc-time-blocks">
+                    <div class="dc-job dc-job--warn" style="left:58%;width:10%"><span class="dc-job-ico">!</span></div>
+                    <div class="dc-job" style="left:70%;width:18%">A…</div>
+                  </div>
+                </div>
+                <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job" style="left:64%;width:14%">A…</div><div class="dc-job dc-job--warn" style="left:80%;width:10%"><span class="dc-job-ico">!</span></div></div></div>
+                <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job" style="left:60%;width:12%">A…</div><div class="dc-job" style="left:74%;width:10%">Henny H…</div></div></div>
+                <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job dc-job--warn" style="left:66%;width:12%"><span class="dc-job-ico">!</span></div><div class="dc-job" style="left:80%;width:10%">A…</div></div></div>
+                <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job" style="left:62%;width:16%">A…</div></div></div>
+                <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job" style="left:60%;width:12%">A…</div><div class="dc-job dc-job--warn" style="left:76%;width:12%"><span class="dc-job-ico">!</span></div></div></div>
+                <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job" style="left:66%;width:10%">A…</div></div></div>
+                <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job" style="left:60%;width:14%">A…</div><div class="dc-job" style="left:76%;width:10%">A…</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script type="module" src="../js/pages/dispatcherConsole.js"></script>
+</body>
+</html>
+

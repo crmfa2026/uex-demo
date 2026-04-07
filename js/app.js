@@ -49,6 +49,16 @@ import {
 } from './pages/forms.js';
 
 function wireStaticHandlers() {
+  document.getElementById('customer-portal-btn')?.addEventListener('click', () => {
+    const w = window.open('pages/customer-portal.html', '_blank');
+    if (w) w.opener = null;
+  });
+
+  document.getElementById('dispatcher-console-btn')?.addEventListener('click', () => {
+    const w = window.open('pages/dispatcher-console.html', '_blank');
+    if (w) w.opener = null;
+  });
+
   document.querySelectorAll('.nav-tab').forEach((tab) => {
     tab.addEventListener('click', function () {
       const label = this.textContent.trim().toLowerCase();

@@ -193,6 +193,9 @@ a:hover { text-decoration: underline; }
   flex: 1;
   min-width: 0;
   max-width: 920px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .global-search-field {
   display: flex;
@@ -204,6 +207,8 @@ a:hover { text-decoration: underline; }
   border: 2px solid var(--sf-blue);
   border-radius: var(--radius-md);
   cursor: text;
+  flex: 1;
+  min-width: 0;
 }
 .global-search-field:focus-within {
   border-color: var(--sf-blue);
@@ -226,6 +231,32 @@ a:hover { text-decoration: underline; }
 }
 .global-search-field input::placeholder {
   color: var(--text-4);
+}
+.customer-portal-btn {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  border-width: 2px;
+}
+.dispatcher-console-btn {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  border-width: 2px;
+}
+.customer-portal-btn:hover {
+  border-color: var(--text-4);
+}
+.dispatcher-console-btn:hover {
+  border-color: var(--text-4);
+}
+.customer-portal-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(1, 118, 211, 0.35);
+}
+.dispatcher-console-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(1, 118, 211, 0.35);
 }
 .global-search-bar.is-panel-open .global-search-strip {
   border-bottom-color: transparent;
