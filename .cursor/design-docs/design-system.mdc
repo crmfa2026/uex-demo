@@ -1,0 +1,189 @@
+# CRM Field Agent — Design System Rules
+# Place this file at: .cursor/rules/design-system.mdc
+# Cursor AI will automatically inject this context when generating UI code.
+
+## Design System Overview
+
+This project uses a **Salesforce FSL-equivalent design system** targeting zero friction for existing Salesforce users.
+All styling is done via:
+1. CSS custom properties defined in `src/styles/tokens.css`
+2. Tailwind utility classes extended in `tailwind.config.js` under the `sf-*` namespace
+3. Pre-built component classes in `src/styles/globals.css` under `@layer components`
+
+---
+
+## Critical Rules
+
+- **NEVER hardcode hex colors.** Always use `var(--sf-*)` CSS variables or `sf-*` Tailwind classes.
+- **NEVER use arbitrary Tailwind values** like `bg-[#4BCA81]`. Use `bg-sf-success` instead.
+- **ALWAYS use `font-sf` class** on top-level layout components to ensure SF font stack.
+- **Status colors are semantic** — use the named token, not the shade (e.g. `bg-sf-success-bg`, not `bg-green-100`).
+- **Spacing follows the 4px grid** — use `sf-*` spacing tokens, not arbitrary `p-3`, `m-5` etc.
+
+---
+
+## Token Quick Reference
+
+### Shell & Brand
+| Token | Tailwind Class | Use |
+|-------|---------------|-----|
+| `var(--sf-navy)` | `bg-sf-navy` | App header background |
+| `var(--sf-brand)` | `bg-sf-brand` / `text-sf-brand` | Primary buttons, links, active states |
+| `var(--sf-brand-light)` | `bg-sf-brand-light` | Selected rows, info highlight |
+| `var(--sf-bg-page)` | `bg-sf-bg-page` | Page background, Gantt grid |
+| `var(--sf-bg-surface)` | `bg-sf-bg-surface` | Cards, panels, list area |
+| `var(--sf-border)` | `border-sf-border` | All dividers |
+
+### Text
+| Token | Tailwind Class | Use |
+|-------|---------------|-----|
+| `var(--sf-text-primary)` | `text-sf-text-primary` | Main labels, record names |
+| `var(--sf-text-secondary)` | `text-sf-text-secondary` | Column headers, field labels |
+| `var(--sf-text-muted)` | `text-sf-text-muted` | Zone, frequency, hints |
+| `var(--sf-text-inverse)` | `text-sf-text-inverse` | Text on dark/navy backgrounds |
+
+### Status
+| State | Background | Text | Border |
+|-------|-----------|------|--------|
+| Success / Completed | `bg-sf-success-bg` | `text-sf-success-dark` | `border-sf-success` |
+| Warning | `bg-sf-warning-bg` | `text-[var(--sf-warning-text)]` | `border-sf-warning-strong` |
+| Error | `bg-sf-error-bg` | `text-[var(--sf-error-text)]` | `border-sf-error` |
+| Info / Selected | `bg-sf-info-bg` | `text-sf-navy` | `border-sf-info` |
+
+### Gantt Blocks
+| Block Type | Class |
+|------------|-------|
+| Scheduled appointment | `sf-gantt-block-scheduled` |
+| Travel / drive time | `sf-gantt-block-travel` |
+| Constraint violation | `sf-gantt-block-violation` |
+
+---
+
+## Pre-built Component Classes
+
+Use these in JSX `className` props directly:
+
+```jsx
+// Buttons
+<button className="sf-btn-primary">Schedule</button>
+<button className="sf-btn-secondary">Cancel</button>
+<button className="sf-btn-ghost">View Details</button>
+
+// Status badges
+<span className="sf-badge-success">Completed</span>
+<span className="sf-badge-warning">⚠ Warning</span>
+<span className="sf-badge-error">Overdue</span>
+<span className="sf-badge-info">Scheduled</span>
+
+// Form inputs
+<label className="sf-label">Account Name</label>
+<input className="sf-input" type="text" placeholder="Search..." />
+<select className="sf-select">...</select>
+
+// Data table
+<table className="sf-table">
+  <thead><tr><th>Account ID</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr>             {/* normal row */}
+    <tr className="selected">  {/* selected row — blue tint */}
+    <tr className="warning">   {/* warning row — amber tint */}
+  </tbody>
+</table>
+
+// Cards
+<div className="sf-card">
+  <div className="sf-card-header">Service Appointments</div>
+  <div className="sf-card-body">...</div>
+</div>
+
+// Avatar / Resource icon
+<span className="sf-avatar">CT</span>   {/* 32px */}
+<span className="sf-avatar-lg">CT</span> {/* 40px */}
+
+// Page shell
+<nav className="sf-topnav">...</nav>
+<div className="sf-subnav">
+  <button className="sf-subnav-tab active">Gantt</button>
+  <button className="sf-subnav-tab">Map</button>
+</div>
+```
+
+---
+
+## Typography Scale
+
+Always use `text-sf-*` classes, not default Tailwind text sizes:
+
+```
+text-sf-xs   → 11px  badges, timestamps
+text-sf-sm   → 12px  helper text, captions  
+text-sf-base → 13px  body text, table cells  ← DEFAULT
+text-sf-md   → 14px  secondary labels
+text-sf-lg   → 16px  section headers
+text-sf-xl   → 18px  page titles
+text-sf-2xl  → 22px  modal headings
+```
+
+---
+
+## Layout Heights
+
+Use named height tokens for consistent component sizing:
+```
+h-sf-input      → 32px  standard inputs
+h-sf-button     → 32px  buttons
+h-sf-topnav     → 48px  app header
+h-sf-subnav     → 44px  tab bar
+h-sf-row        → 36px  list rows
+h-sf-gantt-row  → 48px  Gantt resource rows
+```
+
+---
+
+## Spacing (4px grid)
+
+```
+p-sf-1 / m-sf-1  → 4px
+p-sf-2 / m-sf-2  → 8px
+p-sf-3 / m-sf-3  → 12px
+p-sf-4 / m-sf-4  → 16px
+p-sf-6 / m-sf-6  → 24px
+p-sf-8 / m-sf-8  → 32px
+```
+
+---
+
+## Utilization Pill Pattern
+
+```jsx
+function UtilPill({ pct }: { pct: number }) {
+  const cls = pct > 95 ? 'sf-util-pill-high'
+            : pct > 80 ? 'sf-util-pill-medium'
+            :             'sf-util-pill-low'
+  return <span className={cls}>Utilization: {pct}%</span>
+}
+```
+
+---
+
+## Don't Do This
+
+```jsx
+// ❌ Hardcoded colors
+<div style={{ background: '#4BCA81' }}>
+
+// ❌ Arbitrary Tailwind values  
+<div className="bg-[#0176D3] text-[13px]">
+
+// ❌ Default Tailwind colors for status
+<span className="bg-green-100 text-green-800">Completed</span>
+
+// ❌ Wrong font size token
+<p className="text-sm">  // use text-sf-base instead
+
+// ✅ Correct patterns
+<div style={{ background: 'var(--sf-gantt-appointment)' }}>
+<div className="bg-sf-brand text-sf-text-inverse">
+<span className="sf-badge-success">Completed</span>
+<p className="text-sf-base">
+```

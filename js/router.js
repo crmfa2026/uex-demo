@@ -1,6 +1,7 @@
 import { showToast } from './components/toast.js';
 
 export const objMeta = {
+  teams: { icon: 'team', label: 'Teams', views: ['Recently Viewed', 'All Teams', 'My Teams', 'Active This Week'], newLabel: 'New Team' },
   leads: { icon: 'person', label: 'Leads', views: ['All Leads', 'My Leads', 'Recently Viewed', 'New This Week'], newLabel: 'New Lead' },
   accounts: { icon: 'building', label: 'Accounts', views: ['All Accounts', 'My Accounts', 'Recently Viewed'], newLabel: 'New Account' },
   contacts: { icon: 'person', label: 'Contacts', views: ['All Contacts', 'My Contacts', 'Recently Viewed'], newLabel: 'New Contact' },

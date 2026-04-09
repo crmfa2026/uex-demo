@@ -1,5 +1,6 @@
 const ROUTES = [
   "leads",
+  "teams",
   "accounts",
   "contacts",
   "opportunities",

@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dispatcher Console</title>
   <link rel="stylesheet" href="../css/app.css" />
+  <link rel="stylesheet" href="../css/styles/tokens.css" />
+  <link rel="stylesheet" href="../css/styles/sf-components.css" />
   <link rel="stylesheet" href="../css/dispatcher-console.css" />
 </head>
 <body class="dc">
-  <header class="dc-topbar" role="banner">
+  <header class="dc-topbar sf-topnav" role="banner">
     <div class="dc-topbar-inner">
       <div class="dc-brand" aria-label="AspenClean">
         <div class="slds-global-header__logo nav-logo-mark dc-brand-mark">
@@ -26,13 +28,13 @@
       </div>
 
       <div class="dc-actions" aria-label="Console actions">
-        <button type="button" class="btn btn-neutral dc-action" id="dc-today-btn">Today</button>
+        <button type="button" class="sf-btn sf-btn-secondary dc-action" id="dc-today-btn">Today</button>
         <div class="dc-range">
           <button type="button" class="dc-range-btn" id="dc-prev" aria-label="Previous day">‹</button>
           <div class="dc-range-label" id="dc-range-label">Mon, April 6, 2026</div>
           <button type="button" class="dc-range-btn" id="dc-next" aria-label="Next day">›</button>
         </div>
-        <button type="button" class="btn btn-neutral dc-action" id="dc-view-btn" aria-haspopup="menu" aria-expanded="false">
+        <button type="button" class="sf-btn sf-btn-secondary dc-action" id="dc-view-btn" aria-haspopup="menu" aria-expanded="false">
           Daily
           <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
         </button>
@@ -48,54 +50,179 @@
     <div class="dc-grid">
       <aside class="dc-left" aria-label="All Service Appointments">
         <div class="dc-left-head">
-          <div class="dc-left-title">All Service Appointments</div>
-          <div class="dc-left-meta">1–75 of 2493</div>
+          <h2 class="dc-left-title" id="dc-left-heading">All Service Appointments</h2>
+          <div class="dc-left-head-actions" aria-label="Panel actions">
+            <button type="button" class="sf-btn sf-btn-secondary sf-btn-icon dc-icon-btn" aria-label="Expand or collapse">
+              <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+            </button>
+            <button type="button" class="sf-btn sf-btn-secondary sf-btn-icon dc-icon-btn" aria-label="Information">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 7v5M8 5h.01"/></svg>
+            </button>
+            <button type="button" class="sf-btn sf-btn-secondary sf-btn-icon dc-icon-btn" aria-label="Edit list">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M11 2l3 3-8 8H3v-3l8-8zM10 3l1 1"/></svg>
+            </button>
+          </div>
         </div>
 
-        <div class="dc-left-toolbar">
-          <div class="dc-left-filter">
-            <button type="button" class="dc-pill is-active">Today</button>
-            <button type="button" class="dc-pill">Horizon</button>
-          </div>
+        <div class="dc-left-horizon">
+          <button type="button" class="dc-horizon-clock" aria-haspopup="menu" aria-label="Horizon settings">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2.5 1.5"/></svg>
+            <svg class="dc-caret" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+          </button>
+          <label class="dc-horizon-date-label">
+            <span class="dc-horizon-label-text">Horizon:</span>
+            <span class="dc-date-field">
+              <input type="date" class="dc-date-input" value="2026-04-07" aria-label="Horizon date" />
+              <span class="dc-date-icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25"><rect x="2.5" y="3" width="11" height="11" rx="1"/><path d="M2.5 6.5h11M5.5 2v2.5M10.5 2v2.5"/></svg>
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <div class="dc-left-match">
           <label class="dc-check">
             <input type="checkbox" checked />
             <span>Match Gantt Dates</span>
           </label>
         </div>
 
-        <div class="dc-left-search">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
-          <input type="search" id="dc-appointments-search" placeholder="Search Service Appointments..." aria-label="Search Service Appointments" />
+        <div class="dc-left-actions">
+          <p class="dc-left-range-meta" aria-live="polite">1–75 of 2192 <span class="dc-left-selected">(0 selected)</span></p>
+          <div class="dc-left-action-btns">
+            <button type="button" class="sf-btn sf-btn-secondary dc-outline-btn">Schedule</button>
+            <div class="dc-split-btn">
+              <button type="button" class="sf-btn sf-btn-secondary dc-outline-btn dc-split-btn__main">Dispatch</button>
+              <button type="button" class="sf-btn sf-btn-secondary dc-outline-btn dc-split-btn__menu" aria-label="Dispatch options">
+                <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div class="dc-table-wrap" role="region" aria-label="Appointments list">
-          <table class="dc-table" aria-label="Appointments">
+        <div class="dc-left-search">
+          <input class="sf-input" type="search" id="dc-appointments-search" placeholder="Search Service Appointment..." aria-label="Search Service Appointment" />
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+        </div>
+
+        <div class="dc-table-wrap" role="region" aria-labelledby="dc-left-heading">
+          <table class="sf-table dc-table" aria-label="Appointments">
+            <colgroup>
+              <col class="dc-col-select" />
+              <col class="dc-col-account" />
+              <col class="dc-col-status" />
+              <col class="dc-col-freq" />
+              <col class="dc-col-zone" />
+              <col class="dc-col-team" />
+            </colgroup>
             <thead>
               <tr>
-                <th style="width:34%">Account</th>
-                <th style="width:18%">Status</th>
-                <th style="width:22%">Frequency</th>
-                <th style="width:26%">Zone</th>
+                <th class="dc-th-select" scope="col">
+                  <span class="dc-th-select-inner">
+                    <input type="checkbox" class="dc-th-checkbox" aria-label="Select all rows" />
+                    <button type="button" class="dc-th-caret" aria-label="Selection column menu">
+                      <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+                    </button>
+                  </span>
+                </th>
+                <th scope="col">Account ID</th>
+                <th scope="col">Status</th>
+                <th scope="col">Frequency</th>
+                <th scope="col">Zone</th>
+                <th scope="col">Team</th>
               </tr>
             </thead>
             <tbody id="dc-appt-tbody">
-              <tr data-account="Anne Marie Ren..." data-zone="DownT-E"><td>Anne Marie Ren…</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 4 weeks</td><td>DownT-E</td></tr>
-              <tr data-account="Avatar Uppal" data-zone="East"><td>Avatar Uppal</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Bi-weekly</td><td>East</td></tr>
-              <tr data-account="Sharon Sabey" data-zone="Springbank"><td>Sharon Sabey</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 4 weeks</td><td>Springbank</td></tr>
-              <tr data-account="Anna Rattray" data-zone="West(Van-SW)"><td>Anna Rattray</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 3 weeks</td><td>West(Van-SW)</td></tr>
-              <tr data-account="Helen Goodland" data-zone="UpperY(Van)"><td>Helen Goodland</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Bi-weekly</td><td>UpperY(Van)</td></tr>
-              <tr data-account="GenTI Luca" data-zone="Downtown"><td>GenTI Luca</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 6 weeks</td><td>Downtown</td></tr>
-              <tr data-account="Jennifer Webb" data-zone="WestVan"><td>Jennifer Webb</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 3 weeks</td><td>WestVan</td></tr>
-              <tr data-account="Shelley Gerston" data-zone="North York"><td>Shelley Gerston</td><td><span class="dc-badge dc-badge--done">Completed</span></td><td>Every 4 weeks</td><td>North York</td></tr>
+              <tr class="dc-tr--status" data-account="Anne Marie Ren..." data-zone="DownT-E">
+                <td class="dc-td-select"><input type="checkbox" aria-label="Select row" /></td>
+                <td class="dc-td-account">Anne Marie Ren…</td>
+                <td><span class="sf-badge sf-badge-success">Completed</span></td>
+                <td>Every 4 weeks</td>
+                <td>DownT-E</td>
+                <td>TorT5</td>
+              </tr>
+              <tr class="dc-tr--status" data-account="Avtar Uppal" data-zone="East">
+                <td class="dc-td-select"><input type="checkbox" aria-label="Select row" /></td>
+                <td class="dc-td-account">Avtar Uppal</td>
+                <td><span class="sf-badge sf-badge-success">Completed</span></td>
+                <td>Bi-weekly</td>
+                <td>East</td>
+                <td>CalT4</td>
+              </tr>
+              <tr class="dc-tr--status dc-tr--warn warning" data-account="Sharon Sabey" data-zone="Springbank">
+                <td class="dc-td-select"><input type="checkbox" aria-label="Select row" /></td>
+                <td class="dc-td-account">Sharon Sabey</td>
+                <td><span class="sf-badge sf-badge-success">Completed</span></td>
+                <td>Every 4 weeks</td>
+                <td>Springbank</td>
+                <td>TorT5</td>
+              </tr>
+              <tr class="dc-tr--status" data-account="Anna Rattray" data-zone="West(Van-SW)">
+                <td class="dc-td-select"><input type="checkbox" aria-label="Select row" /></td>
+                <td class="dc-td-account">Anna Rattray</td>
+                <td><span class="sf-badge sf-badge-success">Completed</span></td>
+                <td>Every 3 weeks</td>
+                <td>West(Van-SW)</td>
+                <td>CalT4</td>
+              </tr>
+              <tr class="dc-tr--status" data-account="Helen Goodland" data-zone="UpperY(Van)">
+                <td class="dc-td-select"><input type="checkbox" aria-label="Select row" /></td>
+                <td class="dc-td-account">Helen Goodland</td>
+                <td><span class="sf-badge sf-badge-success">Completed</span></td>
+                <td>Bi-weekly</td>
+                <td>UpperY(Van)</td>
+                <td>TorT5</td>
+              </tr>
+              <tr class="dc-tr--status" data-account="GenTI Luca" data-zone="Downtown">
+                <td class="dc-td-select"><input type="checkbox" aria-label="Select row" /></td>
+                <td class="dc-td-account">GenTI Luca</td>
+                <td><span class="sf-badge sf-badge-success">Completed</span></td>
+                <td>Every 6 weeks</td>
+                <td>Downtown</td>
+                <td>CalT4</td>
+              </tr>
+              <tr class="dc-tr--status" data-account="Jennifer Webb" data-zone="WestVan">
+                <td class="dc-td-select"><input type="checkbox" aria-label="Select row" /></td>
+                <td class="dc-td-account">Jennifer Webb</td>
+                <td><span class="sf-badge sf-badge-success">Completed</span></td>
+                <td>Every 3 weeks</td>
+                <td>WestVan</td>
+                <td>TorT5</td>
+              </tr>
+              <tr class="dc-tr--status" data-account="Shelley Gerston" data-zone="North York">
+                <td class="dc-td-select"><input type="checkbox" aria-label="Select row" /></td>
+                <td class="dc-td-account">Shelley Gerston</td>
+                <td><span class="sf-badge sf-badge-success">Completed</span></td>
+                <td>Every 4 weeks</td>
+                <td>North York</td>
+                <td>CalT4</td>
+              </tr>
             </tbody>
           </table>
         </div>
+
+        <footer class="dc-left-foot">
+          <div class="dc-left-foot-loading">
+            <span class="dc-spinner" aria-hidden="true"></span>
+            <span>Loading</span>
+          </div>
+          <div class="dc-left-foot-page" role="navigation" aria-label="Pagination">
+            <button type="button" class="dc-page-arrow" aria-label="Previous page">‹</button>
+            <div class="dc-page-select-wrap">
+              <select class="sf-input sf-select dc-page-select" aria-label="Page">
+                <option>1</option>
+              </select>
+            </div>
+            <button type="button" class="dc-page-arrow" aria-label="Next page">›</button>
+          </div>
+          <button type="button" class="sf-btn sf-btn-secondary dc-outline-btn dc-outline-btn--sm">Highlight</button>
+        </footer>
       </aside>
 
       <section class="dc-right" aria-label="Gantt">
         <div class="dc-right-tabs" role="tablist" aria-label="Console tabs">
-          <button type="button" class="dc-tab is-active" role="tab" aria-selected="true">Gantt</button>
-          <button type="button" class="dc-tab" role="tab" aria-selected="false">Map</button>
+          <button type="button" class="sf-subnav-tab active dc-tab is-active" role="tab" aria-selected="true">Gantt</button>
+          <button type="button" class="sf-subnav-tab dc-tab" role="tab" aria-selected="false">Map</button>
         </div>
 
         <div class="dc-gantt">
@@ -104,7 +231,7 @@
               <div class="dc-gantt-title">Search resources</div>
               <div class="dc-gantt-search">
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
-                <input id="dc-resources-search" placeholder="Search resources..." aria-label="Search resources" />
+                <input class="sf-input" id="dc-resources-search" placeholder="Search resources..." aria-label="Search resources" />
               </div>
             </div>
             <div class="dc-gantt-head-right">
@@ -118,21 +245,21 @@
           <div class="dc-gantt-body">
             <div class="dc-resources" id="dc-resources">
               <div class="dc-res-group">
-                <div class="dc-res-group-name">Calgary <span class="dc-util">Utilization: 59%</span></div>
-                <div class="dc-res-row" data-res="Calgary">Calgary</div>
+                <div class="dc-res-group-name">Calgary <span class="sf-util-pill-low">Utilization: 59%</span></div>
+                <div class="dc-res-row" data-res="Calgary"><span class="sf-avatar" aria-hidden="true">CA</span><span class="dc-res-name">Calgary</span></div>
               </div>
               <div class="dc-res-group">
-                <div class="dc-res-group-name">Toronto <span class="dc-util">Utilization: 44%</span></div>
-                <div class="dc-res-row" data-res="TorT1">TorT1</div>
-                <div class="dc-res-row" data-res="TorT2">TorT2</div>
-                <div class="dc-res-row" data-res="TorT3">TorT3</div>
-                <div class="dc-res-row" data-res="TorT4">TorT4</div>
-                <div class="dc-res-row" data-res="TorT5">TorT5</div>
+                <div class="dc-res-group-name">Toronto <span class="sf-util-pill-medium">Utilization: 88%</span></div>
+                <div class="dc-res-row" data-res="TorT1"><span class="sf-avatar" aria-hidden="true">T1</span><span class="dc-res-name">TorT1</span></div>
+                <div class="dc-res-row" data-res="TorT2"><span class="sf-avatar" aria-hidden="true">T2</span><span class="dc-res-name">TorT2</span></div>
+                <div class="dc-res-row" data-res="TorT3"><span class="sf-avatar" aria-hidden="true">T3</span><span class="dc-res-name">TorT3</span></div>
+                <div class="dc-res-row" data-res="TorT4"><span class="sf-avatar" aria-hidden="true">T4</span><span class="dc-res-name">TorT4</span></div>
+                <div class="dc-res-row" data-res="TorT5"><span class="sf-avatar" aria-hidden="true">T5</span><span class="dc-res-name">TorT5</span></div>
               </div>
               <div class="dc-res-group">
-                <div class="dc-res-group-name">Vancouver <span class="dc-util">Utilization: 60%</span></div>
-                <div class="dc-res-row" data-res="VanT1">VanT1</div>
-                <div class="dc-res-row" data-res="VanT2">VanT2</div>
+                <div class="dc-res-group-name">Vancouver <span class="sf-util-pill-high">Utilization: 97%</span></div>
+                <div class="dc-res-row" data-res="VanT1"><span class="sf-avatar" aria-hidden="true">V1</span><span class="dc-res-name">VanT1</span></div>
+                <div class="dc-res-row" data-res="VanT2"><span class="sf-avatar" aria-hidden="true">V2</span><span class="dc-res-name">VanT2</span></div>
               </div>
             </div>
 
@@ -141,11 +268,12 @@
               <div class="dc-time-rows" id="dc-time-rows">
                 <div class="dc-time-row">
                   <div class="dc-time-blocks">
+                    <div class="dc-job dc-job--travel" style="left:52%;width:5%" title="Travel">Drv</div>
                     <div class="dc-job dc-job--warn" style="left:58%;width:10%"><span class="dc-job-ico">!</span></div>
                     <div class="dc-job" style="left:70%;width:18%">A…</div>
                   </div>
                 </div>
-                <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job" style="left:64%;width:14%">A…</div><div class="dc-job dc-job--warn" style="left:80%;width:10%"><span class="dc-job-ico">!</span></div></div></div>
+                <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job dc-job--travel" style="left:58%;width:4%" title="Travel">Drv</div><div class="dc-job" style="left:64%;width:14%">A…</div><div class="dc-job dc-job--warn" style="left:80%;width:10%"><span class="dc-job-ico">!</span></div></div></div>
                 <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job" style="left:60%;width:12%">A…</div><div class="dc-job" style="left:74%;width:10%">Henny H…</div></div></div>
                 <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job dc-job--warn" style="left:66%;width:12%"><span class="dc-job-ico">!</span></div><div class="dc-job" style="left:80%;width:10%">A…</div></div></div>
                 <div class="dc-time-row"><div class="dc-time-blocks"><div class="dc-job" style="left:62%;width:16%">A…</div></div></div>

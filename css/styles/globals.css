@@ -1,0 +1,313 @@
+/* =============================================================================
+   GLOBALS.CSS — Import this as your Next.js root stylesheet
+   Place in: src/app/globals.css  (or src/styles/globals.css)
+
+   Import order in layout.tsx:
+     import '@/styles/tokens.css'
+     import '@/app/globals.css'
+   ============================================================================= */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import the token definitions */
+@import './tokens.css';
+
+/* =============================================================================
+   BASE RESET — Salesforce Lightning defaults
+   ============================================================================= */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--sf-font-family);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--sf-bg-page);
+    color: var(--sf-text-primary);
+    font-size: var(--sf-text-base);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  a {
+    color: var(--sf-text-link);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--sf-text-link-hover);
+    text-decoration: underline;
+  }
+
+  input, select, textarea, button {
+    font-family: inherit;
+    font-size: inherit;
+  }
+}
+
+/* =============================================================================
+   COMPONENT LAYER — Reusable SF Lightning-style classes
+   Use these class names in JSX directly, e.g. className="sf-btn sf-btn-primary"
+   ============================================================================= */
+@layer components {
+
+  /* ---------------------------------------------------------------------------
+     BUTTONS
+  --------------------------------------------------------------------------- */
+  .sf-btn {
+    @apply inline-flex items-center justify-center gap-sf-2
+           h-sf-button px-sf-3
+           rounded-sf-md border
+           font-medium text-sf-base
+           transition-colors duration-sf-fast
+           cursor-pointer select-none whitespace-nowrap;
+    outline: none;
+  }
+  .sf-btn:focus-visible {
+    box-shadow: var(--sf-focus-ring);
+  }
+
+  .sf-btn-primary {
+    @apply sf-btn
+           bg-sf-brand border-sf-brand text-white
+           hover:bg-sf-brand-dark hover:border-sf-brand-dark;
+  }
+
+  .sf-btn-secondary {
+    @apply sf-btn
+           bg-sf-bg-surface border-sf-border text-sf-text-secondary
+           hover:bg-sf-hover-bg;
+  }
+
+  .sf-btn-destructive {
+    @apply sf-btn
+           bg-sf-error border-sf-error text-white
+           hover:opacity-90;
+  }
+
+  .sf-btn-ghost {
+    @apply sf-btn border-transparent
+           text-sf-brand hover:bg-sf-brand-light;
+  }
+
+  /* ---------------------------------------------------------------------------
+     INPUTS & FORM ELEMENTS
+  --------------------------------------------------------------------------- */
+  .sf-input {
+    @apply h-sf-input w-full px-sf-3
+           rounded-sf-md border border-sf-border
+           bg-sf-bg-surface text-sf-text-primary text-sf-base
+           placeholder:text-sf-text-placeholder
+           transition-colors duration-sf-fast;
+    outline: none;
+  }
+  .sf-input:hover  { border-color: var(--sf-border-medium); }
+  .sf-input:focus  { border-color: var(--sf-brand); box-shadow: var(--sf-focus-ring); }
+
+  .sf-label {
+    @apply block text-sf-sm font-medium text-sf-text-secondary mb-sf-1;
+  }
+
+  .sf-select {
+    @apply sf-input appearance-none cursor-pointer pr-sf-8;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23706E6B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+
+  /* ---------------------------------------------------------------------------
+     CARDS & PANELS
+  --------------------------------------------------------------------------- */
+  .sf-card {
+    @apply bg-sf-bg-surface border border-sf-border rounded-sf-lg;
+    box-shadow: var(--sf-shadow-sm);
+  }
+
+  .sf-card-header {
+    @apply px-sf-4 py-sf-3
+           border-b border-sf-border
+           text-sf-base font-medium text-sf-text-secondary;
+  }
+
+  .sf-card-body {
+    @apply p-sf-4;
+  }
+
+  /* ---------------------------------------------------------------------------
+     DATA TABLE
+  --------------------------------------------------------------------------- */
+  .sf-table {
+    @apply w-full border-collapse text-sf-base;
+  }
+
+  .sf-table thead tr {
+    @apply border-b border-sf-border;
+  }
+
+  .sf-table th {
+    @apply px-sf-3 py-sf-2
+           text-sf-xs font-medium text-sf-text-secondary
+           text-left uppercase tracking-wide
+           bg-sf-bg-page;
+  }
+
+  .sf-table td {
+    @apply px-sf-3 py-sf-2
+           text-sf-text-primary
+           border-b border-sf-border;
+  }
+
+  .sf-table tbody tr {
+    @apply h-sf-row hover:bg-sf-hover-bg transition-colors duration-sf-fast;
+  }
+
+  .sf-table tbody tr.selected {
+    @apply bg-sf-selected-bg;
+  }
+
+  .sf-table tbody tr.warning {
+    @apply bg-sf-warning-bg;
+  }
+
+  /* ---------------------------------------------------------------------------
+     BADGES / STATUS PILLS
+  --------------------------------------------------------------------------- */
+  .sf-badge {
+    @apply inline-flex items-center gap-sf-1
+           px-sf-2 py-0.5
+           rounded-sf-full text-sf-xs font-medium;
+  }
+
+  .sf-badge-success {
+    @apply sf-badge bg-sf-success-bg text-sf-success-dark border border-sf-success;
+  }
+
+  .sf-badge-warning {
+    @apply sf-badge bg-sf-warning-bg border border-sf-warning-strong;
+    color: var(--sf-warning-text);
+  }
+
+  .sf-badge-error {
+    @apply sf-badge bg-sf-error-bg border border-sf-error;
+    color: var(--sf-error-text);
+  }
+
+  .sf-badge-info {
+    @apply sf-badge bg-sf-info-bg border border-sf-info;
+    color: var(--sf-info-text);
+  }
+
+  .sf-badge-neutral {
+    @apply sf-badge bg-sf-bg-page border border-sf-border text-sf-text-secondary;
+  }
+
+  /* ---------------------------------------------------------------------------
+     AVATAR / RESOURCE CIRCLE
+  --------------------------------------------------------------------------- */
+  .sf-avatar {
+    @apply inline-flex items-center justify-center
+           rounded-sf-full
+           text-sf-xs font-medium
+           flex-shrink-0;
+    background-color: var(--sf-avatar-bg);
+    color: var(--sf-avatar-text);
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .sf-avatar-lg {
+    @apply sf-avatar;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: var(--sf-text-sm);
+  }
+
+  /* ---------------------------------------------------------------------------
+     GANTT APPOINTMENT BLOCKS
+  --------------------------------------------------------------------------- */
+  .sf-gantt-block {
+    @apply h-full rounded-sf-sm
+           text-sf-xs font-medium
+           flex items-center px-sf-1
+           overflow-hidden truncate
+           cursor-pointer select-none;
+  }
+
+  .sf-gantt-block-scheduled {
+    @apply sf-gantt-block;
+    background-color: var(--sf-gantt-appointment);
+    color: var(--sf-gantt-appt-border);
+    border: 1px solid var(--sf-gantt-appt-border);
+  }
+
+  .sf-gantt-block-travel {
+    @apply sf-gantt-block;
+    background-color: var(--sf-gantt-travel);
+    color: var(--sf-gantt-travel-text);
+  }
+
+  .sf-gantt-block-violation {
+    @apply sf-gantt-block;
+    background-color: var(--sf-gantt-violation);
+    color: white;
+  }
+
+  /* ---------------------------------------------------------------------------
+     UTILIZATION PILL (Gantt group header)
+  --------------------------------------------------------------------------- */
+  .sf-util-pill {
+    @apply sf-badge text-white;
+  }
+  .sf-util-pill-low    { @apply sf-util-pill; background-color: var(--sf-util-low); }
+  .sf-util-pill-medium { @apply sf-util-pill; background-color: var(--sf-util-medium); color: var(--sf-text-primary); }
+  .sf-util-pill-high   { @apply sf-util-pill; background-color: var(--sf-util-high); }
+
+  /* ---------------------------------------------------------------------------
+     PAGE SHELL
+  --------------------------------------------------------------------------- */
+  .sf-topnav {
+    @apply h-sf-topnav flex items-center px-sf-4 gap-sf-4;
+    background-color: var(--sf-navy);
+    color: var(--sf-text-inverse);
+  }
+
+  .sf-subnav {
+    @apply h-sf-subnav flex items-center px-sf-4 gap-sf-6
+           bg-sf-bg-surface border-b border-sf-border;
+  }
+
+  .sf-subnav-tab {
+    @apply h-full flex items-center px-sf-1
+           text-sf-base text-sf-text-secondary
+           border-b-2 border-transparent
+           cursor-pointer
+           transition-colors duration-sf-fast;
+  }
+
+  .sf-subnav-tab:hover  { @apply text-sf-text-primary; }
+
+  .sf-subnav-tab.active {
+    color: var(--sf-brand);
+    border-bottom-color: var(--sf-brand);
+    font-weight: var(--sf-font-medium);
+  }
+
+  /* ---------------------------------------------------------------------------
+     SPLIT LAYOUT (List | Gantt)
+  --------------------------------------------------------------------------- */
+  .sf-split-left {
+    @apply flex flex-col bg-sf-bg-surface border-r border-sf-border overflow-hidden;
+  }
+
+  .sf-split-right {
+    @apply flex flex-col flex-1 overflow-hidden;
+    background-color: var(--sf-bg-page);
+  }
+}

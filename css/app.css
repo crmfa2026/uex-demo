@@ -30,12 +30,36 @@
   --shadow-md:   0 2px 8px rgba(0,0,0,.12);
 
   /* Typography */
-  --font:        'Salesforce Sans', -apple-system, 'Segoe UI', sans-serif;
+  --font:        'Salesforce Sans', Arial, sans-serif;
   --text-1:      #080707;
   --text-2:      #3E3E3C;
   --text-3:      #706E6B;
   --text-4:      #9E9B97;
   --text-link:   #0176D3;
+
+  /* FSL / Field Service — Dispatcher & Gantt (exact hex) */
+  --fsl-header-navy:     #032D60;
+  --fsl-page-bg:         #F3F3F3;
+  --fsl-surface:         #FFFFFF;
+  --fsl-border:          #DDDBDA;
+  --fsl-brand:           #0176D3;
+  --fsl-table-header-bg: #F3F2F1;
+  --fsl-gantt-appt-bg:   #4BCA81;
+  --fsl-gantt-appt-edge: #2E844A;
+  --fsl-gantt-travel:    #5A5A5A;
+  --fsl-gantt-warn:      #FE9339;
+  --fsl-gantt-empty:     #E8E8E8;
+  --fsl-badge-done-bg:   #E8F5E9;
+  --fsl-badge-done-text: #2E844A;
+  --fsl-row-warn-bg:     #FFFAE0;
+  --fsl-row-selected-bg: #E8F4FD;
+  --fsl-error:           #EA001E;
+  --fsl-util-low:        #4BCA81;
+  --fsl-util-mid:        #FFB75D;
+  --fsl-util-high:       #EA001E;
+  --fsl-avatar-bg:       #D8EDFF;
+  --fsl-avatar-text:     #0176D3;
+  --radius-gantt-block:  4px;
 
   /* Dimensions */
   --global-search-h: 54px;
@@ -501,7 +525,6 @@ a:hover { text-decoration: underline; }
   background: var(--sf-blue-light);
   border-radius: 2px 2px 0 0;
 }
-.nav-tab-chevron { width: 10px; height: 10px; opacity: .5; }
 
 .nav-right {
   display: flex;

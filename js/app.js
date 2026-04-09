@@ -62,7 +62,7 @@ function wireStaticHandlers() {
   document.querySelectorAll('.nav-tab').forEach((tab) => {
     tab.addEventListener('click', function () {
       const label = this.textContent.trim().toLowerCase();
-      const map = { leads: 'leads', accounts: 'accounts', contacts: 'contacts', opportunities: 'opportunities', cases: 'cases', workorders: 'workorders' };
+      const map = { teams: 'teams', leads: 'leads', accounts: 'accounts', contacts: 'contacts', opportunities: 'opportunities', cases: 'cases', workorders: 'workorders' };
       for (const [k, v] of Object.entries(map)) {
         if (label.startsWith(k.substring(0, 5))) { openWorkspaceList(v); break; }
       }
@@ -82,6 +82,7 @@ function wireStaticHandlers() {
     if (active === 'page-accounts' || active === 'page-account-detail' || active === 'page-account-new') { openNewAccount(); return; }
     if (active === 'page-cases' || active === 'page-case-detail') { openNewCase(); return; }
     if (active === 'page-workorders' || active === 'page-workorder-detail') { await openNewWorkOrder(); return; }
+    if (active === 'page-teams') { showToast({ type: 'info', title: 'Prototype', body: 'New Team is not wired in this build.' }); return; }
     showToast({ type: 'error', title: 'Not implemented', body: 'Only “New Lead” is wired in this prototype.' });
   });
 
