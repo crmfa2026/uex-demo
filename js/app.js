@@ -61,6 +61,7 @@ function wireStaticHandlers() {
 
   document.querySelectorAll('.nav-tab').forEach((tab) => {
     tab.addEventListener('click', function () {
+      if (this.id === 'crm-modules-trigger') return;
       const label = this.textContent.trim().toLowerCase();
       const map = { teams: 'teams', leads: 'leads', accounts: 'accounts', contacts: 'contacts', opportunities: 'opportunities', cases: 'cases', workorders: 'workorders' };
       for (const [k, v] of Object.entries(map)) {
@@ -87,6 +88,64 @@ function wireStaticHandlers() {
   });
 
   setupWorkOrdersListViewFilter();
+  setupCrmModulesDropdown();
+}
+
+function setupCrmModulesDropdown() {
+  const wrap = document.getElementById('crm-modules-wrap');
+  const trigger = document.getElementById('crm-modules-trigger');
+  const menu = document.getElementById('crm-modules-menu');
+  const labelEl = document.getElementById('crm-modules-current-label');
+  if (!wrap || !trigger || !menu) return;
+
+  const getModuleLabel = (page) => objMeta[page]?.label || page;
+  const setSelectedModule = (page) => {
+    if (!page) return;
+    if (labelEl) labelEl.textContent = getModuleLabel(page);
+    menu.querySelectorAll('.crm-modules-item').forEach((item) => {
+      item.classList.toggle('is-selected', item.getAttribute('data-page') === page);
+    });
+  };
+
+  const setOpen = (open) => {
+    trigger.setAttribute('aria-expanded', String(open));
+    menu.hidden = !open;
+  };
+
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const shouldOpen = trigger.getAttribute('aria-expanded') !== 'true';
+    setOpen(shouldOpen);
+  });
+
+  menu.addEventListener('click', (e) => {
+    const item = e.target.closest?.('.crm-modules-item');
+    if (!item) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const page = item.getAttribute('data-page') || '';
+    const label = (item.textContent || '').trim();
+    if (page) {
+      setSelectedModule(page);
+      openWorkspaceList(page);
+      setOpen(false);
+      return;
+    }
+    showToast({ type: 'info', title: 'Module not wired yet', body: `${label} screen is not connected in this prototype.` });
+    setOpen(false);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (menu.hidden) return;
+    if (!wrap.contains(e.target)) setOpen(false);
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+
+  setSelectedModule('leads');
 }
 
 function setupWorkOrdersListViewFilter() {

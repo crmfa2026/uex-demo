@@ -10,6 +10,21 @@ export const objMeta = {
   cases: { icon: 'file', label: 'Cases', views: ['All Cases', 'My Open Cases', 'Escalated', 'Recently Closed'], newLabel: 'New Case' },
 };
 
+const moduleMenuItems = [
+  { page: 'teams', label: 'Teams' },
+  { page: 'leads', label: 'Leads' },
+  { page: 'accounts', label: 'Accounts' },
+  { page: 'contacts', label: 'Contacts' },
+  { page: 'opportunities', label: 'Opportunities' },
+  { page: 'workorders', label: 'Work Orders' },
+  { page: 'cases', label: 'Cases' },
+  { page: '', label: 'Reports' },
+  { page: '', label: 'Work Loads' },
+  { page: '', label: 'Addresses' },
+  { page: '', label: 'Service Appointments' },
+  { page: '', label: 'Invoices' },
+];
+
 const DEBUG_NAV = true;
 const dlog = (...args) => { if (DEBUG_NAV) console.log('[NAV]', ...args); };
 
@@ -260,6 +275,7 @@ function getWorkspaceChildRowEl() {
 }
 
 function routeKey(route = {}) {
+  if (route?.moduleList) return 'module-list';
   return `${route?.page || ''}:${route?.id || ''}`;
 }
 
@@ -288,13 +304,33 @@ function renderWorkspaceTabs() {
   const childRow = getWorkspaceChildRowEl();
   if (!host) return;
 
-  const parentTabs = workspaceTabs.filter((t) => !t.parentTabId);
+  const moduleTab = workspaceTabs.find((t) => !t.parentTabId && t.route?.moduleList) || null;
+  const detailParentTabs = workspaceTabs.filter((t) => !t.parentTabId && !t.route?.moduleList);
+  const parentTabs = moduleTab ? [moduleTab, ...detailParentTabs] : detailParentTabs;
   const activeTab = workspaceTabs.find((t) => t.id === activeWorkspaceTabId);
   const activeParentTabId = activeTab?.parentTabId || activeTab?.id || null;
   const childTabs = activeParentTabId ? workspaceTabs.filter((t) => t.parentTabId === activeParentTabId) : [];
 
   host.innerHTML = parentTabs.map((t) => {
     const isActive = t.id === activeParentTabId;
+    if (t.route?.moduleList) {
+      const currentPage = t.route?.page || 'leads';
+      const menuHtml = moduleMenuItems.map((item) => {
+        const selected = item.page === currentPage ? ' is-selected' : '';
+        return `<button class="worktab-module-item${selected}" type="button" data-module-menu-item="1" data-module-page="${item.page}">${item.label}</button>`;
+      }).join('');
+      return `
+      <div class="worktab worktab-module${isActive ? ' active' : ''}" data-tab-id="${t.id}" data-tab-row="parent">
+        <div class="worktab-title">${t.title}</div>
+        <button class="worktab-module-chevron" type="button" aria-label="Choose module" aria-expanded="false" data-module-menu-toggle="1">
+          <svg viewBox="0 0 12 12" fill="currentColor"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+        </button>
+        <div class="worktab-module-menu" data-module-menu="1" hidden>
+          ${menuHtml}
+        </div>
+      </div>
+    `;
+    }
     return `
       <div class="worktab${isActive ? ' active' : ''}" data-tab-id="${t.id}" data-tab-row="parent">
         <div class="worktab-title">${t.title}</div>
@@ -304,6 +340,15 @@ function renderWorkspaceTabs() {
       </div>
     `;
   }).join('');
+  dlog('renderWorkspaceTabs()', {
+    parentCount: parentTabs.length,
+    activeWorkspaceTabId,
+    moduleTabId: moduleTab?.id || null,
+  });
+
+  const worktabsRow = host.closest('.worktabs');
+  if (worktabsRow) worktabsRow.style.display = '';
+  document.body.classList.remove('no-worktabs');
 
   if (childHost && childRow) {
     childHost.innerHTML = childTabs.map((t) => {
@@ -346,6 +391,7 @@ export function closeWorkspaceTab(tabId) {
   const idx = workspaceTabs.findIndex((x) => x.id === tabId);
   if (idx < 0) return;
   const target = workspaceTabs[idx];
+  if (target.route?.moduleList) return;
   const removeIds = new Set([target.id]);
   if (!target.parentTabId) {
     workspaceTabs.forEach((t) => { if (t.parentTabId === target.id) removeIds.add(t.id); });
@@ -382,6 +428,7 @@ export function openWorkspace(route, { title, reuseIfExists = true } = {}) {
   if (reuseIfExists) {
     const existing = workspaceTabs.find((t) => t.key === key);
     if (existing) {
+      existing.route = { ...route };
       if (title) existing.title = title;
       activateWorkspaceTab(existing.id);
       return;
@@ -392,49 +439,20 @@ export function openWorkspace(route, { title, reuseIfExists = true } = {}) {
 }
 
 export function openWorkspaceList(page) {
-  openWorkspace({ page }, { title: objMeta[page]?.label || defaultTitleForRoute({ page }) });
+  openWorkspace(
+    { page, moduleList: true },
+    { title: objMeta[page]?.label || defaultTitleForRoute({ page }), reuseIfExists: true },
+  );
 }
 
 export function openAccountInTab(accountId) {
   const a = accountRecords[accountId] || accountRecords.acme;
-  const parentPage = 'accounts';
-  const parentTitle = objMeta[parentPage]?.label || 'Accounts';
-  const parentKey = routeKey({ page: parentPage });
-  let parentTab = workspaceTabs.find((t) => t.key === parentKey && !t.parentTabId);
-  if (!parentTab) parentTab = createWorkspaceTab({ page: parentPage }, { title: parentTitle });
-
-  const key = routeKey({ page: 'account-detail', id: accountId });
-  const existing = workspaceTabs.find((t) => t.key === key && t.parentTabId === parentTab.id);
-  if (existing) {
-    existing.title = a?.name || 'Account';
-    activateWorkspaceTab(existing.id);
-    return;
-  }
-
-  const child = createWorkspaceTab({ page: 'account-detail', id: accountId }, { title: a?.name || 'Account' });
-  child.parentTabId = parentTab.id;
-  activateWorkspaceTab(child.id);
+  openWorkspace({ page: 'account-detail', id: accountId }, { title: a?.name || 'Account', reuseIfExists: true });
 }
 
 export function openLeadInTab(leadId) {
   const lead = leadRecords[leadId] || leadRecords['lead-james-chen'];
-  const parentPage = 'leads';
-  const parentTitle = objMeta[parentPage]?.label || 'Leads';
-  const parentKey = routeKey({ page: parentPage });
-  let parentTab = workspaceTabs.find((t) => t.key === parentKey && !t.parentTabId);
-  if (!parentTab) parentTab = createWorkspaceTab({ page: parentPage }, { title: parentTitle });
-
-  const key = routeKey({ page: 'lead-detail', id: leadId });
-  const existing = workspaceTabs.find((t) => t.key === key && t.parentTabId === parentTab.id);
-  if (existing) {
-    existing.title = lead?.name || 'Lead';
-    activateWorkspaceTab(existing.id);
-    return;
-  }
-
-  const child = createWorkspaceTab({ page: 'lead-detail', id: leadId }, { title: lead?.name || 'Lead' });
-  child.parentTabId = parentTab.id;
-  activateWorkspaceTab(child.id);
+  openWorkspace({ page: 'lead-detail', id: leadId }, { title: lead?.name || 'Lead', reuseIfExists: true });
 }
 
 export function openContactInTab(contactId) {
@@ -473,29 +491,43 @@ export function openContactInTab(contactId) {
 }
 
 export function openCaseInTab(caseId) {
-  openWorkspace({ page: 'case-detail', id: caseId }, { title: String(caseId || 'Case'), reuseIfExists: true });
+  const title = String(caseId || 'Case');
+  const activeTab = workspaceTabs.find((t) => t.id === activeWorkspaceTabId) || null;
+  const activeParentTab = activeTab?.parentTabId
+    ? workspaceTabs.find((t) => t.id === activeTab.parentTabId) || null
+    : null;
+
+  // Keep cases inside the current Account tab group when user is in account context.
+  const inAccountContext = activeTab && (
+    activeTab.route?.page === 'account-detail'
+    || activeTab.route?.page === 'accounts'
+    || activeParentTab?.route?.page === 'accounts'
+  );
+
+  if (inAccountContext) {
+    const parentTabId = activeTab.parentTabId || activeTab.id;
+    const key = routeKey({ page: 'case-detail', id: caseId });
+    const existing = workspaceTabs.find((t) => t.key === key && t.parentTabId === parentTabId);
+    if (existing) {
+      existing.title = title;
+      activateWorkspaceTab(existing.id);
+      return;
+    }
+
+    const child = createWorkspaceTab({ page: 'case-detail', id: caseId }, { title });
+    child.parentTabId = parentTabId;
+    activateWorkspaceTab(child.id);
+    return;
+  }
+
+  // Fallback for non-account flows.
+  openWorkspace({ page: 'case-detail', id: caseId }, { title, reuseIfExists: true });
 }
 
 export function openWorkOrderInTab(workOrderId) {
   const wo = workOrderRecords[workOrderId] || workOrderRecords['WO-00941877'];
   const title = wo?.subject && wo.subject !== '—' ? wo.subject : `Work Order ${wo?.number || ''}`.trim();
-  const parentPage = 'workorders';
-  const parentTitle = objMeta[parentPage]?.label || 'Work Orders';
-  const parentKey = routeKey({ page: parentPage });
-  let parentTab = workspaceTabs.find((t) => t.key === parentKey && !t.parentTabId);
-  if (!parentTab) parentTab = createWorkspaceTab({ page: parentPage }, { title: parentTitle });
-
-  const key = routeKey({ page: 'workorder-detail', id: workOrderId });
-  const existing = workspaceTabs.find((t) => t.key === key && t.parentTabId === parentTab.id);
-  if (existing) {
-    existing.title = title;
-    activateWorkspaceTab(existing.id);
-    return;
-  }
-
-  const child = createWorkspaceTab({ page: 'workorder-detail', id: workOrderId }, { title });
-  child.parentTabId = parentTab.id;
-  activateWorkspaceTab(child.id);
+  openWorkspace({ page: 'workorder-detail', id: workOrderId }, { title, reuseIfExists: true });
 }
 
 export function openServiceAppointmentInTab(serviceAppointmentId) {
@@ -509,15 +541,77 @@ export function initWorkspaceTabs() {
   const childHost = getWorkspaceChildTabEl();
   if (!host) return;
 
+  const closeOpenModuleMenus = () => {
+    dlog('closeOpenModuleMenus()');
+    host.querySelectorAll('[data-module-menu]').forEach((menu) => { menu.hidden = true; });
+    host.querySelectorAll('[data-module-menu-toggle]').forEach((toggle) => { toggle.setAttribute('aria-expanded', 'false'); });
+  };
+
   host.addEventListener('click', (e) => {
-    const closeBtn = e.target.closest?.('[data-tab-close]');
+    const target = e.target instanceof Element ? e.target : null;
+    if (!target) return;
+    dlog('host.click', {
+      targetTag: target.tagName,
+      targetClass: target.className,
+    });
+
+    const moduleMenuToggle = target.closest('[data-module-menu-toggle]');
+    if (moduleMenuToggle) {
+      e.preventDefault();
+      e.stopPropagation();
+      const moduleTabEl = moduleMenuToggle.closest('.worktab-module');
+      const menu = moduleTabEl?.querySelector('[data-module-menu]');
+      dlog('moduleMenuToggle.click', {
+        hasModuleTab: !!moduleTabEl,
+        hasMenu: !!menu,
+        menuWasHidden: menu ? menu.hidden : null,
+      });
+      if (!menu) return;
+      const wasHidden = menu.hidden;
+      closeOpenModuleMenus();
+      const nextOpen = wasHidden;
+      moduleMenuToggle.setAttribute('aria-expanded', String(nextOpen));
+      menu.hidden = !nextOpen;
+      dlog('moduleMenuToggle.stateAfter', {
+        nextOpen,
+        menuHiddenNow: menu.hidden,
+      });
+      return;
+    }
+
+    const moduleMenuItem = target.closest('[data-module-menu-item]');
+    if (moduleMenuItem) {
+      e.preventDefault();
+      e.stopPropagation();
+      const page = moduleMenuItem.getAttribute('data-module-page') || '';
+      const label = (moduleMenuItem.textContent || '').trim();
+      dlog('moduleMenuItem.click', { page, label });
+      if (page) openWorkspaceList(page);
+      else showToast({ type: 'info', title: 'Module not wired yet', body: `${label} screen is not connected in this prototype.` });
+      closeOpenModuleMenus();
+      return;
+    }
+
+    const closeBtn = target.closest('[data-tab-close]');
     if (closeBtn) {
       e.stopPropagation();
       closeWorkspaceTab(closeBtn.getAttribute('data-tab-close'));
       return;
     }
-    const tabEl = e.target.closest?.('.worktab[data-tab-id]');
-    if (tabEl) activateWorkspaceTab(tabEl.getAttribute('data-tab-id'));
+    const tabEl = target.closest('.worktab[data-tab-id]');
+    if (tabEl) {
+      closeOpenModuleMenus();
+      activateWorkspaceTab(tabEl.getAttribute('data-tab-id'));
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const hasOpenMenu = !!host.querySelector('[data-module-menu]:not([hidden])');
+    if (!hasOpenMenu) return;
+    const inHost = host.contains(e.target);
+    dlog('document.click', { hasOpenMenu, inHost });
+    if (inHost) return;
+    closeOpenModuleMenus();
   });
   childHost?.addEventListener('click', (e) => {
     const closeBtn = e.target.closest?.('[data-tab-close]');
@@ -531,7 +625,7 @@ export function initWorkspaceTabs() {
   });
 
   if (!workspaceTabs.length) {
-    const first = createWorkspaceTab({ page: 'leads' }, { title: 'Leads' });
+    const first = createWorkspaceTab({ page: 'leads', moduleList: true }, { title: 'Leads' });
     activeWorkspaceTabId = first.id;
     renderWorkspaceTabs();
   }
