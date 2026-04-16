@@ -1028,6 +1028,28 @@ body.contact-detail-context.has-child-worktabs .content-area {
 }
 .sf-right-tab.active { color: var(--sf-blue); border-bottom-color: var(--sf-blue); }
 .sf-right-content { padding: 12px; }
+.case-compose-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.case-compose-input {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-sm);
+  padding: 0 10px;
+  font-size: 12px;
+  color: var(--text-1);
+  background: var(--surface);
+  outline: none;
+}
+.case-compose-input:focus {
+  border-color: var(--sf-blue);
+  box-shadow: 0 0 0 1px var(--sf-blue);
+}
 
 /* New Case modal */
 .modal-overlay {
@@ -1073,6 +1095,17 @@ body.contact-detail-context.has-child-worktabs .content-area {
 .modal.modal--nwo {
   width: min(1100px, calc(100vw - 24px));
   max-height: calc(100vh - 48px);
+}
+.modal.modal--case-edit {
+  width: min(1080px, calc(100vw - 24px));
+  max-height: calc(100vh - 48px);
+}
+.modal.modal--case-status {
+  width: min(860px, calc(100vw - 24px));
+}
+.modal--case-edit #ce-description,
+.modal--case-edit #ce-comments {
+  min-height: 84px;
 }
 .nwo-type-panel {
   padding: 8px 0 4px;
@@ -1391,6 +1424,15 @@ body.contact-detail-context.has-child-worktabs .content-area {
 }
 .data-table td.link-cell { color: var(--sf-blue); font-weight: 500; }
 .data-table td.link-cell:hover { text-decoration: underline; }
+.cases-sf-table tbody td:first-child {
+  color: var(--text-4);
+  font-size: 12px;
+}
+.cases-sf-table td,
+.cases-sf-table th {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 .row-actions { display: flex; gap: 3px; opacity: 0; transition: opacity .15s; }
 .data-table tbody tr:hover .row-actions { opacity: 1; }
 .row-action-btn {

@@ -1,112 +1,99 @@
 <div class="content-area page" id="page-cases">
   <div class="list-header">
-    <div class="list-title">All Cases <span class="list-count">23</span></div>
+    <div class="list-title">Recently Viewed <span class="list-count">8 items</span></div>
     <div class="list-actions">
-      <button class="btn btn-neutral btn-sm">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h10M5 8h6M7 11h2"/></svg>
-        My Open Cases
+      <button class="btn btn-brand btn-sm" type="button" onclick="openNewCase()">
+        New
       </button>
+      <button class="btn btn-neutral btn-sm">Change Owner</button>
+      <button class="btn btn-neutral btn-sm">Delete</button>
+      <button class="btn btn-neutral btn-sm">Mark as Spam</button>
     </div>
   </div>
+
   <div class="search-bar">
-    <div class="search-input-wrap">
+    <div class="search-input-wrap" style="margin-left:auto">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
-      <input type="text" placeholder="Search by case #, subject or account…"/>
-    </div>
-    <div class="filter-group">
-      <button class="filter-btn">All Statuses</button>
-      <button class="filter-btn">All Priorities</button>
-      <button class="filter-btn">All Types</button>
+      <input type="text" placeholder="Search this list..." />
     </div>
   </div>
+
   <div class="data-table-wrap">
-    <table class="data-table">
+    <table class="data-table cases-sf-table">
       <thead>
         <tr>
-          <th style="width:36px"><input type="checkbox" class="table-checkbox"/></th>
-          <th style="width:9%">Case # <span class="sort-icon">↑</span></th>
-          <th style="width:22%">Subject</th>
-          <th style="width:14%">Account</th>
+          <th style="width:4%"></th>
+          <th style="width:12%">Case Number</th>
+          <th style="width:46%">Subject</th>
           <th style="width:10%">Status</th>
-          <th style="width:9%">Priority</th>
-          <th style="width:9%">Type</th>
-          <th style="width:9%">Open WOs</th>
-          <th style="width:9%">Owner</th>
-          <th style="width:60px"></th>
+          <th style="width:14%">Date/Time Opened</th>
+          <th style="width:14%">Case Owner Alias</th>
         </tr>
       </thead>
       <tbody>
         <tr onclick="openCaseInTab('CASE-00041')">
-          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
-          <td class="link-cell">CASE-00041</td>
-          <td class="link-cell">HVAC unit fault — Building B</td>
-          <td class="link-cell">Northline Utilities</td>
-          <td><span class="badge badge-case-open">Open</span></td>
-          <td><span class="badge badge-critical">Critical</span></td>
-          <td style="color:var(--text-3)">Technical</td>
-          <td style="text-align:center;color:var(--sf-orange);font-weight:600">2</td>
-          <td>Casey M.</td>
-          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+          <td>1</td>
+          <td class="link-cell">00076591</td>
+          <td class="link-cell">Automatic reply: [EXTERNAL] Service Reminder March 19, 2026</td>
+          <td>Closed</td>
+          <td>16/03/2026 9:00 AM</td>
+          <td>Vancouver Team</td>
         </tr>
         <tr onclick="openCaseInTab('CASE-00039')">
-          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
-          <td class="link-cell">CASE-00039</td>
-          <td class="link-cell">Routine inspection overdue Q1</td>
-          <td class="link-cell">Sentinel Ops Group</td>
-          <td><span class="badge badge-case-pend">Pending</span></td>
-          <td><span class="badge badge-high">High</span></td>
-          <td style="color:var(--text-3)">Compliance</td>
-          <td style="text-align:center;color:var(--sf-orange);font-weight:600">1</td>
-          <td>Me</td>
-          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+          <td>2</td>
+          <td class="link-cell">00074374</td>
+          <td class="link-cell">RE: Service Reminder February 24, 2026</td>
+          <td>Closed</td>
+          <td>26/02/2026 4:23 PM</td>
+          <td>Vancouver Team</td>
         </tr>
         <tr onclick="openCaseInTab('CASE-00037')">
-          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
-          <td class="link-cell">CASE-00037</td>
-          <td class="link-cell">Billing query — invoice #4422</td>
-          <td class="link-cell">Orbit Facility Group</td>
-          <td><span class="badge badge-case-open">Open</span></td>
-          <td><span class="badge badge-medium">Medium</span></td>
-          <td style="color:var(--text-3)">Billing</td>
-          <td style="text-align:center;color:var(--text-4)">—</td>
-          <td>Ari S.</td>
-          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+          <td>3</td>
+          <td class="link-cell">00070789</td>
+          <td class="link-cell">Re: [EXTERNAL] Service Reminder January 16, 2026</td>
+          <td>Closed</td>
+          <td>12/01/2026 9:06 AM</td>
+          <td>Vancouver Team</td>
         </tr>
         <tr onclick="openCaseInTab('CASE-00034')">
-          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
-          <td class="link-cell">CASE-00034</td>
-          <td class="link-cell">Agent no-show — WO-2026-00188</td>
-          <td class="link-cell">HarborGrid Works</td>
-          <td><span class="badge badge-case-pend">Pending</span></td>
-          <td><span class="badge badge-high">High</span></td>
-          <td style="color:var(--text-3)">Complaint</td>
-          <td style="text-align:center;color:var(--sf-orange);font-weight:600">1</td>
-          <td>Casey M.</td>
-          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+          <td>4</td>
+          <td class="link-cell">00016321</td>
+          <td class="link-cell">Home Cleaning Booking - Vancouver - 2024-01-29</td>
+          <td>Closed</td>
+          <td>26/01/2024 5:31 AM</td>
+          <td>Vancouver Team</td>
         </tr>
         <tr onclick="openCaseInTab('CASE-00031')">
-          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
-          <td class="link-cell">CASE-00031</td>
-          <td class="link-cell">Annual equipment audit request</td>
-          <td class="link-cell">Northline Utilities</td>
-          <td><span class="badge badge-case-res">Resolved</span></td>
-          <td><span class="badge badge-low">Low</span></td>
-          <td style="color:var(--text-3)">General</td>
-          <td style="text-align:center;color:var(--sf-green);font-weight:600">0</td>
-          <td>Me</td>
-          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.5v.01"/></svg></button></div></td>
+          <td>5</td>
+          <td class="link-cell">00031526</td>
+          <td class="link-cell">RE: [EXTERNAL] Unable to gain access - Action Required</td>
+          <td>Closed</td>
+          <td>05/09/2024 1:58 PM</td>
+          <td>Vancouver Team</td>
         </tr>
         <tr onclick="openCaseInTab('CASE-00028')">
-          <td><input type="checkbox" class="table-checkbox" onclick="event.stopPropagation()"/></td>
-          <td class="link-cell">CASE-00028</td>
-          <td class="link-cell">Access control system offline</td>
-          <td class="link-cell">Sentinel Ops Group</td>
-          <td><span class="badge badge-case-open">Open</span></td>
-          <td><span class="badge badge-critical">Critical</span></td>
-          <td style="color:var(--text-3)">Technical</td>
-          <td style="text-align:center;color:var(--sf-orange);font-weight:600">3</td>
-          <td>Me</td>
-          <td><div class="row-actions"><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3L6 13H3v-3L11 2z"/></svg></button><button class="row-action-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="4" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12" r="1.2"/></svg></button></div></td>
+          <td>6</td>
+          <td class="link-cell">00025541</td>
+          <td class="link-cell">RE: [EXTERNAL] Invoice attached - We'd love your feedback!</td>
+          <td>Closed</td>
+          <td>14/08/2024 7:18 PM</td>
+          <td>Vancouver Team</td>
+        </tr>
+        <tr onclick="openCaseInTab('CASE-00039')">
+          <td>7</td>
+          <td class="link-cell">00074375</td>
+          <td class="link-cell">Re: Appointment Confirmation 2/23/2026</td>
+          <td>Closed</td>
+          <td>18/02/2026 1:33 PM</td>
+          <td>CalCUSTc</td>
+        </tr>
+        <tr onclick="openCaseInTab('CASE-00041')">
+          <td>8</td>
+          <td class="link-cell">00071171</td>
+          <td class="link-cell">Re: Service Reminder February 19, 2026</td>
+          <td>Closed</td>
+          <td>17/02/2026 4:29 PM</td>
+          <td>TorontoTeam</td>
         </tr>
       </tbody>
     </table>

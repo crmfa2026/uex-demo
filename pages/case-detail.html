@@ -4,12 +4,12 @@
       <div class="record-avatar" id="case-avatar" style="background:#EEF4FF;color:#014486;font-size:12px;font-weight:800">CS</div>
       <div style="flex:1">
         <div id="case-kicker" style="font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px">Case</div>
-        <div class="record-title" id="case-title">Service Reminder Follow-up</div>
-        <div class="record-sub" id="case-sub">Priority Medium · Status Closed · Case Number 00074374</div>
+        <div class="record-title" id="case-title">Automatic reply: [EXTERNAL] Service Reminder March 19, 2026</div>
+        <div class="record-sub" id="case-sub">Priority Medium · Status Closed · Case Number 00076591</div>
       </div>
       <div class="record-actions">
-        <button class="btn btn-neutral btn-sm">Edit</button>
-        <button class="btn btn-neutral btn-sm">Change Status</button>
+        <button class="btn btn-neutral btn-sm" type="button" onclick="openCaseEditModal()">Edit</button>
+        <button class="btn btn-neutral btn-sm" type="button" onclick="openCaseStatusModal()">Change Status</button>
         <button class="btn btn-neutral btn-sm">Delete</button>
       </div>
     </div>
@@ -23,7 +23,6 @@
   </div>
 
   <div class="sf-panel-grid">
-    <!-- Left side -->
     <div style="display:flex;flex-direction:column;gap:12px">
       <div class="sf-side-card">
         <div class="sf-side-card-header">
@@ -34,10 +33,10 @@
         </div>
         <div class="sf-side-card-body">
           <div class="sf-side-fields">
-            <div class="detail-field"><div class="df-label">Name</div><div class="df-value link" id="case-contact-name">Milo Arden</div></div>
-            <div class="detail-field"><div class="df-label">Account Name</div><div class="df-value link" id="case-account-name">Northline Utilities</div></div>
-            <div class="detail-field"><div class="df-label">Email</div><div class="df-value link" id="case-contact-email">nova.case+hz12@mockmail.test</div></div>
-            <div class="detail-field"><div class="df-label">Phone</div><div class="df-value" id="case-contact-phone">+1 555 077 6104</div></div>
+            <div class="detail-field"><div class="df-label">Name</div><div class="df-value link" id="case-contact-name">Albi, Paul</div></div>
+            <div class="detail-field"><div class="df-label">Account Name</div><div class="df-value link" id="case-account-name">Albi, Paul</div></div>
+            <div class="detail-field"><div class="df-label">Email</div><div class="df-value link" id="case-contact-email">paul.albi@ca.clipper.com</div></div>
+            <div class="detail-field"><div class="df-label">Phone</div><div class="df-value" id="case-contact-phone">—</div></div>
           </div>
         </div>
       </div>
@@ -51,17 +50,17 @@
         </div>
         <div class="sf-side-card-body" style="padding:0">
           <table class="sf-mini-related">
-            <thead><tr><th>Case</th><th>Subject</th></tr></thead>
+            <thead><tr><th>Case</th><th>Subject</th><th>Date/Time Opened</th></tr></thead>
             <tbody id="case-parent-related">
-              <tr><td class="link">00074374</td><td style="color:var(--text-3)">Service Reminder Follow-up</td></tr>
-              <tr><td class="link">00071137</td><td style="color:var(--text-3)">Service Reminder Scheduling Note</td></tr>
+              <tr><td class="link">00076591</td><td style="color:var(--text-3)">Automatic reply: [EXTERNAL] Service Reminder March 19, 2026</td><td style="color:var(--text-3)">16/03/2026 9:00 AM</td></tr>
+              <tr><td class="link">00074374</td><td style="color:var(--text-3)">RE: [EXTERNAL] Arrival Window February 24, 2026</td><td style="color:var(--text-3)">26/02/2026 4:23 PM</td></tr>
+              <tr><td class="link">00070789</td><td style="color:var(--text-3)">Re: [EXTERNAL] Service Reminder January 16, 2026</td><td style="color:var(--text-3)">12/01/2026 9:06 AM</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- Right main panel -->
     <div class="sf-right-panel">
       <div class="sf-right-tabs" role="tablist" aria-label="Case tabs">
         <div class="sf-right-tab active" id="case-tab-btn-details" role="tab" aria-selected="true" onclick="setCaseRightTab('details')">Details</div>
@@ -70,29 +69,214 @@
       </div>
 
       <div class="sf-right-content" id="case-tab-details">
-        <div class="fields-grid">
-          <div class="detail-field"><div class="df-label">Subject</div><div class="df-value" id="case-detail-subject">Service Reminder Follow-up</div></div>
-          <div class="detail-field"><div class="df-label">Status</div><div class="df-value" id="case-detail-status">Closed</div></div>
-          <div class="detail-field" style="grid-column:1 / -1">
-            <div class="df-label" style="margin-bottom:6px">Description</div>
-            <div class="df-value" id="case-detail-description" style="line-height:1.6;color:var(--text-2)">
-              Mock request: please schedule this visit in the afternoon window only.
+        <div data-collapsible-scope>
+          <div class="fields-grid" style="margin-bottom:12px">
+            <div class="detail-field" style="grid-column:1 / -1">
+              <div class="df-label">Subject</div>
+              <div class="df-value" id="case-detail-subject">Automatic reply: [EXTERNAL] Service Reminder March 19, 2026</div>
+            </div>
+            <div class="detail-field" style="grid-column:1 / -1">
+              <div class="df-label">Description</div>
+              <div class="df-value" id="case-detail-description" style="line-height:1.6;color:var(--text-2)">
+                I am currently away from the office, returning on Thursday, March 19. I will not be checking email regularly during this period. Please feel free to contact my assistant Linda James. Thank you.
+              </div>
+              <div class="df-value" style="line-height:1.6;color:var(--text-2);margin-top:8px">
+                This e-mail, the information contained in it and any attachment(s) are confidential and may be solicitor-client privileged and is intended for the sole use of the intended recipient(s). If the reader of this e-mail is not an intended recipient, you are hereby notified that any unauthorized review, use, disclosure, dissemination, distribution, or copying of this e-mail, or any of its contents and/or attachments, is strictly prohibited.
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card js-collapsible">
+            <div class="section-card-header"><div class="section-card-title">Customer Information</div></div>
+            <div class="section-card-body">
+              <div class="fields-grid">
+                <div class="detail-field"><div class="df-label">Account Name</div><div class="df-value link" id="case-detail-account">Albi, Paul</div></div>
+                <div class="detail-field"><div class="df-label">Service Territory</div><div class="df-value link" id="case-detail-territory">Vancouver</div></div>
+                <div class="detail-field"><div class="df-label">Contact Name</div><div class="df-value link" id="case-detail-contact">Albi, Paul</div></div>
+                <div class="detail-field"><div class="df-label">Service Appointment</div><div class="df-value muted" id="case-detail-appointment"> </div></div>
+                <div class="detail-field"><div class="df-label">Contact Mobile</div><div class="df-value muted" id="case-detail-mobile"> </div></div>
+                <div class="detail-field"><div class="df-label">Contact Phone</div><div class="df-value muted" id="case-detail-contact-phone"> </div></div>
+                <div class="detail-field"><div class="df-label">Contact Email</div><div class="df-value link" id="case-detail-email">paul.albi@ca.clipper.com</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card js-collapsible">
+            <div class="section-card-header"><div class="section-card-title">Additional Information</div></div>
+            <div class="section-card-body">
+              <div class="fields-grid">
+                <div class="detail-field"><div class="df-label">Case Number</div><div class="df-value" id="case-detail-number">00076591</div></div>
+                <div class="detail-field"><div class="df-label">Case Owner</div><div class="df-value" id="case-detail-owner">Vancouver Team</div></div>
+                <div class="detail-field"><div class="df-label">Type</div><div class="df-value muted" id="case-detail-type"> </div></div>
+                <div class="detail-field"><div class="df-label">Case Origin</div><div class="df-value" id="case-detail-origin">Email</div></div>
+                <div class="detail-field"><div class="df-label">Status</div><div class="df-value" id="case-detail-status">Closed</div></div>
+                <div class="detail-field"><div class="df-label">Priority</div><div class="df-value" id="case-detail-priority">Medium</div></div>
+                <div class="detail-field"><div class="df-label">Alt1 Date of Service</div><div class="df-value muted" id="case-detail-alt1"> </div></div>
+                <div class="detail-field"><div class="df-label">Is Spam Case?</div><div class="df-value muted" id="case-detail-spam">[ ]</div></div>
+                <div class="detail-field"><div class="df-label">Alt2 Date of Service</div><div class="df-value muted" id="case-detail-alt2"> </div></div>
+                <div class="detail-field"><div class="df-label">Alt3 Date of Service</div><div class="df-value muted" id="case-detail-alt3"> </div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card js-collapsible">
+            <div class="section-card-header"><div class="section-card-title">Created &amp; Closed Dates</div></div>
+            <div class="section-card-body">
+              <div class="fields-grid">
+                <div class="detail-field"><div class="df-label">Date/Time Opened</div><div class="df-value" id="case-detail-opened">16/03/2026 9:00 AM</div></div>
+                <div class="detail-field"><div class="df-label">Date/Time Closed</div><div class="df-value" id="case-detail-closed">16/03/2026 9:39 AM</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card js-collapsible">
+            <div class="section-card-header"><div class="section-card-title">Web Information</div></div>
+            <div class="section-card-body">
+              <div class="fields-grid">
+                <div class="detail-field"><div class="df-label">Web Email</div><div class="df-value link" id="case-detail-web-email">paul.albi@ca.clipper.com</div></div>
+                <div class="detail-field"><div class="df-label">Web Name</div><div class="df-value" id="case-detail-web-name">Albi, Paul</div></div>
+                <div class="detail-field"><div class="df-label">Internal Comments</div><div class="df-value muted" id="case-detail-comments"> </div></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="sf-right-content" id="case-tab-email" style="display:none">
-        <div class="df-value" style="color:var(--text-3);line-height:1.7">
-          Email &amp; feed timeline goes here (prototype).
+        <div class="case-compose-row">
+          <input class="case-compose-input" type="text" placeholder="Write an email..." />
+          <button class="btn btn-brand btn-sm" type="button">Compose</button>
+        </div>
+        <div class="df-label" style="margin:12px 0 6px">Most Recent Activity</div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="act-icon-wrap ai-note">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h10v10H3z"/><path d="M5.5 6h5M5.5 8h5M5.5 10h3"/></svg>
+            </div>
+            <div class="act-body">
+              <div class="act-title">Vancouver (Carmon) Customer Care</div>
+              <div class="act-sub">Case closed</div>
+            </div>
+            <div class="act-time">March 16, 2026 at 9:39 AM</div>
+          </div>
+          <div class="activity-item">
+            <div class="act-icon-wrap ai-email">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 5l6 4 6-4"/></svg>
+            </div>
+            <div class="act-body">
+              <div class="act-title">Albi, Paul</div>
+              <div class="act-sub">I am currently away from the office, returning on Thursday, March 19. I will not be checking email regularly during this period.</div>
+            </div>
+            <div class="act-time">March 16, 2026 at 9:00 AM</div>
+          </div>
         </div>
       </div>
 
       <div class="sf-right-content" id="case-tab-jobs" style="display:none">
-        <div class="df-value" style="color:var(--text-3);line-height:1.7">
-          Jobs/Work Orders related to this case go here (prototype).
+        <table class="related-table">
+          <thead><tr><th>Work Order</th><th>Subject</th><th>Status</th><th>Team</th></tr></thead>
+          <tbody>
+            <tr><td class="link">00965084</td><td>Maintenance</td><td>Completed</td><td>Vancouver Team</td></tr>
+            <tr><td class="link">00980528</td><td>Maintenance Window: February 12, 2026</td><td>Completed</td><td>Toronto Team</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="case-edit-overlay" aria-hidden="true">
+  <div class="modal modal--case-edit" role="dialog" aria-modal="true" aria-label="Edit Case">
+    <div class="modal-header">
+      <div class="modal-title">Edit <span id="ce-title-number">00076591</span></div>
+      <button class="al-close" type="button" onclick="closeCaseEditModal()" aria-label="Close">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" style="width:18px;height:18px">
+          <path d="M4 4l8 8M12 4L4 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-legend" style="text-align:right"><span style="color:var(--sf-red);font-weight:900">*</span> = Required Information</div>
+
+      <div class="section-shade">Description Information</div>
+      <div class="form-grid">
+        <div class="form-field" style="grid-column:1 / -1">
+          <div class="ff-label">Subject</div>
+          <div class="ff-control"><input id="ce-subject" /></div>
+        </div>
+        <div class="form-field" style="grid-column:1 / -1">
+          <div class="ff-label">Description</div>
+          <div class="ff-control"><textarea id="ce-description"></textarea></div>
         </div>
       </div>
+
+      <div class="section-shade">Customer Information</div>
+      <div class="form-grid">
+        <div class="form-field"><div class="ff-label">Account Name</div><div class="ff-control"><input id="ce-account-name" /></div></div>
+        <div class="form-field"><div class="ff-label">Service Territory</div><div class="ff-control"><input id="ce-service-territory" /></div></div>
+        <div class="form-field"><div class="ff-label">Contact Name</div><div class="ff-control"><input id="ce-contact-name" /></div></div>
+        <div class="form-field"><div class="ff-label">Service Appointment</div><div class="ff-control"><input id="ce-service-appointment" /></div></div>
+      </div>
+
+      <div class="section-shade">Additional Information</div>
+      <div class="form-grid">
+        <div class="form-field"><div class="ff-label">Case Number</div><div class="ff-control"><input id="ce-case-number" disabled /></div></div>
+        <div class="form-field"><div class="ff-label">Case Owner</div><div class="ff-control"><input id="ce-case-owner" /></div></div>
+        <div class="form-field"><div class="ff-label">Type</div><div class="ff-control"><input id="ce-type" /></div></div>
+        <div class="form-field"><div class="ff-label">Case Origin <span class="req">*</span></div><div class="ff-control"><input id="ce-origin" /></div></div>
+        <div class="form-field"><div class="ff-label">Status <span class="req">*</span></div><div class="ff-control"><input id="ce-status" /></div></div>
+        <div class="form-field"><div class="ff-label">Priority</div><div class="ff-control"><input id="ce-priority" /></div></div>
+        <div class="form-field"><div class="ff-label">Alt1 Date of Service</div><div class="ff-control"><input id="ce-alt1" /></div></div>
+        <div class="form-field"><div class="ff-label">Is Spam Case?</div><div class="ff-control"><input id="ce-spam" /></div></div>
+        <div class="form-field"><div class="ff-label">Alt2 Date of Service</div><div class="ff-control"><input id="ce-alt2" /></div></div>
+        <div class="form-field"><div class="ff-label">Alt3 Date of Service</div><div class="ff-control"><input id="ce-alt3" /></div></div>
+      </div>
+
+      <div class="section-shade">Web Information</div>
+      <div class="form-grid">
+        <div class="form-field"><div class="ff-label">Web Email</div><div class="ff-control"><input id="ce-web-email" /></div></div>
+        <div class="form-field"><div class="ff-label">Web Name</div><div class="ff-control"><input id="ce-web-name" /></div></div>
+        <div class="form-field" style="grid-column:1 / -1"><div class="ff-label">Internal Comments</div><div class="ff-control"><textarea id="ce-comments"></textarea></div></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-neutral" type="button" onclick="closeCaseEditModal()">Cancel</button>
+      <button class="btn btn-neutral" type="button" onclick="saveCaseEditModal({ andNew: true })">Save &amp; New</button>
+      <button class="btn btn-brand" type="button" onclick="saveCaseEditModal({ andNew: false })">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="case-status-overlay" aria-hidden="true">
+  <div class="modal modal--case-status" role="dialog" aria-modal="true" aria-label="Change Status">
+    <div class="modal-header">
+      <div class="modal-title">Change Status</div>
+      <button class="al-close" type="button" onclick="closeCaseStatusModal()" aria-label="Close">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" style="width:18px;height:18px">
+          <path d="M4 4l8 8M12 4L4 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-legend" style="text-align:right"><span style="color:var(--sf-red);font-weight:900">*</span> = Required Information</div>
+      <div class="form-grid">
+        <div class="form-field" style="grid-column:1 / -1" id="ff-case-status-only">
+          <div class="ff-label">Status <span class="req">*</span></div>
+          <div class="ff-control">
+            <select id="case-status-only">
+              <option>New</option>
+              <option>Open</option>
+              <option>Pending</option>
+              <option selected>Closed</option>
+            </select>
+          </div>
+          <div class="ff-error">Complete this field.</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-neutral" type="button" onclick="closeCaseStatusModal()">Cancel</button>
+      <button class="btn btn-brand" type="button" onclick="saveCaseStatusModal()">Save</button>
     </div>
   </div>
 </div>

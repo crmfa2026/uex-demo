@@ -7,7 +7,7 @@ export const objMeta = {
   contacts: { icon: 'person', label: 'Contacts', views: ['All Contacts', 'My Contacts', 'Recently Viewed'], newLabel: 'New Contact' },
   opportunities: { icon: 'diamond', label: 'Opportunities', views: ['All Opportunities', 'My Pipeline', 'Closing This Quarter'], newLabel: 'New Opportunity' },
   workorders: { icon: 'truck', label: 'Work Orders', views: ['Recently Viewed', 'My Work Orders'], newLabel: 'New Work Order' },
-  cases: { icon: 'file', label: 'Cases', views: ['All Cases', 'My Open Cases', 'Escalated', 'Recently Closed'], newLabel: 'New Case' },
+  cases: { icon: 'file', label: 'Cases', views: ['Recently Viewed', 'My Open Cases', 'Escalated', 'Recently Closed'], newLabel: 'New Case' },
 };
 
 const moduleMenuItems = [
@@ -168,26 +168,106 @@ export const accountRecords = {
 
 export const caseRecords = {
   'CASE-00041': {
+    caseNumber: '00076591',
+    subject: 'Automatic reply: [EXTERNAL] Service Reminder March 19, 2026',
+    status: 'Closed',
+    priority: 'Medium',
+    openedAt: '16/03/2026 9:00 AM',
+    closedAt: '16/03/2026 9:39 AM',
+    accountName: 'Albi, Paul',
+    contactName: 'Albi, Paul',
+    contactEmail: 'paul.albi@ca.clipper.com',
+    contactPhone: '—',
+    serviceTerritory: 'Vancouver',
+    caseOwner: 'Vancouver Team',
+    caseOrigin: 'Email',
+    webName: 'Albi, Paul',
+    description: 'Customer auto-reply was received and the case was logged for follow-up by the Vancouver team.',
+  },
+  'CASE-00039': {
     caseNumber: '00074374',
     subject: 'RE: Service Reminder February 24, 2026',
     status: 'Closed',
     priority: 'Medium',
-    accountName: 'Northline Utilities',
-    contactName: 'Milo Arden',
-    contactEmail: 'nova.case+hz12@mockmail.test',
+    openedAt: '26/02/2026 4:23 PM',
+    closedAt: '26/02/2026 4:35 PM',
+    accountName: 'Albi, Paul',
+    contactName: 'Albi, Paul',
+    contactEmail: 'paul.albi@ca.clipper.com',
     contactPhone: '—',
-    description: 'Mock request: please schedule this visit in the afternoon window only.',
+    serviceTerritory: 'Vancouver',
+    caseOwner: 'Vancouver Team',
+    caseOrigin: 'Email',
+    webName: 'Albi, Paul',
+    description: 'Customer requested only afternoon availability and asked for schedule confirmation.',
   },
-  'CASE-00039': {
+  'CASE-00037': {
+    caseNumber: '00070789',
+    subject: 'Re: [EXTERNAL] Service Reminder January 16, 2026',
+    status: 'Closed',
+    priority: 'Medium',
+    openedAt: '12/01/2026 9:06 AM',
+    closedAt: '12/01/2026 9:26 AM',
+    accountName: 'Albi, Paul',
+    contactName: 'Albi, Paul',
+    contactEmail: 'paul.albi@ca.clipper.com',
+    contactPhone: '—',
+    serviceTerritory: 'Vancouver',
+    caseOwner: 'Vancouver Team',
+    caseOrigin: 'Email',
+    webName: 'Albi, Paul',
+    description: 'Reminder acknowledgement was received by email and closed automatically.',
+  },
+  'CASE-00034': {
     caseNumber: '00016321',
     subject: 'Home Cleaning Booking - Vancouver - 2024-01-29',
     status: 'Closed',
     priority: 'Medium',
-    accountName: 'Sentinel Ops Group',
-    contactName: 'Ivy Soren',
-    contactEmail: 'ivy.soren+kt54@mockmail.test',
-    contactPhone: '+1 555 021 4478',
-    description: 'Customer asked to reschedule cleaning. Please confirm available slots.',
+    openedAt: '26/01/2024 5:31 AM',
+    closedAt: '26/01/2024 5:48 AM',
+    accountName: 'Albi, Paul',
+    contactName: 'Albi, Paul',
+    contactEmail: 'paul.albi@ca.clipper.com',
+    contactPhone: '—',
+    serviceTerritory: 'Vancouver',
+    caseOwner: 'Vancouver Team',
+    caseOrigin: 'Email',
+    webName: 'Albi, Paul',
+    description: 'Case captured from online booking flow for Vancouver service.',
+  },
+  'CASE-00031': {
+    caseNumber: '00031526',
+    subject: 'RE: [EXTERNAL] Unable to gain access - Action Required',
+    status: 'Closed',
+    priority: 'High',
+    openedAt: '05/09/2024 1:58 PM',
+    closedAt: '05/09/2024 2:11 PM',
+    accountName: 'Albi, Paul',
+    contactName: 'Albi, Paul',
+    contactEmail: 'paul.albi@ca.clipper.com',
+    contactPhone: '—',
+    serviceTerritory: 'Vancouver',
+    caseOwner: 'Vancouver Team',
+    caseOrigin: 'Email',
+    webName: 'Albi, Paul',
+    description: 'Field team logged inability-to-access message and closed after follow-up.',
+  },
+  'CASE-00028': {
+    caseNumber: '00025541',
+    subject: "RE: [EXTERNAL] Invoice attached - We'd love your feedback!",
+    status: 'Closed',
+    priority: 'Low',
+    openedAt: '14/08/2024 7:18 PM',
+    closedAt: '14/08/2024 7:29 PM',
+    accountName: 'Albi, Paul',
+    contactName: 'Albi, Paul',
+    contactEmail: 'paul.albi@ca.clipper.com',
+    contactPhone: '—',
+    serviceTerritory: 'Vancouver',
+    caseOwner: 'Vancouver Team',
+    caseOrigin: 'Email',
+    webName: 'Albi, Paul',
+    description: 'Invoice follow-up mail was auto-attached to case and completed.',
   },
 };
 
@@ -730,6 +810,11 @@ export function setCaseRightTab(tab) {
 function renderCaseDetail(caseId = 'CASE-00041') {
   const c = caseRecords[caseId] || caseRecords['CASE-00041'];
   if (!c) return;
+  const setText = (id, value) => {
+    if (value === undefined || value === null) return;
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
 
   const title = document.getElementById('case-title');
   if (title) title.textContent = c.subject;
@@ -745,12 +830,22 @@ function renderCaseDetail(caseId = 'CASE-00041') {
   const cp = document.getElementById('case-contact-phone');
   if (cp) cp.textContent = c.contactPhone;
 
-  const subj = document.getElementById('case-detail-subject');
-  if (subj) subj.textContent = c.subject;
-  const st = document.getElementById('case-detail-status');
-  if (st) st.textContent = c.status;
-  const desc = document.getElementById('case-detail-description');
-  if (desc) desc.textContent = c.description;
+  setText('case-detail-subject', c.subject);
+  setText('case-detail-description', c.description);
+  setText('case-detail-status', c.status);
+  setText('case-detail-number', c.caseNumber);
+  setText('case-detail-opened', c.openedAt || '—');
+  setText('case-detail-closed', c.closedAt || '—');
+  setText('case-detail-account', c.accountName || '—');
+  setText('case-detail-territory', c.serviceTerritory || '—');
+  setText('case-detail-contact', c.contactName || '—');
+  setText('case-detail-contact-phone', c.contactPhone || '—');
+  setText('case-detail-email', c.contactEmail || '—');
+  setText('case-detail-owner', c.caseOwner || '—');
+  setText('case-detail-priority', c.priority || '—');
+  setText('case-detail-origin', c.caseOrigin || '—');
+  setText('case-detail-web-email', c.contactEmail || '—');
+  setText('case-detail-web-name', c.webName || c.contactName || '—');
 }
 
 export function showCaseDetail(caseId = 'CASE-00041') {

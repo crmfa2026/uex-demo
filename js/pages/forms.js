@@ -564,6 +564,136 @@ export function saveNewCase({ andNew } = { andNew: false }) {
   closeNewCaseModal();
 }
 
+const textById = (id) => (document.getElementById(id)?.textContent || '').trim();
+const setTextById = (id, value) => {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+};
+const valueById = (id) => (document.getElementById(id)?.value || '').trim();
+const setValueById = (id, value) => {
+  const el = document.getElementById(id);
+  if (el) el.value = value;
+};
+
+export function openCaseEditModal() {
+  const overlay = document.getElementById('case-edit-overlay');
+  if (!overlay) return;
+
+  const caseNumber = textById('case-detail-number') || textById('case-sub').split('Case Number ')[1] || '';
+  setTextById('ce-title-number', caseNumber);
+  setValueById('ce-subject', textById('case-detail-subject'));
+  setValueById('ce-description', textById('case-detail-description'));
+  setValueById('ce-account-name', textById('case-detail-account'));
+  setValueById('ce-service-territory', textById('case-detail-territory'));
+  setValueById('ce-contact-name', textById('case-detail-contact'));
+  setValueById('ce-service-appointment', textById('case-detail-appointment'));
+  setValueById('ce-case-number', caseNumber);
+  setValueById('ce-case-owner', textById('case-detail-owner'));
+  setValueById('ce-type', textById('case-detail-type'));
+  setValueById('ce-origin', textById('case-detail-origin'));
+  setValueById('ce-status', textById('case-detail-status'));
+  setValueById('ce-priority', textById('case-detail-priority'));
+  setValueById('ce-alt1', textById('case-detail-alt1'));
+  setValueById('ce-spam', textById('case-detail-spam'));
+  setValueById('ce-alt2', textById('case-detail-alt2'));
+  setValueById('ce-alt3', textById('case-detail-alt3'));
+  setValueById('ce-web-email', textById('case-detail-web-email'));
+  setValueById('ce-web-name', textById('case-detail-web-name'));
+  setValueById('ce-comments', textById('case-detail-comments'));
+
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden', 'false');
+  setTimeout(() => document.getElementById('ce-subject')?.focus(), 0);
+}
+
+export function closeCaseEditModal() {
+  const overlay = document.getElementById('case-edit-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('show');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
+export function saveCaseEditModal({ andNew } = { andNew: false }) {
+  const subject = valueById('ce-subject');
+  const status = valueById('ce-status');
+  const priority = valueById('ce-priority');
+  const caseNumber = valueById('ce-case-number');
+
+  setTextById('case-title', subject || textById('case-title'));
+  setTextById('case-detail-subject', subject || textById('case-detail-subject'));
+  setTextById('case-detail-description', valueById('ce-description'));
+  setTextById('case-detail-account', valueById('ce-account-name'));
+  setTextById('case-detail-territory', valueById('ce-service-territory'));
+  setTextById('case-detail-contact', valueById('ce-contact-name'));
+  setTextById('case-detail-owner', valueById('ce-case-owner'));
+  setTextById('case-detail-type', valueById('ce-type'));
+  setTextById('case-detail-origin', valueById('ce-origin'));
+  setTextById('case-detail-status', status);
+  setTextById('case-detail-priority', priority);
+  setTextById('case-detail-alt1', valueById('ce-alt1'));
+  setTextById('case-detail-spam', valueById('ce-spam'));
+  setTextById('case-detail-alt2', valueById('ce-alt2'));
+  setTextById('case-detail-alt3', valueById('ce-alt3'));
+  setTextById('case-detail-web-email', valueById('ce-web-email'));
+  setTextById('case-detail-web-name', valueById('ce-web-name'));
+  setTextById('case-detail-comments', valueById('ce-comments'));
+  setTextById('case-detail-number', caseNumber);
+
+  setTextById('case-sub', `Priority ${priority || '—'} · Status ${status || '—'} · Case Number ${caseNumber || '—'}`);
+  showToast({ type: 'success', title: 'Case updated', body: subject || caseNumber || 'Case' });
+
+  if (andNew) {
+    setValueById('ce-subject', '');
+    setValueById('ce-description', '');
+    setValueById('ce-type', '');
+    setValueById('ce-alt1', '');
+    setValueById('ce-alt2', '');
+    setValueById('ce-alt3', '');
+    setValueById('ce-comments', '');
+    setTimeout(() => document.getElementById('ce-subject')?.focus(), 0);
+    return;
+  }
+
+  closeCaseEditModal();
+}
+
+export function openCaseStatusModal() {
+  const overlay = document.getElementById('case-status-overlay');
+  if (!overlay) return;
+  const currentStatus = textById('case-detail-status') || 'Closed';
+  setValueById('case-status-only', currentStatus);
+  document.getElementById('ff-case-status-only')?.classList.remove('is-invalid');
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden', 'false');
+  setTimeout(() => document.getElementById('case-status-only')?.focus(), 0);
+}
+
+export function closeCaseStatusModal() {
+  const overlay = document.getElementById('case-status-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('show');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
+export function saveCaseStatusModal() {
+  const status = valueById('case-status-only');
+  const invalid = !status;
+  document.getElementById('ff-case-status-only')?.classList.toggle('is-invalid', invalid);
+  if (invalid) {
+    showToast({ type: 'error', title: 'Review required fields', body: 'Status is required.' });
+    document.getElementById('case-status-only')?.focus();
+    return;
+  }
+
+  const caseSub = textById('case-sub');
+  const priority = textById('case-detail-priority') || '—';
+  const caseNumber = textById('case-detail-number') || caseSub.split('Case Number ')[1] || '—';
+  setTextById('case-detail-status', status);
+  setTextById('case-sub', `Priority ${priority} · Status ${status} · Case Number ${caseNumber}`);
+  showToast({ type: 'success', title: 'Status changed', body: `Case is now ${status}.` });
+  closeCaseStatusModal();
+}
+
 export function openNewLead(prefill = {}) {
   showPage('lead-new');
   resetNewLeadForm(prefill);
