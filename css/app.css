@@ -1103,9 +1103,42 @@ body.contact-detail-context.has-child-worktabs .content-area {
 .modal.modal--case-status {
   width: min(860px, calc(100vw - 24px));
 }
+.modal.modal--service-territory {
+  width: min(980px, calc(100vw - 24px));
+  max-height: calc(100vh - 18px);
+}
 .modal--case-edit #ce-description,
 .modal--case-edit #ce-comments {
   min-height: 84px;
+}
+.modal--service-territory #st-address {
+  min-height: 42px;
+}
+.modal--service-territory .modal-body {
+  max-height: calc(100vh - 140px);
+}
+.st-input-icon {
+  position: relative;
+}
+.st-input-icon input {
+  padding-right: 28px;
+}
+.st-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-4);
+  font-size: 12px;
+  pointer-events: none;
+}
+.st-checkbox-wrap {
+  display: flex;
+  align-items: center;
+}
+.st-checkbox-wrap input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
 }
 .nwo-type-panel {
   padding: 8px 0 4px;

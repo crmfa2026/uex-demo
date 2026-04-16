@@ -1,0 +1,155 @@
+<div class="content-area page" id="page-service-territory-detail">
+  <div class="record-header">
+    <div class="record-header-top">
+      <div class="record-avatar" style="background:#EEF4FF;color:#014486;font-size:12px;font-weight:800">ST</div>
+      <div style="flex:1">
+        <div style="font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px">Service Territory</div>
+        <div class="record-title" id="st-detail-title">Aurora North</div>
+      </div>
+      <div class="record-actions">
+        <button class="btn btn-neutral btn-sm" type="button">Edit</button>
+        <button class="btn btn-neutral btn-sm" type="button">Delete</button>
+        <button class="btn btn-neutral btn-sm" type="button">Clone</button>
+      </div>
+    </div>
+    <div class="key-fields">
+      <div class="key-field"><div class="key-field-label">Address</div><div class="key-field-value" id="st-kf-address">741 Polaris Loop, Sector 9, NQ-204</div></div>
+      <div class="key-field"><div class="key-field-label">Operating Hours</div><div class="key-field-value" id="st-kf-hours">7-4 NST</div></div>
+      <div class="key-field"><div class="key-field-label">Active</div><div class="key-field-value" id="st-kf-active">Yes</div></div>
+    </div>
+  </div>
+
+  <div class="record-tabs" role="tablist" aria-label="Service territory tabs">
+    <div class="record-tab active" id="st-tab-btn-details" role="tab" aria-selected="true" onclick="setServiceTerritoryTab('details')">Details</div>
+    <div class="record-tab" id="st-tab-btn-related" role="tab" aria-selected="false" onclick="setServiceTerritoryTab('related')">Related</div>
+  </div>
+
+  <div class="detail-body" id="st-tab-details">
+    <div class="detail-main" data-collapsible-scope>
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Information</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Name</div><div class="df-value" id="st-d-name">Aurora North</div></div>
+            <div class="detail-field"><div class="df-label">Territory Prefix</div><div class="df-value" id="st-d-prefix">A17</div></div>
+            <div class="detail-field"><div class="df-label">Operating Hours</div><div class="df-value" id="st-d-hours">7-4 NST</div></div>
+            <div class="detail-field"><div class="df-label">Active</div><div class="df-value" id="st-d-active">Yes</div></div>
+            <div class="detail-field"><div class="df-label">Address</div><div class="df-value link" id="st-d-address">741 Polaris Loop, Sector 9, NQ-204</div></div>
+            <div class="detail-field"><div class="df-label">Team Travel Charge</div><div class="df-value" id="st-d-charge">$71.00</div></div>
+            <div class="detail-field"><div class="df-label">Payment Gateway</div><div class="df-value link" id="st-d-gateway">Nimbus Gateway Alpha</div></div>
+            <div class="detail-field"><div class="df-label">Scheduling Constraint</div><div class="df-value muted" id="st-d-constraint"> </div></div>
+            <div class="detail-field"><div class="df-label">Expected Time Leaving Office</div><div class="df-value" id="st-d-leaving">7:40 AM</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">Email Template Information</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Customer Care Primary Rep Name</div><div class="df-value" id="st-d-customer-care">Noa Finch</div></div>
+            <div class="detail-field"><div class="df-label">Company Name</div><div class="df-value" id="st-d-company">Nimbus Ops Unit A</div></div>
+            <div class="detail-field"><div class="df-label">Operations Manager Name</div><div class="df-value" id="st-d-ops-manager">Iris Vale</div></div>
+            <div class="detail-field"><div class="df-label">Email</div><div class="df-value link" id="st-d-email">aurora.unit.a17@mockmail.test</div></div>
+            <div class="detail-field"><div class="df-label">Billing Name</div><div class="df-value" id="st-d-billing">Mira Hale</div></div>
+            <div class="detail-field"><div class="df-label">Phone Number</div><div class="df-value link" id="st-d-phone">+1 555 801 2910</div></div>
+            <div class="detail-field"><div class="df-label">Secondary Phone Number</div><div class="df-value link" id="st-d-phone-secondary">+1 555 801 8660</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card js-collapsible">
+        <div class="section-card-header"><div class="section-card-title">System Information</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Created By</div><div class="df-value link" id="st-d-created-by">System Admin</div></div>
+            <div class="detail-field"><div class="df-label">Last Modified By</div><div class="df-value link" id="st-d-modified-by">Vinod Gandla</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-aside">
+      <div class="section-card">
+        <div class="section-card-header"><div class="section-card-title">Customer Count Information</div></div>
+        <div class="section-card-body">
+          <div class="fields-grid">
+            <div class="detail-field"><div class="df-label">Active Recurring</div><div class="df-value" id="st-c-active-recurring">327</div></div>
+            <div class="detail-field"><div class="df-label">Active One-Time</div><div class="df-value" id="st-c-active-one-time">14</div></div>
+            <div class="detail-field"><div class="df-label">All Active</div><div class="df-value" id="st-c-all-active">341</div></div>
+            <div class="detail-field"><div class="df-label">In-Active One-Time</div><div class="df-value" id="st-c-inactive-one-time">1261</div></div>
+            <div class="detail-field"><div class="df-label">In-Active Recurring</div><div class="df-value" id="st-c-inactive-recurring">269</div></div>
+            <div class="detail-field"><div class="df-label">All Customers</div><div class="df-value" id="st-c-all-customers">1762</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="st-tab-related" style="display:none">
+    <div class="section-card">
+      <div class="related-list-header">
+        <div class="related-list-title">Service Territory Members (6+)</div>
+        <button class="btn btn-neutral btn-sm" type="button">New</button>
+      </div>
+      <table class="related-table">
+        <thead><tr><th>Member Number</th><th>Service Resource</th><th>Start Date</th></tr></thead>
+        <tbody>
+          <tr><td class="link">STM-0018</td><td>CalT3</td><td>04/08/2023 9:53 PM</td></tr>
+          <tr><td class="link">STM-0019</td><td>CalT4</td><td>04/08/2023 9:54 PM</td></tr>
+          <tr><td class="link">STM-0020</td><td>CalT5</td><td>04/08/2023 9:56 PM</td></tr>
+          <tr><td class="link">STM-0021</td><td>CalT6</td><td>04/08/2023 9:58 PM</td></tr>
+          <tr><td class="link">STM-0022</td><td>CalT7</td><td>04/08/2023 9:59 PM</td></tr>
+          <tr><td class="link">STM-0023</td><td>CalT8</td><td>04/08/2023 9:59 PM</td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;padding:8px 0 10px;font-size:12px;color:var(--sf-blue)">View All</div>
+    </div>
+
+    <div class="section-card">
+      <div class="related-list-header">
+        <div class="related-list-title">Employees (6+)</div>
+        <button class="btn btn-neutral btn-sm" type="button">New</button>
+      </div>
+      <table class="related-table">
+        <thead><tr><th>Employee Name</th><th>Last Name</th><th>Payroll Employee ID</th><th>Active</th></tr></thead>
+        <tbody>
+          <tr><td class="link">Tatiana</td><td>Bondar</td><td>222688</td><td>[ ]</td></tr>
+          <tr><td class="link">Teresita</td><td>Alonso</td><td>222572</td><td>[x]</td></tr>
+          <tr><td class="link">Veronika</td><td>Rudolfova</td><td>222658</td><td>[ ]</td></tr>
+          <tr><td class="link">Liliya</td><td>Zhaden</td><td>222702</td><td>[ ]</td></tr>
+          <tr><td class="link">Colette</td><td>Sissons</td><td>222608</td><td>[x]</td></tr>
+          <tr><td class="link">Sherelyn</td><td>Echeverria</td><td>222663</td><td>[ ]</td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;padding:8px 0 10px;font-size:12px;color:var(--sf-blue)">View All</div>
+    </div>
+
+    <div class="section-card">
+      <div class="related-list-header">
+        <div class="related-list-title">Customers (0)</div>
+        <button class="btn btn-neutral btn-sm" type="button">New</button>
+      </div>
+      <div class="section-card-body" style="color:var(--text-4)">No related customers.</div>
+    </div>
+
+    <div class="section-card">
+      <div class="related-list-header">
+        <div class="related-list-title">Leads (6+)</div>
+        <button class="btn btn-neutral btn-sm" type="button">New</button>
+      </div>
+      <table class="related-table">
+        <thead><tr><th>Lead Name</th><th>Company</th><th>Phone</th></tr></thead>
+        <tbody>
+          <tr><td class="link">Alison Alison</td><td> </td><td> </td></tr>
+          <tr><td class="link">Katie Katie</td><td> </td><td> </td></tr>
+          <tr><td class="link">Ramy Ramy</td><td> </td><td> </td></tr>
+          <tr><td class="link">Angela Angela</td><td> </td><td> </td></tr>
+          <tr><td class="link">Ian Ian</td><td> </td><td> </td></tr>
+          <tr><td class="link">Judith Judith</td><td> </td><td> </td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;padding:8px 0 10px;font-size:12px;color:var(--sf-blue)">View All</div>
+    </div>
+  </div>
+</div>

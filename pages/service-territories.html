@@ -1,0 +1,150 @@
+<div class="content-area page" id="page-service-territories">
+  <div class="sf-list-header">
+    <div class="sf-list-title">
+      All Service Territories
+      <span class="sf-list-count">3 items</span>
+    </div>
+    <div class="sf-list-actions">
+      <button class="sf-btn sf-btn-primary" type="button" onclick="openNewServiceTerritory()">New</button>
+    </div>
+  </div>
+
+  <div class="sf-search-bar">
+    <div class="sf-search-input-wrap" style="margin-left:auto">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="M10.5 10.5l3 3"/></svg>
+      <input class="sf-input" type="text" placeholder="Search this list..."/>
+    </div>
+  </div>
+
+  <div class="sf-card">
+    <table class="sf-table">
+      <thead>
+        <tr>
+          <th style="width:4%"></th>
+          <th style="width:14%">Name <span class="sf-sort-icon">▼</span></th>
+          <th style="width:9%">Territory</th>
+          <th style="width:12%">Operating Hours</th>
+          <th style="width:14%">Expected Time Leaving Office</th>
+          <th style="width:10%">Operations Manager</th>
+          <th style="width:13%">Customer Care Primary Rep Name</th>
+          <th style="width:10%">Billing Name</th>
+          <th style="width:14%">Payment Gateway</th>
+          <th style="width:10%">Last Modified</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="sf-link" onclick="openServiceTerritoryInTab('calgary')">Aurora North</td>
+          <td>A17</td>
+          <td>7-4 NST</td>
+          <td>7:40 AM</td>
+          <td>Iris Vale</td>
+          <td>Noa Finch</td>
+          <td>Mira Hale</td>
+          <td class="sf-link">Nimbus Gateway Alpha</td>
+          <td style="color:var(--sf-text-muted)">18/11/2025 6:12 PM</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="sf-link" onclick="openServiceTerritoryInTab('toronto')">Quartz Central</td>
+          <td>Q39</td>
+          <td>9-6 CST</td>
+          <td>8:25 AM</td>
+          <td>Kian Rowe</td>
+          <td>Suri Bloom</td>
+          <td>Mira Hale</td>
+          <td class="sf-link">Nimbus Gateway Beta</td>
+          <td style="color:var(--sf-text-muted)">21/11/2025 8:05 PM</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="sf-link" onclick="openServiceTerritoryInTab('vancouver')">Echo West</td>
+          <td>E05</td>
+          <td>10-7 PST</td>
+          <td>9:05 AM</td>
+          <td>Tala Wren</td>
+          <td>Remy Skye</td>
+          <td>Mira Hale</td>
+          <td class="sf-link">Nimbus Gateway Gamma</td>
+          <td style="color:var(--sf-text-muted)">03/12/2025 1:39 PM</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal-overlay" id="new-service-territory-overlay" aria-hidden="true">
+  <div class="modal modal--service-territory" role="dialog" aria-modal="true" aria-label="New Service Territory">
+    <div class="modal-header">
+      <div class="modal-title">New Service Territory</div>
+      <button class="al-close" type="button" onclick="closeNewServiceTerritoryModal()" aria-label="Close">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" style="width:18px;height:18px">
+          <path d="M4 4l8 8M12 4L4 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-legend" style="text-align:right"><span style="color:var(--sf-red);font-weight:900">*</span> = Required Information</div>
+
+      <div class="section-shade">Information</div>
+      <div class="form-grid">
+        <div class="form-field" id="ff-st-name"><div class="ff-label">Name <span class="req">*</span></div><div class="ff-control"><input id="st-name" /></div><div class="ff-error">Complete this field.</div></div>
+        <div class="form-field"><div class="ff-label">Territory Prefix</div><div class="ff-control"><input id="st-prefix" /></div></div>
+
+        <div class="form-field" id="ff-st-hours">
+          <div class="ff-label">Operating Hours <span class="req">*</span></div>
+          <div class="ff-control st-input-icon"><input id="st-hours" placeholder="Search Operating Hours..." /><span class="st-icon">⌕</span></div>
+          <div class="ff-error">Complete this field.</div>
+        </div>
+        <div class="form-field"><div class="ff-label">Active</div><div class="ff-control st-checkbox-wrap"><input id="st-active" type="checkbox" /></div></div>
+
+        <div class="form-field">
+          <div class="ff-label">Address Search</div>
+          <div class="ff-control st-input-icon"><input id="st-address-search" placeholder="Search Address" /><span class="st-icon">⌕</span></div>
+        </div>
+        <div class="form-field"><div class="ff-label">Team Travel Charge</div><div class="ff-control"><input id="st-team-charge" /></div></div>
+
+        <div class="form-field"><div class="ff-label">Address</div><div class="ff-control"><textarea id="st-address"></textarea></div></div>
+        <div class="form-field"></div>
+
+        <div class="form-field"><div class="ff-label">City</div><div class="ff-control"><input id="st-city" /></div></div>
+        <div class="form-field"><div class="ff-label">State/Province</div><div class="ff-control"><input id="st-state" /></div></div>
+
+        <div class="form-field"><div class="ff-label">Zip/Postal Code</div><div class="ff-control"><input id="st-zip" /></div></div>
+        <div class="form-field"><div class="ff-label">Country</div><div class="ff-control"><input id="st-country" /></div></div>
+
+        <div class="form-field">
+          <div class="ff-label">Payment Gateway</div>
+          <div class="ff-control st-input-icon"><input id="st-payment-gateway" placeholder="Search Payment Gateways..." /><span class="st-icon">⌕</span></div>
+        </div>
+        <div class="form-field">
+          <div class="ff-label">Scheduling Constraint</div>
+          <div class="ff-control st-input-icon"><input id="st-scheduling-constraint" placeholder="Search Scheduling Constraints..." /><span class="st-icon">⌕</span></div>
+        </div>
+
+        <div class="form-field"><div class="ff-label">Expected Time Leaving Office</div><div class="ff-control st-input-icon"><input id="st-time-leaving-office" /><span class="st-icon">◷</span></div></div>
+      </div>
+
+      <div class="section-shade">Email Template Information</div>
+      <div class="form-grid">
+        <div class="form-field"><div class="ff-label">Customer Care Primary Rep Name</div><div class="ff-control"><input id="st-customer-care-name" /></div></div>
+        <div class="form-field"><div class="ff-label">Company Name</div><div class="ff-control"><input id="st-company-name" /></div></div>
+
+        <div class="form-field"><div class="ff-label">Operations Manager Name</div><div class="ff-control"><input id="st-operations-manager-name" /></div></div>
+        <div class="form-field"><div class="ff-label">Email</div><div class="ff-control"><input id="st-email" /></div></div>
+
+        <div class="form-field"><div class="ff-label">Billing Name</div><div class="ff-control"><input id="st-billing-name" /></div></div>
+        <div class="form-field"><div class="ff-label">Phone Number</div><div class="ff-control"><input id="st-phone-number" /></div></div>
+
+        <div class="form-field"></div>
+        <div class="form-field"><div class="ff-label">Secondary Phone Number</div><div class="ff-control"><input id="st-secondary-phone-number" /></div></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-neutral" type="button" onclick="closeNewServiceTerritoryModal()">Cancel</button>
+      <button class="btn btn-neutral" type="button" onclick="saveNewServiceTerritory({ andNew: true })">Save &amp; New</button>
+      <button class="btn btn-brand" type="button" onclick="saveNewServiceTerritory({ andNew: false })">Save</button>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,8 @@ const ROUTES = [
   "opportunities",
   "cases",
   "workorders",
+  "service-territories",
+  "service-territory-detail",
   "lead-detail",
   "contact-detail",
   "lead-new",

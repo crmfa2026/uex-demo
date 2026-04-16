@@ -694,6 +694,54 @@ export function saveCaseStatusModal() {
   closeCaseStatusModal();
 }
 
+function resetNewServiceTerritoryForm() {
+  [
+    'st-name', 'st-prefix', 'st-hours', 'st-address-search', 'st-team-charge', 'st-address', 'st-city', 'st-state',
+    'st-zip', 'st-country', 'st-payment-gateway', 'st-scheduling-constraint', 'st-time-leaving-office',
+    'st-customer-care-name', 'st-company-name', 'st-operations-manager-name', 'st-email', 'st-billing-name',
+    'st-phone-number', 'st-secondary-phone-number',
+  ].forEach((id) => setValueById(id, ''));
+  const active = document.getElementById('st-active');
+  if (active) active.checked = false;
+  document.getElementById('ff-st-name')?.classList.remove('is-invalid');
+  document.getElementById('ff-st-hours')?.classList.remove('is-invalid');
+}
+
+export function openNewServiceTerritory() {
+  const overlay = document.getElementById('new-service-territory-overlay');
+  if (!overlay) return;
+  resetNewServiceTerritoryForm();
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden', 'false');
+  setTimeout(() => document.getElementById('st-name')?.focus(), 0);
+}
+
+export function closeNewServiceTerritoryModal() {
+  const overlay = document.getElementById('new-service-territory-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('show');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
+export function saveNewServiceTerritory({ andNew } = { andNew: false }) {
+  const name = valueById('st-name');
+  const operatingHours = valueById('st-hours');
+  document.getElementById('ff-st-name')?.classList.toggle('is-invalid', !name);
+  document.getElementById('ff-st-hours')?.classList.toggle('is-invalid', !operatingHours);
+  if (!name || !operatingHours) {
+    showToast({ type: 'error', title: 'Review required fields', body: 'Name and Operating Hours are required.' });
+    (name ? document.getElementById('st-hours') : document.getElementById('st-name'))?.focus();
+    return;
+  }
+  showToast({ type: 'success', title: 'Service Territory created', body: name });
+  if (andNew) {
+    resetNewServiceTerritoryForm();
+    setTimeout(() => document.getElementById('st-name')?.focus(), 0);
+    return;
+  }
+  closeNewServiceTerritoryModal();
+}
+
 export function openNewLead(prefill = {}) {
   showPage('lead-new');
   resetNewLeadForm(prefill);

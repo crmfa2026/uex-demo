@@ -8,6 +8,8 @@ export const objMeta = {
   opportunities: { icon: 'diamond', label: 'Opportunities', views: ['All Opportunities', 'My Pipeline', 'Closing This Quarter'], newLabel: 'New Opportunity' },
   workorders: { icon: 'truck', label: 'Work Orders', views: ['Recently Viewed', 'My Work Orders'], newLabel: 'New Work Order' },
   cases: { icon: 'file', label: 'Cases', views: ['Recently Viewed', 'My Open Cases', 'Escalated', 'Recently Closed'], newLabel: 'New Case' },
+  'service-territories': { icon: 'building', label: 'Service Territories', views: ['All Service Territories', 'Recently Viewed'], newLabel: 'New Service Territory' },
+  'service-territory-detail': { icon: 'building', label: 'Service Territory', views: ['Details', 'Related'], newLabel: 'New Service Territory' },
 };
 
 const moduleMenuItems = [
@@ -21,6 +23,7 @@ const moduleMenuItems = [
   { page: '', label: 'Reports' },
   { page: '', label: 'Work Loads' },
   { page: '', label: 'Addresses' },
+  { page: 'service-territories', label: 'Service Territories' },
   { page: '', label: 'Service Appointments' },
   { page: '', label: 'Invoices' },
 ];
@@ -271,6 +274,87 @@ export const caseRecords = {
   },
 };
 
+export const serviceTerritoryRecords = {
+  calgary: {
+    name: 'Aurora North',
+    prefix: 'A17',
+    operatingHours: '7-4 NST',
+    active: 'Yes',
+    address: '741 Polaris Loop, Sector 9, NQ-204',
+    teamTravelCharge: '$71.00',
+    paymentGateway: 'Nimbus Gateway Alpha',
+    schedulingConstraint: ' ',
+    expectedLeavingOffice: '7:40 AM',
+    customerCareRep: 'Noa Finch',
+    companyName: 'Nimbus Ops Unit A',
+    operationsManager: 'Iris Vale',
+    email: 'aurora.unit.a17@mockmail.test',
+    billingName: 'Mira Hale',
+    phone: '+1 555 801 2910',
+    secondaryPhone: '+1 555 801 8660',
+    createdBy: 'Ops Seeder',
+    modifiedBy: 'Mock User 14',
+    countActiveRecurring: '311',
+    countActiveOneTime: '19',
+    countAllActive: '330',
+    countInactiveOneTime: '1042',
+    countInactiveRecurring: '203',
+    countAllCustomers: '1575',
+  },
+  toronto: {
+    name: 'Quartz Central',
+    prefix: 'Q39',
+    operatingHours: '9-6 CST',
+    active: 'Yes',
+    address: '91 Meridian Court, Block Q, MX-110',
+    teamTravelCharge: '$68.00',
+    paymentGateway: 'Nimbus Gateway Beta',
+    schedulingConstraint: ' ',
+    expectedLeavingOffice: '8:25 AM',
+    customerCareRep: 'Suri Bloom',
+    companyName: 'Nimbus Ops Unit B',
+    operationsManager: 'Kian Rowe',
+    email: 'quartz.central.q39@mockmail.test',
+    billingName: 'Mira Hale',
+    phone: '+1 555 702 2210',
+    secondaryPhone: '+1 555 702 9010',
+    createdBy: 'Ops Seeder',
+    modifiedBy: 'Mock User 22',
+    countActiveRecurring: '276',
+    countActiveOneTime: '28',
+    countAllActive: '304',
+    countInactiveOneTime: '987',
+    countInactiveRecurring: '189',
+    countAllCustomers: '1480',
+  },
+  vancouver: {
+    name: 'Echo West',
+    prefix: 'E05',
+    operatingHours: '10-7 PST',
+    active: 'Yes',
+    address: '55 Drift Avenue, Grid E, PX-778',
+    teamTravelCharge: '$74.00',
+    paymentGateway: 'Nimbus Gateway Gamma',
+    schedulingConstraint: ' ',
+    expectedLeavingOffice: '9:05 AM',
+    customerCareRep: 'Remy Skye',
+    companyName: 'Nimbus Ops Unit C',
+    operationsManager: 'Tala Wren',
+    email: 'echo.west.e05@mockmail.test',
+    billingName: 'Mira Hale',
+    phone: '+1 555 603 7420',
+    secondaryPhone: '+1 555 603 7421',
+    createdBy: 'Ops Seeder',
+    modifiedBy: 'Mock User 07',
+    countActiveRecurring: '254',
+    countActiveOneTime: '24',
+    countAllActive: '278',
+    countInactiveOneTime: '912',
+    countInactiveRecurring: '177',
+    countAllCustomers: '1367',
+  },
+};
+
 export const workOrderRecords = {
   'WO-00941877': {
     number: '00941877',
@@ -367,6 +451,7 @@ function defaultTitleForRoute(route = {}) {
   if (p === 'case-detail') return 'Case';
   if (p === 'workorder-detail') return 'Work Order';
   if (p === 'serviceappointment-detail') return 'Service Appointment';
+  if (p === 'service-territory-detail') return 'Service Territory';
   return objMeta[p]?.label || String(p);
 }
 
@@ -456,6 +541,7 @@ function navigateRoute(route) {
   if (p === 'case-detail') { showCaseDetail(route?.id || 'CASE-00041'); return; }
   if (p === 'workorder-detail') { showWorkOrderDetail(route?.id || 'WO-00941877'); return; }
   if (p === 'serviceappointment-detail') { showServiceAppointmentDetail(route?.id || 'SA-943473'); return; }
+  if (p === 'service-territory-detail') { showServiceTerritoryDetail(route?.id || 'calgary'); return; }
   showPage(p);
 }
 
@@ -614,6 +700,11 @@ export function openServiceAppointmentInTab(serviceAppointmentId) {
   const sa = serviceAppointmentRecords[serviceAppointmentId] || serviceAppointmentRecords['SA-943473'];
   const title = sa?.title || String(serviceAppointmentId || 'Service Appointment');
   openWorkspace({ page: 'serviceappointment-detail', id: serviceAppointmentId }, { title, reuseIfExists: true });
+}
+
+export function openServiceTerritoryInTab(territoryId) {
+  const st = serviceTerritoryRecords[territoryId] || serviceTerritoryRecords.calgary;
+  openWorkspace({ page: 'service-territory-detail', id: territoryId }, { title: st?.name || 'Service Territory', reuseIfExists: true });
 }
 
 export function initWorkspaceTabs() {
@@ -807,6 +898,18 @@ export function setCaseRightTab(tab) {
   if (panelJobs) panelJobs.style.display = tab === 'jobs' ? '' : 'none';
 }
 
+export function setServiceTerritoryTab(tab) {
+  const btnDetails = document.getElementById('st-tab-btn-details');
+  const btnRelated = document.getElementById('st-tab-btn-related');
+  const panelDetails = document.getElementById('st-tab-details');
+  const panelRelated = document.getElementById('st-tab-related');
+  const isDetails = tab !== 'related';
+  if (btnDetails) { btnDetails.classList.toggle('active', isDetails); btnDetails.setAttribute('aria-selected', String(isDetails)); }
+  if (btnRelated) { btnRelated.classList.toggle('active', !isDetails); btnRelated.setAttribute('aria-selected', String(!isDetails)); }
+  if (panelDetails) panelDetails.style.display = isDetails ? '' : 'none';
+  if (panelRelated) panelRelated.style.display = isDetails ? 'none' : '';
+}
+
 function renderCaseDetail(caseId = 'CASE-00041') {
   const c = caseRecords[caseId] || caseRecords['CASE-00041'];
   if (!c) return;
@@ -880,6 +983,42 @@ export function showServiceAppointmentDetail(serviceAppointmentId = 'SA-943473')
   setText('sa-addr', sa.address);
   setText('sa-territory', sa.territory);
   showPage('serviceappointment-detail');
+}
+
+export function showServiceTerritoryDetail(territoryId = 'calgary') {
+  const st = serviceTerritoryRecords[territoryId] || serviceTerritoryRecords.calgary;
+  if (!st) return;
+  const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  setText('st-detail-title', st.name);
+  setText('st-kf-address', st.address);
+  setText('st-kf-hours', st.operatingHours);
+  setText('st-kf-active', st.active);
+  setText('st-d-name', st.name);
+  setText('st-d-prefix', st.prefix);
+  setText('st-d-hours', st.operatingHours);
+  setText('st-d-active', st.active);
+  setText('st-d-address', st.address);
+  setText('st-d-charge', st.teamTravelCharge);
+  setText('st-d-gateway', st.paymentGateway);
+  setText('st-d-constraint', st.schedulingConstraint);
+  setText('st-d-leaving', st.expectedLeavingOffice);
+  setText('st-d-customer-care', st.customerCareRep);
+  setText('st-d-company', st.companyName);
+  setText('st-d-ops-manager', st.operationsManager);
+  setText('st-d-email', st.email);
+  setText('st-d-billing', st.billingName);
+  setText('st-d-phone', st.phone);
+  setText('st-d-phone-secondary', st.secondaryPhone);
+  setText('st-d-created-by', st.createdBy);
+  setText('st-d-modified-by', st.modifiedBy);
+  setText('st-c-active-recurring', st.countActiveRecurring);
+  setText('st-c-active-one-time', st.countActiveOneTime);
+  setText('st-c-all-active', st.countAllActive);
+  setText('st-c-inactive-one-time', st.countInactiveOneTime);
+  setText('st-c-inactive-recurring', st.countInactiveRecurring);
+  setText('st-c-all-customers', st.countAllCustomers);
+  showPage('service-territory-detail');
+  setServiceTerritoryTab('details');
 }
 
 // ─────────────────────────────────────────────
