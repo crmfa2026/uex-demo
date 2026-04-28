@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Hierarchy — Field Agent CRM</title>
+<style>
+  :root {
+    --navy:       #032D60;
+    --blue:       #0176D3;
+    --blue-light: #D5E8F0;
+    --blue-mid:   #B0D4ED;
+    --teal:       #06A59A;
+    --green:      #2E7D32;
+    --green-bg:   #E8F5E9;
+    --amber:      #E65100;
+    --amber-bg:   #FFF3E0;
+    --purple:     #4527A0;
+    --purple-bg:  #EDE7F6;
+    --coral:      #C0392B;
+    --coral-bg:   #FFEBEE;
+    --grey-100:   #F5F7FA;
+    --grey-200:   #EBF0F7;
+    --grey-300:   #D0DAE8;
+    --grey-500:   #8899AA;
+    --grey-700:   #445566;
+    --grey-900:   #1A2733;
+    --white:      #FFFFFF;
+    --text:       #1A2733;
+    --text-muted: #5A6A7A;
+    --border:     #D0DAE8;
+    --radius:     8px;
+    --radius-lg:  12px;
+    --shadow:     0 1px 4px rgba(3,45,96,0.08), 0 4px 16px rgba(3,45,96,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--grey-100);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--navy);
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-logo {
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .topbar-logo .dot {
+    width: 8px; height: 8px;
+    background: var(--teal);
+    border-radius: 50%;
+  }
+  .topbar-path {
+    color: #8FAACC;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .topbar-path span { color: white; font-weight: 500; }
+
+  /* ── LAYOUT ── */
+  .page { display: flex; height: calc(100vh - 48px); }
+
+  /* ── LEFT SIDEBAR ── */
+  .sidebar {
+    width: 260px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .sidebar-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .sidebar-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+  }
+  .view-toggle {
+    display: flex;
+    background: var(--grey-100);
+    border-radius: var(--radius);
+    padding: 2px;
+    gap: 2px;
+  }
+  .view-btn {
+    flex: 1;
+    padding: 5px 8px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .view-btn.active {
+    background: var(--white);
+    color: var(--navy);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .sidebar-search {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .search-wrap {
+    position: relative;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 6px 10px 6px 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 12px;
+    background: var(--grey-100);
+    color: var(--text);
+    outline: none;
+    transition: border 0.15s;
+  }
+  .search-wrap input:focus {
+    border-color: var(--blue);
+    background: var(--white);
+  }
+  .search-icon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--grey-500);
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+  /* ── TREE ── */
+  .tree-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+  .tree-node { position: relative; }
+  .tree-row {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px 4px 0;
+    cursor: pointer;
+    border-radius: var(--radius);
+    margin: 1px 6px;
+    transition: background 0.12s;
+    gap: 4px;
+    position: relative;
+  }
+  .tree-row:hover { background: var(--grey-100); }
+  .tree-row.selected { background: var(--blue-light); }
+  .tree-row.selected .node-name { color: var(--navy); font-weight: 600; }
+
+  .tree-toggle {
+    width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px;
+    color: var(--grey-500);
+    font-size: 10px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .tree-toggle.open { transform: rotate(90deg); }
+  .tree-toggle.leaf { opacity: 0; pointer-events: none; }
+
+  .role-badge {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+    letter-spacing: 0;
+  }
+  .badge-director  { background: var(--purple-bg); color: var(--purple); }
+  .badge-manager   { background: var(--blue-light); color: var(--navy); }
+  .badge-dispatcher{ background: #E3F2FD; color: #1565C0; }
+  .badge-agent     { background: var(--green-bg); color: var(--green); }
+
+  .node-info { flex: 1; min-width: 0; }
+  .node-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .node-sub {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .node-count {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--grey-500);
+    background: var(--grey-200);
+    border-radius: 10px;
+    padding: 1px 6px;
+    flex-shrink: 0;
+  }
+
+  .tree-children { padding-left: 20px; }
+
+  /* ── ADD ROLE INLINE BUTTON ── */
+  .add-child-btn {
+    display: none;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px 2px 28px;
+    margin: 0 6px;
+    font-size: 11px;
+    color: var(--blue);
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: background 0.12s;
+  }
+  .add-child-btn:hover { background: var(--blue-light); }
+  .tree-node:hover > .add-child-btn { display: flex; }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .page-header-left { flex: 1; }
+  .page-header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .page-header p {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .header-actions { display: flex; gap: 8px; }
+  .btn {
+    padding: 7px 14px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-primary {
+    background: var(--blue);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--navy); }
+  .btn-secondary {
+    background: var(--white);
+    color: var(--navy);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { background: var(--grey-100); }
+  .btn-danger {
+    background: var(--coral-bg);
+    color: var(--coral);
+    border: 1px solid #FFCDD2;
+  }
+  .btn-danger:hover { background: #FFCDD2; }
+
+  /* ── CONTENT AREA ── */
+  .content { flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; gap: 20px; }
+
+  /* ── DETAIL PANEL ── */
+  .detail-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-body { padding: 18px; }
+
+  /* ── ROLE HERO ── */
+  .role-hero {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .role-avatar {
+    width: 52px; height: 52px;
+    border-radius: var(--radius-lg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .role-meta { flex: 1; }
+  .role-meta h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .role-meta p { color: var(--text-muted); font-size: 12px; margin-top: 4px; }
+  .role-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+  .tag-level  { background: var(--purple-bg); color: var(--purple); }
+  .tag-users  { background: var(--blue-light); color: var(--navy); }
+  .tag-territory { background: var(--green-bg); color: var(--green); }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .stat {
+    background: var(--white);
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--navy);
+  }
+  .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ── PERMISSIONS GRID ── */
+  .perms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .perm-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: var(--radius);
+    background: var(--grey-100);
+    font-size: 12px;
+  }
+  .perm-check {
+    width: 16px; height: 16px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    flex-shrink: 0;
+  }
+  .perm-on  { background: var(--green-bg); color: var(--green); }
+  .perm-off { background: var(--grey-200); color: var(--grey-500); }
+
+  /* ── USERS TABLE ── */
+  .users-table { width: 100%; border-collapse: collapse; }
+  .users-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    padding: 8px 12px;
+    background: var(--grey-100);
+    border-bottom: 1px solid var(--border);
+  }
+  .users-table td {
+    padding: 10px 12px;
+    font-size: 12px;
+    border-bottom: 1px solid var(--grey-100);
+    vertical-align: middle;
+  }
+  .users-table tr:last-child td { border-bottom: none; }
+  .users-table tr:hover td { background: var(--grey-100); }
+
+  .user-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+  .user-row-info { display: flex; align-items: center; gap: 8px; }
+  .user-row-name { font-weight: 600; color: var(--text); }
+  .user-row-email { font-size: 11px; color: var(--text-muted); }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .status-active   { background: var(--green-bg); color: var(--green); }
+  .status-inactive { background: var(--grey-200); color: var(--grey-500); }
+
+  .assign-btn {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: white;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--blue);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .assign-btn:hover { background: var(--blue-light); border-color: var(--blue); }
+  .remove-btn {
+    padding: 4px 10px;
+    border: 1px solid #FFCDD2;
+    border-radius: var(--radius);
+    background: var(--coral-bg);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--coral);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .remove-btn:hover { background: #FFCDD2; }
+
+  /* ── REPORTS-TO PATH ── */
+  .breadcrumb-path {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: var(--grey-100);
+    border-radius: var(--radius);
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--blue);
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .breadcrumb-item:hover { text-decoration: underline; }
+  .breadcrumb-item.current { color: var(--text); font-weight: 700; cursor: default; }
+  .breadcrumb-item.current:hover { text-decoration: none; }
+  .breadcrumb-sep { color: var(--grey-500); }
+
+  /* ── RIGHT PANEL — QUICK ACTIONS ── */
+  .right-panel {
+    width: 220px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .action-list { display: flex; flex-direction: column; gap: 4px; padding: 12px; }
+  .action-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    transition: background 0.12s;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+  }
+  .action-item:hover { background: var(--grey-100); }
+  .action-item .action-icon {
+    width: 28px; height: 28px;
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .action-destructive { color: var(--coral); }
+  .action-destructive:hover { background: var(--coral-bg); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(3,45,96,0.45);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: white;
+    border-radius: var(--radius-lg);
+    width: 480px;
+    max-width: 95vw;
+    box-shadow: 0 20px 60px rgba(3,45,96,0.25);
+    transform: translateY(16px);
+    transition: transform 0.2s;
+    overflow: hidden;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .modal-close {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    border: none;
+    background: var(--grey-100);
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-muted);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-close:hover { background: var(--grey-200); }
+  .modal-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .modal-footer {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .form-required { color: var(--coral); }
+  .form-input, .form-select {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border 0.15s;
+    width: 100%;
+    font-family: inherit;
+  }
+  .form-input:focus, .form-select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(1,118,211,0.12);
+  }
+  .form-hint { font-size: 11px; color: var(--text-muted); }
+
+  .reports-to-display {
+    padding: 8px 12px;
+    background: var(--blue-light);
+    border-radius: var(--radius);
+    font-size: 12px;
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+  .empty-icon { font-size: 40px; opacity: 0.3; }
+  .empty-title { font-size: 15px; font-weight: 600; color: var(--grey-700); }
+
+  /* ── NOTIFICATION TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--navy);
+    color: white;
+    padding: 12px 18px;
+    border-radius: var(--radius-lg);
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: var(--shadow);
+    transform: translateY(80px);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .toast.show { transform: translateY(0); }
+  .toast.success { background: var(--green); }
+  .toast.error   { background: var(--coral); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--grey-500); }
+
+  .divider { border: none; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="dot"></div>
+    Field Agent CRM
+  </div>
+  <div class="topbar-path">
+    Setup <span>›</span> Users <span>›</span> <span>Role Hierarchy</span>
+  </div>
+</div>
+
+<!-- PAGE LAYOUT -->
+<div class="page">
+
+  <!-- LEFT SIDEBAR — TREE -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">Role Hierarchy</div>
+      <div class="view-toggle">
+        <button class="view-btn active" onclick="setView('tree',this)">Tree</button>
+        <button class="view-btn" onclick="setView('list',this)">List</button>
+        <button class="view-btn" onclick="setView('users',this)">Users</button>
+      </div>
+    </div>
+
+    <div class="sidebar-search">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search roles or users…" oninput="filterTree(this.value)" id="search-input"/>
+      </div>
+    </div>
+
+    <div class="tree-container" id="tree-view"><!-- JS renders here --></div>
+    <div class="tree-container" id="list-view" style="display:none"></div>
+    <div class="tree-container" id="users-view" style="display:none"></div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1 id="page-title">Role Hierarchy</h1>
+        <p id="page-subtitle">Select a role from the tree to view details, manage users, and configure permissions</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="openModal('add-role-modal')">+ Add Role</button>
+        <button class="btn btn-primary" onclick="openModal('assign-user-modal')">Assign User to Role</button>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content" id="main-content">
+      <div class="empty-state">
+        <div class="empty-icon">🏢</div>
+        <div class="empty-title">Select a role to view details</div>
+        <p style="font-size:12px">Click any role in the hierarchy tree on the left to see its users, permissions, and reporting structure.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── MODALS ── -->
+
+<!-- Add Role Modal -->
+<div class="modal-overlay" id="add-role-modal" onclick="if(event.target===this)closeModal('add-role-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add New Role</div>
+      <button class="modal-close" onclick="closeModal('add-role-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Role Label <span class="form-required">*</span></label>
+        <input type="text" class="form-input" id="new-role-name" placeholder="e.g. North Zone Dispatcher"/>
+        <span class="form-hint">This is the display name shown across the platform</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Role Type <span class="form-required">*</span></label>
+        <select class="form-select" id="new-role-type" onchange="updateReportsTo()">
+          <option value="">— Select role type —</option>
+          <option value="director">Director</option>
+          <option value="manager">Operations Manager</option>
+          <option value="dispatcher">Dispatcher</option>
+          <option value="agent">Field Agent</option>
+        </select>
+      </div>
+      <div class="form-group" id="reports-to-group">
+        <label class="form-label">Reports To <span class="form-required">*</span></label>
+        <select class="form-select" id="new-role-parent">
+          <option value="">— Select parent role —</option>
+        </select>
+        <span class="form-hint">This role will appear as a child of the selected role in the hierarchy</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service Territory</label>
+        <select class="form-select" id="new-role-territory">
+          <option value="">— None —</option>
+          <option value="north">North Melbourne Territory</option>
+          <option value="south">South Melbourne Territory</option>
+          <option value="east">East Melbourne Territory</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('add-role-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="addRole()">Create Role</button>
+    </div>
+  </div>
+</div>
+
+<!-- Assign User Modal -->
+<div class="modal-overlay" id="assign-user-modal" onclick="if(event.target===this)closeModal('assign-user-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Assign User to Role</div>
+      <button class="modal-close" onclick="closeModal('assign-user-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Select User <span class="form-required">*</span></label>
+        <select class="form-select" id="assign-user-select">
+          <option value="">— Search for a user —</option>
+          <option value="u_new1">Alice Wang (unassigned)</option>
+          <option value="u_new2">Ben Torres (unassigned)</option>
+          <option value="u_new3">Clara Singh (unassigned)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Assign to Role <span class="form-required">*</span></label>
+        <select class="form-select" id="assign-role-select">
+          <option value="">— Select role —</option>
+        </select>
+      </div>
+      <div class="form-group" id="assign-reports-to" style="display:none">
+        <label class="form-label">Will report to</label>
+        <div class="reports-to-display" id="assign-reports-display">—</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('assign-user-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="assignUser()">Assign User</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const COLORS = ['#0176D3','#1565C0','#2E7D32','#4527A0','#C62828','#00695C','#E65100','#6A1B9A'];
+
+const hierarchy = {
+  id: 'r_director',
+  label: 'Director',
+  type: 'director',
+  territory: 'All Territories',
+  users: [
+    { id:'u1', name:'David Chen', email:'d.chen@fieldagent.test', status:'active', color:'#0176D3', initials:'DC', manager:'—' }
+  ],
+  children: [
+    {
+      id: 'r_om_north',
+      label: 'Operations Manager — North',
+      type: 'manager',
+      territory: 'North Melbourne',
+      users: [
+        { id:'u2', name:'Sarah Connor', email:'s.connor@fieldagent.test', status:'active', color:'#2E7D32', initials:'SC', manager:'David Chen' },
+      ],
+      children: [
+        {
+          id: 'r_disp_north_a',
+          label: 'Dispatcher — North Zone A',
+          type: 'dispatcher',
+          territory: 'North Melbourne',
+          users: [
+            { id:'u3', name:'John Patel', email:'j.patel@fieldagent.test', status:'active', color:'#4527A0', initials:'JP', manager:'Sarah Connor' },
+          ],
+          children: [
+            { id:'r_agent_na_1', label:'Field Agent — Zone A Team 1', type:'agent', territory:'North Melbourne', users:[
+              { id:'u4', name:'John Technician', email:'john.tech@fieldagent.test', status:'active', color:'#C62828', initials:'JT', manager:'John Patel' },
+              { id:'u5', name:'Priya Singh', email:'priya.tech@fieldagent.test', status:'active', color:'#00695C', initials:'PS', manager:'John Patel' },
+            ], children:[] },
+            { id:'r_agent_na_2', label:'Field Agent — Zone A Team 2', type:'agent', territory:'North Melbourne', users:[
+              { id:'u6', name:'Marcus Lee', email:'m.lee@fieldagent.test', status:'inactive', color:'#E65100', initials:'ML', manager:'John Patel' },
+            ], children:[] },
+          ]
+        },
+        {
+          id: 'r_disp_north_b',
+          label: 'Dispatcher — North Zone B',
+          type: 'dispatcher',
+          territory: 'North Melbourne',
+          users: [
+            { id:'u7', name:'Emma Walsh', email:'e.walsh@fieldagent.test', status:'active', color:'#6A1B9A', initials:'EW', manager:'Sarah Connor' },
+          ],
+          children: [
+            { id:'r_agent_nb_1', label:'Field Agent — Zone B Team 1', type:'agent', territory:'North Melbourne', users:[
+              { id:'u8', name:'Tom Richards', email:'t.richards@fieldagent.test', status:'active', color:'#1565C0', initials:'TR', manager:'Emma Walsh' },
+              { id:'u9', name:'Anika Sharma', email:'a.sharma@fieldagent.test', status:'active', color:'#2E7D32', initials:'AS', manager:'Emma Walsh' },
+            ], children:[] },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'r_om_south',
+      label: 'Operations Manager — South',
+      type: 'manager',
+      territory: 'South Melbourne',
+      users: [
+        { id:'u10', name:'Alex Manager', email:'alex.manager@fieldagent.test', status:'active', color:'#E65100', initials:'AM', manager:'David Chen' },
+      ],
+      children: [
+        {
+          id: 'r_disp_south_a',
+          label: 'Dispatcher — South Zone A',
+          type: 'dispatcher',
+          territory: 'South Melbourne',
+          users: [
+            { id:'u11', name:'Sam Torres', email:'s.torres@fieldagent.test', status:'active', color:'#4527A0', initials:'ST', manager:'Alex Manager' },
+          ],
+          children: [
+            { id:'r_agent_sa_1', label:'Field Agent — South Team 1', type:'agent', territory:'South Melbourne', users:[
+              { id:'u12', name:'Lily Zhang', email:'l.zhang@fieldagent.test', status:'active', color:'#00695C', initials:'LZ', manager:'Sam Torres' },
+            ], children:[] },
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+// ── flatten all roles ──
+let allRoles = [];
+let expandedNodes = new Set(['r_director','r_om_north','r_om_south']);
+let selectedRole = null;
+
+function flattenRoles(node, path=[]) {
+  const fullPath = [...path, node];
+  allRoles.push({ ...node, path: fullPath });
+  (node.children||[]).forEach(c => flattenRoles(c, fullPath));
+}
+flattenRoles(hierarchy);
+
+// ─── ROLE DISPLAY ────────────────────────────────────────────────────────────
+const typeConfig = {
+  director:   { label:'Director',           badgeClass:'badge-director',   icon:'D', avatarBg:'#4527A0', color:'#4527A0' },
+  manager:    { label:'Ops Manager',        badgeClass:'badge-manager',    icon:'M', avatarBg:'#0176D3', color:'#0176D3' },
+  dispatcher: { label:'Dispatcher',         badgeClass:'badge-dispatcher', icon:'D', avatarBg:'#1565C0', color:'#1565C0' },
+  agent:      { label:'Field Agent',        badgeClass:'badge-agent',      icon:'A', avatarBg:'#2E7D32', color:'#2E7D32' },
+};
+
+function permissionsFor(type) {
+  const base = [
+    { label:'View own appointments', on: true },
+    { label:'Update appointment status', on: type !== 'director' },
+    { label:'Submit timesheets', on: ['dispatcher','agent'].includes(type) },
+    { label:'Access mobile app', on: ['dispatcher','agent'].includes(type) },
+    { label:'View Gantt board', on: ['director','manager','dispatcher'].includes(type) },
+    { label:'Assign appointments', on: ['director','manager','dispatcher'].includes(type) },
+    { label:'Create work orders', on: ['director','manager'].includes(type) },
+    { label:'View all territory records', on: ['director','manager'].includes(type) },
+    { label:'Approve timesheets', on: ['director','manager'].includes(type) },
+    { label:'Run payroll', on: type === 'director' },
+    { label:'Manage user hierarchy', on: type === 'director' },
+    { label:'System configuration', on: type === 'director' },
+  ];
+  return base;
+}
+
+// ─── BREADCRUMB ──────────────────────────────────────────────────────────────
+function buildBreadcrumb(role) {
+  return role.path.map((r, i) => {
+    const isLast = i === role.path.length - 1;
+    return `<span class="breadcrumb-item ${isLast?'current':''}" onclick="${isLast?'':('selectRole(\''+r.id+'\')')}">
+      ${r.label}
+    </span>${isLast?'':'<span class="breadcrumb-sep">›</span>'}`;
+  }).join('');
+}
+
+// ─── COUNT DESCENDANTS ───────────────────────────────────────────────────────
+function countDescendants(node) {
+  let count = node.users.length;
+  (node.children||[]).forEach(c => count += countDescendants(c));
+  return count;
+}
+function countRoles(node) {
+  let count = 1;
+  (node.children||[]).forEach(c => count += countRoles(c));
+  return count;
+}
+
+// ─── SELECT ROLE ─────────────────────────────────────────────────────────────
+function selectRole(id) {
+  selectedRole = id;
+  const role = allRoles.find(r => r.id === id);
+  if (!role) return;
+
+  // re-render tree selection
+  renderTree();
+
+  const cfg = typeConfig[role.type] || typeConfig.agent;
+  const perms = permissionsFor(role.type);
+  const totalUsers = countDescendants(role);
+  const totalRoles = countRoles(role) - 1;
+
+  document.getElementById('page-title').textContent = role.label;
+  document.getElementById('page-subtitle').textContent = `${cfg.label} · ${role.territory}`;
+
+  document.getElementById('main-content').innerHTML = `
+    <div class="detail-panel">
+
+      <!-- breadcrumb -->
+      <div class="breadcrumb-path">${buildBreadcrumb(role)}</div>
+
+      <!-- hero -->
+      <div class="card">
+        <div class="card-body">
+          <div class="role-hero">
+            <div class="role-avatar" style="background:${cfg.avatarBg}20;color:${cfg.avatarBg};font-size:18px;">
+              ${cfg.icon}
+            </div>
+            <div class="role-meta">
+              <h2>${role.label}</h2>
+              <p>${cfg.label} · ${role.territory}</p>
+              <div class="role-tags">
+                <span class="tag tag-level">Level ${role.path.length}</span>
+                <span class="tag tag-users">${role.users.length} direct user${role.users.length!==1?'s':''}</span>
+                <span class="tag tag-territory">${role.territory}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="divider"/>
+        <div class="stats-row">
+          <div class="stat"><div class="stat-value">${role.users.length}</div><div class="stat-label">Direct Users</div></div>
+          <div class="stat"><div class="stat-value">${totalUsers}</div><div class="stat-label">Total Users</div></div>
+          <div class="stat"><div class="stat-value">${role.children.length}</div><div class="stat-label">Sub-Roles</div></div>
+          <div class="stat"><div class="stat-value">${role.path.length}</div><div class="stat-label">Hierarchy Depth</div></div>
+        </div>
+      </div>
+
+      <!-- direct users -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">👥 Users in this Role</div>
+          <button class="btn btn-secondary" style="font-size:11px;padding:5px 10px;" onclick="openAssignForRole('${role.id}')">+ Assign User</button>
+        </div>
+        ${role.users.length > 0 ? `
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Reports To</th>
+              <th>Territory</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${role.users.map(u => `
+            <tr>
+              <td>
+                <div class="user-row-info">
+                  <div class="user-avatar" style="background:${u.color}">${u.initials}</div>
+                  <div>
+                    <div class="user-row-name">${u.name}</div>
+                    <div class="user-row-email">${u.email}</div>
+                  </div>
+                </div>
+              </td>
+              <td style="color:var(--text-muted)">${u.manager}</td>
+              <td style="color:var(--text-muted)">${role.territory}</td>
+              <td><span class="status-pill status-${u.status}">${u.status==='active'?'✓ Active':'✗ Inactive'}</span></td>
+              <td><button class="remove-btn" onclick="removeUser('${u.id}','${role.id}')">Remove</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>` : `
+        <div class="empty-state" style="padding:30px">
+          <div class="empty-title">No users assigned</div>
+          <p style="font-size:11px;margin-top:4px">Click "Assign User" to add someone to this role.</p>
+        </div>`}
+      </div>
+
+      <!-- permissions -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🔒 Permissions for ${cfg.label}</div>
+        </div>
+        <div class="card-body">
+          <div class="perms-grid">
+            ${perms.map(p=>`
+            <div class="perm-item">
+              <div class="perm-check ${p.on?'perm-on':'perm-off'}">${p.on?'✓':'✕'}</div>
+              ${p.label}
+            </div>`).join('')}
+          </div>
+        </div>
+      </div>
+
+      <!-- child roles -->
+      ${role.children.length > 0 ? `
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">⬇ Roles Reporting to This Role</div>
+        </div>
+        <table class="users-table">
+          <thead><tr><th>Role</th><th>Type</th><th>Territory</th><th>Users</th><th></th></tr></thead>
+          <tbody>
+            ${role.children.map(c => {
+              const cc = typeConfig[c.type]||typeConfig.agent;
+              return `<tr>
+                <td><b style="color:var(--navy)">${c.label}</b></td>
+                <td><span class="tag tag-level" style="font-size:10px">${cc.label}</span></td>
+                <td style="color:var(--text-muted)">${c.territory}</td>
+                <td style="color:var(--text-muted)">${c.users.length} user${c.users.length!==1?'s':''}</td>
+                <td><button class="assign-btn" onclick="selectRole('${c.id}')">View →</button></td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>` : ''}
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="card">
+        <div class="card-header"><div class="card-title">⚡ Quick Actions</div></div>
+        <div class="action-list">
+          <button class="action-item" onclick="openAddChildRole('${role.id}','${role.label}')">
+            <div class="action-icon" style="background:#E3F2FD;color:#1565C0;">+</div>
+            Add child role
+          </button>
+          <button class="action-item" onclick="openAssignForRole('${role.id}')">
+            <div class="action-icon" style="background:var(--green-bg);color:var(--green);">👤</div>
+            Assign user
+          </button>
+          <button class="action-item" onclick="openModal('add-role-modal')">
+            <div class="action-icon" style="background:var(--purple-bg);color:var(--purple);">✏</div>
+            Edit role
+          </button>
+          ${role.type !== 'director' ? `
+          <hr class="divider" style="margin:4px 0"/>
+          <button class="action-item action-destructive" onclick="showToast('Role deactivated','success')">
+            <div class="action-icon" style="background:var(--coral-bg);color:var(--coral);">⊘</div>
+            Deactivate role
+          </button>` : ''}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">📊 Hierarchy Stats</div></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:space-between;font-size:12px">
+            <span style="color:var(--text-muted)">Total sub-roles</span>
+            <b>${totalRoles}</b>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12px">
+            <span style="color:var(--text-muted)">Total users below</span>
+            <b>${totalUsers}</b>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12px">
+            <span style="color:var(--text-muted)">Depth in hierarchy</span>
+            <b>Level ${role.path.length}</b>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12px">
+            <span style="color:var(--text-muted)">Data visibility</span>
+            <b style="color:var(--blue)">All below ↓</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ─── TREE RENDERING ──────────────────────────────────────────────────────────
+function renderTreeNode(node, depth=0) {
+  const cfg = typeConfig[node.type] || typeConfig.agent;
+  const hasChildren = node.children && node.children.length > 0;
+  const isExpanded = expandedNodes.has(node.id);
+  const isSelected = selectedRole === node.id;
+  const indent = depth * 18;
+
+  return `
+    <div class="tree-node" id="tnode-${node.id}">
+      <div class="tree-row ${isSelected?'selected':''}" onclick="handleNodeClick('${node.id}')" style="padding-left:${8+indent}px">
+        <div class="tree-toggle ${hasChildren?(isExpanded?'open':''):' leaf'}" onclick="event.stopPropagation();toggleNode('${node.id}')">▶</div>
+        <div class="role-badge ${cfg.badgeClass}">${cfg.icon}</div>
+        <div class="node-info">
+          <div class="node-name">${node.label}</div>
+          <div class="node-sub">${node.territory}</div>
+        </div>
+        ${node.users.length > 0 ? `<div class="node-count">${node.users.length}</div>` : ''}
+      </div>
+      <div class="add-child-btn" onclick="openAddChildRole('${node.id}','${node.label}')">
+        <span>+</span> Add role under this
+      </div>
+      ${hasChildren && isExpanded ? `
+        <div class="tree-children">
+          ${node.children.map(c => renderTreeNode(c, depth+1)).join('')}
+        </div>` : ''}
+    </div>`;
+}
+
+function renderTree(filter='') {
+  const tv = document.getElementById('tree-view');
+  if (!filter) {
+    tv.innerHTML = renderTreeNode(hierarchy);
+  } else {
+    const matches = allRoles.filter(r =>
+      r.label.toLowerCase().includes(filter.toLowerCase()) ||
+      r.users.some(u => u.name.toLowerCase().includes(filter.toLowerCase()))
+    );
+    tv.innerHTML = matches.map(r => `
+      <div class="tree-row ${selectedRole===r.id?'selected':''}" onclick="selectRole('${r.id}')" style="padding-left:12px;margin:2px 6px">
+        <div class="role-badge ${(typeConfig[r.type]||typeConfig.agent).badgeClass}">${(typeConfig[r.type]||typeConfig.agent).icon}</div>
+        <div class="node-info">
+          <div class="node-name">${r.label}</div>
+          <div class="node-sub">${r.territory}</div>
+        </div>
+        ${r.users.length>0?`<div class="node-count">${r.users.length}</div>`:''}
+      </div>`).join('');
+  }
+}
+
+function renderListView() {
+  const lv = document.getElementById('list-view');
+  lv.innerHTML = `<table class="users-table" style="margin:0">
+    <thead><tr><th>Role</th><th>Type</th><th>Territory</th><th>Users</th></tr></thead>
+    <tbody>
+      ${allRoles.map(r => {
+        const cfg = typeConfig[r.type]||typeConfig.agent;
+        return `<tr style="cursor:pointer" onclick="selectRole('${r.id}')">
+          <td><b style="padding-left:${(r.path.length-1)*12}px;display:block">${r.label}</b></td>
+          <td><span class="tag tag-level">${cfg.label}</span></td>
+          <td style="color:var(--text-muted)">${r.territory}</td>
+          <td style="color:var(--text-muted)">${r.users.length}</td>
+        </tr>`;
+      }).join('')}
+    </tbody>
+  </table>`;
+}
+
+function renderUsersView() {
+  const uv = document.getElementById('users-view');
+  const allUsers = allRoles.flatMap(r => r.users.map(u => ({...u, roleName: r.label, roleType: r.type, roleId: r.id})));
+  uv.innerHTML = `<div style="padding:8px 6px;font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px">
+    All Users (${allUsers.length})
+  </div>
+  ${allUsers.map(u => `
+    <div class="tree-row" onclick="selectRole('${u.roleId}')" style="padding-left:12px;margin:1px 6px">
+      <div class="user-avatar" style="background:${u.color};width:24px;height:24px;font-size:9px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0">${u.initials}</div>
+      <div class="node-info">
+        <div class="node-name">${u.name}</div>
+        <div class="node-sub">${u.roleName}</div>
+      </div>
+      <span class="status-pill status-${u.status}" style="font-size:10px;padding:1px 6px">${u.status==='active'?'✓':''}</span>
+    </div>`).join('')}`;
+}
+
+// ─── INTERACTIONS ────────────────────────────────────────────────────────────
+function handleNodeClick(id) {
+  expandedNodes.add(id);
+  selectRole(id);
+}
+
+function toggleNode(id) {
+  if (expandedNodes.has(id)) expandedNodes.delete(id);
+  else expandedNodes.add(id);
+  renderTree(document.getElementById('search-input').value);
+}
+
+function filterTree(val) {
+  renderTree(val);
+}
+
+function setView(view, btn) {
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tree-view').style.display = view==='tree'?'block':'none';
+  document.getElementById('list-view').style.display = view==='list'?'block':'none';
+  document.getElementById('users-view').style.display = view==='users'?'block':'none';
+  if (view==='list') renderListView();
+  if (view==='users') renderUsersView();
+}
+
+// ─── MODALS ──────────────────────────────────────────────────────────────────
+function openModal(id) {
+  // populate role selects
+  const roleOptions = allRoles.map(r => `<option value="${r.id}">${r.label}</option>`).join('');
+  const ps = document.getElementById('new-role-parent');
+  const as = document.getElementById('assign-role-select');
+  if (ps) ps.innerHTML = '<option value="">— Select parent role —</option>' + roleOptions;
+  if (as) as.innerHTML = '<option value="">— Select role —</option>' + roleOptions;
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function openAddChildRole(parentId, parentLabel) {
+  openModal('add-role-modal');
+  setTimeout(() => {
+    const ps = document.getElementById('new-role-parent');
+    if (ps) ps.value = parentId;
+  }, 50);
+}
+
+function openAssignForRole(roleId) {
+  openModal('assign-user-modal');
+  setTimeout(() => {
+    const rs = document.getElementById('assign-role-select');
+    if (rs) { rs.value = roleId; updateAssignDisplay(); }
+  }, 50);
+}
+
+function updateReportsTo() {
+  const type = document.getElementById('new-role-type').value;
+  document.getElementById('reports-to-group').style.display = type === 'director' ? 'none' : '';
+}
+
+function updateAssignDisplay() {
+  const roleId = document.getElementById('assign-role-select').value;
+  const role = allRoles.find(r => r.id === roleId);
+  const disp = document.getElementById('assign-reports-to');
+  const txt = document.getElementById('assign-reports-display');
+  if (role && role.path.length > 1) {
+    const parent = role.path[role.path.length-2];
+    disp.style.display = '';
+    txt.textContent = parent.label;
+  } else {
+    disp.style.display = 'none';
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const ars = document.getElementById('assign-role-select');
+  if (ars) ars.addEventListener('change', updateAssignDisplay);
+});
+
+function addRole() {
+  const name = document.getElementById('new-role-name').value.trim();
+  const type = document.getElementById('new-role-type').value;
+  if (!name || !type) { showToast('Please fill all required fields','error'); return; }
+  closeModal('add-role-modal');
+  showToast(`Role "${name}" created successfully`,'success');
+}
+
+function assignUser() {
+  const user = document.getElementById('assign-user-select').value;
+  const role = document.getElementById('assign-role-select').value;
+  if (!user || !role) { showToast('Please select both a user and a role','error'); return; }
+  closeModal('assign-user-modal');
+  showToast('User assigned to role successfully','success');
+}
+
+function removeUser(userId, roleId) {
+  showToast('User removed from role','success');
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = (type==='success'?'✓ ':'✕ ') + msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+renderTree();
+// Auto-select director on load
+setTimeout(() => selectRole('r_director'), 100);
+</script>
+</body>
+</html>

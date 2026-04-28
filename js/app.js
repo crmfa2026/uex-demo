@@ -70,6 +70,11 @@ function wireStaticHandlers() {
     if (w) w.opener = null;
   });
 
+  document.getElementById('user-management-btn')?.addEventListener('click', () => {
+    const w = window.open('pages/user_hierarchy_manager.html', '_blank');
+    if (w) w.opener = null;
+  });
+
   document.querySelectorAll('.nav-tab').forEach((tab) => {
     tab.addEventListener('click', function () {
       if (this.id === 'crm-modules-trigger') return;
